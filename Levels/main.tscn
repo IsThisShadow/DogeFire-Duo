@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm8btmccrf7sc"]
+
+[ext_resource type="Texture2D" uid="uid://b1tua5vfgxcrt" path="res://UI Sprites/Hearts.png" id="1_sq8ut"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Hearts" type="Sprite2D" parent="."]
+position = Vector2(919, 512.5)
+scale = Vector2(34.125, 17.5625)
+texture = ExtResource("1_sq8ut")
