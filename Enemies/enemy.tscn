@@ -61,3 +61,5 @@ scale = Vector2(3.175, 3.6)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(8.375, 0.25)
 shape = SubResource("RectangleShape2D_utl2q")
+
+[node name="Timer" type="Timer" parent="."]
