@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6tgin1inlirh"
-path="res://.godot/imported/Nebula Shot Levels - Sprite Sheet 32x32.png-a0311c980ee1cd2265e43d8435b69294.ctex"
+uid="uid://0kexyqwmpork"
+path="res://.godot/imported/Enemy Explosion Sprite Sheet.png-300dfbdfe8425eaee256f57e26b92c04.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player Sprites/Nebula Shot Levels - Sprite Sheet 32x32.png"
-dest_files=["res://.godot/imported/Nebula Shot Levels - Sprite Sheet 32x32.png-a0311c980ee1cd2265e43d8435b69294.ctex"]
+source_file="res://Assets/Enemy Sprites/Enemy Explosion Sprite Sheet.png"
+dest_files=["res://.godot/imported/Enemy Explosion Sprite Sheet.png-300dfbdfe8425eaee256f57e26b92c04.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dv850md75wel4"
-path="res://.godot/imported/Bullet 24x24 Free Part 3C.png-8976778c71269876d68224c1b3e12f99.ctex"
+uid="uid://cmue7o4meppar"
+path="res://.godot/imported/Ship-Nebula - Sprite Sheet.png-b5d3b60ee60f284d1c26c4ac494492a5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Bullet 24x24 Free Part 3/Bullet 24x24 Free Part 3C.png"
-dest_files=["res://.godot/imported/Bullet 24x24 Free Part 3C.png-8976778c71269876d68224c1b3e12f99.ctex"]
+source_file="res://Assets/Player Sprites/Ship-Nebula - Sprite Sheet.png"
+dest_files=["res://.godot/imported/Ship-Nebula - Sprite Sheet.png-b5d3b60ee60f284d1c26c4ac494492a5.ctex"]
 
 [params]
 

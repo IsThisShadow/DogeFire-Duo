@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3sddadjlfr21"
-path="res://.godot/imported/RA_Atlantis.png-83633bfc9cee9ac6b4243e8bd8532ff5.ctex"
+uid="uid://bfgjf0iyokkp4"
+path="res://.godot/imported/no health bar.png-d79b959e7b2468602ba14acba5f07210.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TestScene/assets/RA_Atlantis.png"
-dest_files=["res://.godot/imported/RA_Atlantis.png-83633bfc9cee9ac6b4243e8bd8532ff5.ctex"]
+source_file="res://Assets/Pixel Health Bar/Bar/no health bar.png"
+dest_files=["res://.godot/imported/no health bar.png-d79b959e7b2468602ba14acba5f07210.ctex"]
 
 [params]
 

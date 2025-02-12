@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://by16ih3np6sbl"
-path="res://.godot/imported/Enemies T1 Sprite Sheet.png-0e111d94fde32c415fbc99e8b97db610.ctex"
+uid="uid://dy16dlwmjvcj6"
+path="res://.godot/imported/Bullet 24x24 Free Part 3A.png-b513d7833363f9a81c625ba7f24f155c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Enemy Sprits/Enemies T1 Sprite Sheet.png"
-dest_files=["res://.godot/imported/Enemies T1 Sprite Sheet.png-0e111d94fde32c415fbc99e8b97db610.ctex"]
+source_file="res://Assets/Bullet Sprites/Bullet 24x24 Free Part 3A.png"
+dest_files=["res://.godot/imported/Bullet 24x24 Free Part 3A.png-b513d7833363f9a81c625ba7f24f155c.ctex"]
 
 [params]
 

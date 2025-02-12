@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2roah63vggqv"
-path="res://.godot/imported/Bullet 24x24 Free Part 3B.png-32d2e176277338867f1dde473d1bed4f.ctex"
+uid="uid://ctysprhh2qur0"
+path="res://.godot/imported/health bar.png-d6de1b9491c0d65360584c9caf7abd29.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Bullet 24x24 Free Part 3/Bullet 24x24 Free Part 3B.png"
-dest_files=["res://.godot/imported/Bullet 24x24 Free Part 3B.png-32d2e176277338867f1dde473d1bed4f.ctex"]
+source_file="res://Assets/Pixel Health Bar/Bar/health bar.png"
+dest_files=["res://.godot/imported/health bar.png-d6de1b9491c0d65360584c9caf7abd29.ctex"]
 
 [params]
 
