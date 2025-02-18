@@ -54,4 +54,8 @@ frame_progress = 0.647208
 [node name="Timer" type="Timer" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-24, -8, -21, -8, -20, -13, -16, -13, -16, -16, -11, -16, -12, -20, -7, -20, -7, -24, -3, -24, -3, -28, 0, -29, 0, -32, 3, -32, 4, -36, 11, -36, 12, -25, 8, -24, 9, -12, 16, -13, 17, -10, 30, -9, 31, -3, 32, 4, 29, 7, 18, 11, 9, 12, 9, 21, 12, 21, 12, 31, 6, 35, 3, 31, 0, 31, -3, 26, -6, 23, -7, 21, -12, 18, -14, 16, -16, 16, -18, 13, -21, 9, -23, 7)
+polygon = PackedVector2Array(-23, -9, 13, -37, 8, -13, 34, -2, 11, 12, 12, 35, -24, 6)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

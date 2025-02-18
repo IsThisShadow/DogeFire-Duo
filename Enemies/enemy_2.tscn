@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://b5720nfdvjedp"]
+
+[ext_resource type="Script" path="res://enemy_2.gd" id="1_wfv3o"]
+[ext_resource type="Texture2D" uid="uid://dop11x4r8remh" path="res://Enemies T1 Sprite Sheet.png" id="2_x373m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7xtn"]
+atlas = ExtResource("2_x373m")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5vu7"]
+atlas = ExtResource("2_x373m")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4q6sh"]
+atlas = ExtResource("2_x373m")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yawx"]
+atlas = ExtResource("2_x373m")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yrx4k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7xtn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5vu7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4q6sh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6yawx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="enemy2" type="Area2D"]
+script = ExtResource("1_wfv3o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0.588188, -0.535543)
+rotation = -4.71239
+scale = Vector2(3.95465, 4.09493)
+sprite_frames = SubResource("SpriteFrames_yrx4k")
+autoplay = "default"
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-35, -10, -31, 2, -6, 23, 12, 23, 23, 9, 23, -15, 7, -29, -10, -29)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
