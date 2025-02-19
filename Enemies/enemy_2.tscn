@@ -53,6 +53,6 @@ autoplay = "default"
 [node name="Timer" type="Timer" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-35, -10, -31, 2, -6, 23, 12, 23, 23, 9, 23, -15, 7, -29, -10, -29)
+polygon = PackedVector2Array(-31, -5, -32, 4, -7, 26, 14, 26, 23, 12, 23, -15, 12, -29, -10, -29)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

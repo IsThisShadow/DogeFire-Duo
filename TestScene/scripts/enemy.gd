@@ -12,7 +12,8 @@ var timer := 0.0  # Timer to track when to change vertical direction
 func _ready():
 	pivot_position = position
 	_set_random_vertical_direction()  # Initialize random vertical direction at the start
-
+	
+	
 func _physics_process(delta: float) -> void:
 	move_ship(delta)
 	timer += delta
