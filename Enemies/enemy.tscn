@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://b2gr6fc04is8h"]
 
 [ext_resource type="Script" path="res://TestScene/scripts/enemy.gd" id="1_3fonp"]
-[ext_resource type="Texture2D" uid="uid://dop11x4r8remh" path="res://Enemies T1 Sprite Sheet.png" id="2_qhasa"]
+[ext_resource type="Texture2D" uid="uid://dop11x4r8remh" path="res://Enemy Sprits/Enemies T1 Sprite Sheet.png" id="2_qhasa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ufqyw"]
 atlas = ExtResource("2_qhasa")
@@ -39,7 +39,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Enemy" type="Area2D"]
+[node name="enemy" type="Area2D"]
 script = ExtResource("1_3fonp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -58,4 +58,8 @@ polygon = PackedVector2Array(-23, -9, 13, -37, 8, -13, 34, -2, 11, 12, 12, 35, -
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
+[node name="bullet_pos" type="Marker2D" parent="."]
+position = Vector2(-25, 0)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

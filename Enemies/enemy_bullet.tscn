@@ -1,0 +1,93 @@
+[gd_scene load_steps=13 format=3 uid="uid://dec1kjlsc6k15"]
+
+[ext_resource type="Texture2D" uid="uid://dy16dlwmjvcj6" path="res://Bullet 24x24 Free Part 3/Bullet 24x24 Free Part 3A.png" id="1_am4dr"]
+[ext_resource type="Script" path="res://Enemies/enemy_bullet.gd" id="2_oehs7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvtru"]
+atlas = ExtResource("1_am4dr")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8dec"]
+atlas = ExtResource("1_am4dr")
+region = Rect2(120, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63cqr"]
+atlas = ExtResource("1_am4dr")
+region = Rect2(144, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7wp8"]
+atlas = ExtResource("1_am4dr")
+region = Rect2(168, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4557"]
+atlas = ExtResource("1_am4dr")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3tme"]
+atlas = ExtResource("1_am4dr")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w22fr"]
+atlas = ExtResource("1_am4dr")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4y4gv"]
+atlas = ExtResource("1_am4dr")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ge5a5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvtru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u8dec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63cqr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7wp8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4557")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3tme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w22fr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4y4gv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x17dr"]
+size = Vector2(20, 5.66667)
+
+[node name="Enemy_Bullet" type="AnimatedSprite2D"]
+texture_filter = 1
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_ge5a5")
+frame_progress = 0.400547
+flip_h = true
+script = ExtResource("2_oehs7")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -0.233333)
+shape = SubResource("RectangleShape2D_x17dr")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(3, -0.266667)
+scale = Vector2(0.7, 0.313333)
+enable_node_path = NodePath("../Area2D/CollisionShape2D")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]
