@@ -11,7 +11,7 @@ var change_direction_time := 1.0  # Time in seconds before changing vertical dir
 var timer := 0.0  # Timer to track when to change vertical direction
 
 func _ready():
-	$Timer.start(2.0)
+	$Timer.start(.01)
 	pivot_position = position
 	_set_random_vertical_direction()  # Initialize random vertical direction at the start
 	
@@ -26,7 +26,6 @@ func _physics_process(delta: float) -> void:
 		timer = 0.0
 	if can_shoot:
 		shoot()
-		
 		$Timer.start(randi() % 5 +1)
 		can_shoot = false
 		

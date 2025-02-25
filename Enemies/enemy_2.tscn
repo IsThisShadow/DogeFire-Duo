@@ -56,3 +56,9 @@ autoplay = "default"
 polygon = PackedVector2Array(-31, -5, -32, 4, -7, 26, 14, 26, 23, 12, 23, -15, 12, -29, -10, -29)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="bullet_pos" type="Marker2D" parent="."]
+position = Vector2(-35, 0)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
