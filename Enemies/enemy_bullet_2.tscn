@@ -72,7 +72,7 @@ size = Vector2(20, 5.66667)
 
 [node name="enemy_bullet2" type="AnimatedSprite2D"]
 texture_filter = 1
-scale = Vector2(15, 15)
+scale = Vector2(7, 7)
 sprite_frames = SubResource("SpriteFrames_a0otw")
 autoplay = "default"
 frame_progress = 0.289131
