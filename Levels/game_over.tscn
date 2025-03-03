@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmxs210dnxl6g"]
+
+[ext_resource type="FontFile" uid="uid://i2anga3vugq7" path="res://UI Sprites/Audiowide-Regular.ttf" id="1_nko4c"]
+[ext_resource type="Script" path="res://Code/restart.gd" id="2_hdr5h"]
+[ext_resource type="Script" path="res://Code/exit.gd" id="3_so6nm"]
+
+[node name="GameOver" type="Node2D"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 606.0
+offset_bottom = 358.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = 137.0
+offset_top = 14.0
+offset_right = 470.0
+offset_bottom = 95.0
+theme_override_fonts/font = ExtResource("1_nko4c")
+text = "You Ded"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSplitContainer" type="VSplitContainer" parent="."]
+offset_left = 153.0
+offset_top = 155.0
+offset_right = 483.0
+offset_bottom = 346.0
+
+[node name="Restart" type="Button" parent="VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_nko4c")
+text = "Restart"
+script = ExtResource("2_hdr5h")
+
+[node name="Exit" type="Button" parent="VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_nko4c")
+text = "Exit
+"
+script = ExtResource("3_so6nm")
+
+[connection signal="button_up" from="VSplitContainer/Restart" to="VSplitContainer/Restart" method="_on_button_up"]
+[connection signal="button_up" from="VSplitContainer/Exit" to="VSplitContainer/Exit" method="_on_button_up"]

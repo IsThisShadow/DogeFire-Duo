@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://wegb42ulguxv"]
+
+[ext_resource type="FontFile" uid="uid://i2anga3vugq7" path="res://UI Sprites/Audiowide-Regular.ttf" id="1_p5uuf"]
+[ext_resource type="Script" path="res://Code/play.gd" id="1_y3j54"]
+[ext_resource type="Script" path="res://Code/exit.gd" id="2_1g1c5"]
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 455.0
+offset_bottom = 178.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = 100.0
+offset_top = 33.0
+offset_right = 303.0
+offset_bottom = 63.0
+theme_override_fonts/font = ExtResource("1_p5uuf")
+text = "Welcome To DogeFire Duo
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+offset_left = 67.0
+offset_top = 100.0
+offset_right = 375.0
+offset_bottom = 140.0
+size_flags_stretch_ratio = 0.0
+
+[node name="Play" type="Button" parent="HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_p5uuf")
+text = "Play"
+script = ExtResource("1_y3j54")
+
+[node name="Exit" type="Button" parent="HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_p5uuf")
+action_mode = 0
+text = "Exit
+"
+script = ExtResource("2_1g1c5")
+
+[connection signal="button_up" from="HSplitContainer/Play" to="HSplitContainer/Play" method="_on_button_up"]
+[connection signal="button_up" from="HSplitContainer/Exit" to="HSplitContainer/Exit" method="_on_button_up"]
