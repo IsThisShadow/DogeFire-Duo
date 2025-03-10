@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var bullet_scene = preload("res://Scenes/bullet.tscn")
+var bullet_scene = preload("res://Scenes/Bullets/bullet.tscn")
 @onready var is_reloading = false
 @onready var shooty_part = $ShootPoint
 

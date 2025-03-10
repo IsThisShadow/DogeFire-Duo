@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://2qtyjfby2jrf"]
 
-[ext_resource type="Script" path="res://scripts/PlayerScripts/Player.gd" id="1_rva33"]
+[ext_resource type="Script" path="res://scripts/PlayerScripts/WeaponSwitch.gd" id="1_gp2pq"]
 [ext_resource type="Texture2D" uid="uid://c1y0swu66cryp" path="res://Assets/Player Sprites/testPlayer.jpg" id="2_1pabd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vvxf3"]
@@ -9,9 +9,9 @@
 size = Vector2(9, 9)
 
 [node name="TestPlayer" type="Node2D"]
+script = ExtResource("1_gp2pq")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-script = ExtResource("1_rva33")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 scale = Vector2(1.7, 1.83333)
@@ -26,5 +26,5 @@ texture = ExtResource("2_1pabd")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D"]
 shape = SubResource("RectangleShape2D_gib73")
 
-[node name="ShootPoint" type="Node2D" parent="CharacterBody2D"]
+[node name="WeaponContainer" type="Node2D" parent="."]
 position = Vector2(17, 0)
