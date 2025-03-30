@@ -70,6 +70,8 @@ func die():
 #-------------------------------------------------------------------------------
 #what happens when the player is revived including what happens to the progress bar.
 func revive():
+	p1_revive += 1
+	print(p1_revive)
 	is_dead = false
 	revive_progress = 0
 	progress_bar.visible = false
@@ -79,9 +81,10 @@ func revive():
 	$CollisionShape2D_p1.disabled = false
 #-----------------------------------------------------------------------------------
 #testing taking damage, reviving, and animations.
-func _on_test_area_body_entered(_body: Node2D) -> void:
-	p1_health -= 50
-	print(p1_health)
+func _on_test_area_body_entered(body: Node2D) -> void:
+	if body.name == "CharacterBodyP1":
+		p1_health -= 50
+		print(p1_health)
 #-----------------------------------------------------------
 #revive collsision
 func _on_revive_zone_body_entered(body: Node2D) -> void:

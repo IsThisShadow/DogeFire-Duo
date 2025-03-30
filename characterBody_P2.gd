@@ -34,11 +34,11 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	#call the death function when the hp is low.
 	if p2_health <=0:
-		die()
+		die_p2()
 # Call this when player dies
-func die():
+func die_p2():
 	p2_is_dead = true
-	animationplayer.play("testing")
+	animationplayer.play("death_p2")
 	await animationplayer.animation_finished
 	animationplayer.stop()
 	
