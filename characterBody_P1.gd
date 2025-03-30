@@ -19,6 +19,7 @@ var is_dead = false
 var p1_max_revive = 3
 var p1_revive = 0
 var revive_progress := 0.0
+var is_invincible := false
 
 #--------------------------------------------------------------------
 func _physics_process(delta: float) -> void:
@@ -107,6 +108,19 @@ func revive():
 	p1_health = p1_maxHealth
 	$ReviveZone/ReviveCollision.disabled = true 
 	$CollisionShape2D_p1.disabled = false
+	
+	#give invincibility for 2 seconds
+	is_invincible = true
+	#blue blinking effect during invincibility
+	var blink_tween = get_tree().create_tween()
+	blink_tween.set_loops(4)  # 4 loops x 0.5s = ~2s total
+	blink_tween.tween_property($Sprite_p1, "modulate", Color(0.6, 0.6, 1.8), 0.25)
+	blink_tween.tween_property($Sprite_p1, "modulate", Color(1, 1, 1), 0.25)
+	#end invincibility after 2 seconds
+	var timer = get_tree().create_timer(2.0)
+	await timer.timeout
+	is_invincible = false
+	
 	#update revive counter
 	p1_revive += 1
 	if p1_revive >= p1_max_revive:
@@ -141,9 +155,9 @@ func flash_red():
 #-----------------------------------------------------------------------------------
 #testing taking damage, reviving, and animations.
 func _on_test_area_body_entered(body: Node2D) -> void:
-	if body.name == "CharacterBodyP1":
+	if body.name == "CharacterBodyP1" and not body.is_invincible:
 		var damage := 50 #this allows me to dynamically change the damage number while 
-		#still having it show up on the pop up label. 
+		#still having it show up on the pop up label. d
 		p1_health -= damage
 		body.spawn_damage_number(damage)
 		body.flash_red()
