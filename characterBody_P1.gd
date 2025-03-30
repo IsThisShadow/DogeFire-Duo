@@ -162,7 +162,7 @@ func _on_test_area_body_entered(body: Node2D) -> void:
 		body.spawn_damage_number(damage)
 		body.flash_red()
 		print("player1 HP:", body.p1_health)
-#-----------------------------------------------------------
+#----------------------------------------------------------------------
 #revive collsision
 func _on_revive_zone_body_entered(body: Node2D) -> void:
 	if is_dead:
@@ -172,7 +172,7 @@ func _on_revive_zone_body_entered(body: Node2D) -> void:
 		#debug printing
 		print(revive_progress)
 		print("reviving")
-
+#---------------------------------------------------------------------
 #if player leaves the revive area reset the progress bar
 func _on_revive_zone_body_exited(body: Node2D) -> void:
 	revive_progress = 0
