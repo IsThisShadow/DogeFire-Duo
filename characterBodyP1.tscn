@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://chjjubkrgfxr8"]
+[gd_scene load_steps=13 format=3 uid="uid://chjjubkrgfxr8"]
 
 [ext_resource type="Texture2D" uid="uid://cmue7o4meppar" path="res://Player Sprites/Ship-Nebula - Sprite Sheet.png" id="1_f50pn"]
 [ext_resource type="Script" uid="uid://bakimcqipy2cr" path="res://characterBody_P1.gd" id="1_ij6vw"]
@@ -83,10 +83,28 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_h3jpu"]
+resource_name = "PermaDeath"
+length = 1.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 36, 37, 38, 39, 40, 41, 42, 43, 44]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dd465"]
 _data = {
 &"Death_p1": SubResource("Animation_44cfe"),
 &"Idle_p1": SubResource("Animation_ij6vw"),
+&"PermaDeath": SubResource("Animation_h3jpu"),
 &"RESET": SubResource("Animation_ghijl"),
 &"reviveNeed_p1": SubResource("Animation_4epen")
 }
@@ -115,7 +133,7 @@ vframes = 5
 libraries = {
 &"": SubResource("AnimationLibrary_dd465")
 }
-autoplay = "reviveNeed_p1"
+autoplay = "PermaDeath"
 
 [node name="CollisionShape2D_p1" type="CollisionPolygon2D" parent="."]
 position = Vector2(0.399999, -1.6)
@@ -159,6 +177,7 @@ theme_override_font_sizes/font_size = 50
 text = "Revive"
 
 [node name="ReviveCountLabel" type="Label" parent="."]
+visible = false
 offset_left = -29.1999
 offset_top = 28.8001
 offset_right = 114.8

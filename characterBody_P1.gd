@@ -67,14 +67,19 @@ func die():
 	if p1_revive >= p1_max_revive:
 		is_dead = true
 		$CollisionShape2D_p1.disabled = true
-		visible = false #hide the player
-		set_process(false) #stops _physics_process
+		
+		#the permanent death animation
+		animationplayer.play("PermaDeath")
+		await animationplayer.animation_finished
+		#stops _physics_process
 		set_physics_process(false)
+		set_process(false)
+		visible = false #hide the player
 		#debug print
 		print("player permanently dead")
 		death_announcement.text = "Player 1 has Died!"
 		death_announcement.visible = true
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(2.0).timeout
 		death_announcement.visible  = false
 		return
 	# normal downed state
@@ -122,13 +127,26 @@ func spawn_damage_number(amount: int):
 	dmg_label.rotation_degrees = 270
 	add_child(dmg_label)
 #-----------------------------------------------------------------------------------
+func flash_red():
+	var original_pos = position
+	$Sprite_p1.modulate = Color(1, 0.3, 0.3)  # Light red tint
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", original_pos + Vector2(6, -4), 0.04)
+	tween.tween_property(self, "position", original_pos - Vector2(-6, 4), 0.04)
+	tween.tween_property(self, "position", original_pos, 0.03)
+	
+	await tween.finished
+	$Sprite_p1.modulate = Color(1, 1, 1)  # Reset to normal
+#-----------------------------------------------------------------------------------
 #testing taking damage, reviving, and animations.
 func _on_test_area_body_entered(body: Node2D) -> void:
 	if body.name == "CharacterBodyP1":
-		var damage := 30 #this allows me to dynamically change the damage number while 
+		var damage := 50 #this allows me to dynamically change the damage number while 
 		#still having it show up on the pop up label. 
 		p1_health -= damage
 		body.spawn_damage_number(damage)
+		body.flash_red()
 		print("player1 HP:", body.p1_health)
 #-----------------------------------------------------------
 #revive collsision
