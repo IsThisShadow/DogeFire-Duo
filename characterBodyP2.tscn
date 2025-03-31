@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://1kty4inue6nu"]
 
-[ext_resource type="Script" uid="uid://bvy8trgugtv67" path="res://characterBody_P2.gd" id="1_ci73e"]
+[ext_resource type="Script" path="res://characterBody_P2.gd" id="1_ci73e"]
 [ext_resource type="Texture2D" uid="uid://cmue7o4meppar" path="res://Player Sprites/Ship-Nebula - Sprite Sheet.png" id="2_67u87"]
 [ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur/static/Tektur-Bold.ttf" id="3_67u87"]
 
@@ -20,6 +20,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_8h461"]
+resource_name = "PermaDeath"
+length = 1.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 36, 37, 38, 39, 40, 41, 42, 43]
 }
 
 [sub_resource type="Animation" id="Animation_67u87"]
@@ -66,23 +83,6 @@ tracks/0/keys = {
 "values": [1, 48, 49, 50, 51, 52, 53, 54, 55, 56]
 }
 
-[sub_resource type="Animation" id="Animation_8h461"]
-resource_name = "PermaDeath"
-length = 1.1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 36, 37, 38, 39, 40, 41, 42, 43]
-}
-
 [sub_resource type="Animation" id="Animation_vhl5d"]
 resource_name = "reviveNeed_p2"
 loop_mode = 1
@@ -102,11 +102,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e6rgf"]
 _data = {
-&"Idle_p2": SubResource("Animation_ci73e"),
-&"PermaDeath": SubResource("Animation_8h461"),
-&"RESET": SubResource("Animation_67u87"),
-&"death_p2": SubResource("Animation_e6rgf"),
-&"reviveNeed_p2": SubResource("Animation_vhl5d")
+"Idle_p2": SubResource("Animation_ci73e"),
+"PermaDeath": SubResource("Animation_8h461"),
+"RESET": SubResource("Animation_67u87"),
+"death_p2": SubResource("Animation_e6rgf"),
+"reviveNeed_p2": SubResource("Animation_vhl5d")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ci73e"]
@@ -125,18 +125,18 @@ scale = Vector2(2.5, 2.5)
 script = ExtResource("1_ci73e")
 
 [node name="Sprite_p2" type="Sprite2D" parent="."]
+position = Vector2(-0.400001, -0.399999)
 texture = ExtResource("2_67u87")
 hframes = 12
 vframes = 5
 
 [node name="AnimationPlayer_p2" type="AnimationPlayer" parent="Sprite_p2"]
 libraries = {
-&"": SubResource("AnimationLibrary_e6rgf")
+"": SubResource("AnimationLibrary_e6rgf")
 }
 
 [node name="CollisionShape2D_p2" type="CollisionPolygon2D" parent="."]
 position = Vector2(-4.908e-05, -1.39998)
-scale = Vector2(1, 1)
 polygon = PackedVector2Array(-15.1999, 8.20004, -15.2, 1.00004, -9.59996, 0.600016, -5.19997, -4.6, -3.99999, -10.2, -0.4, -12.2, 3.20001, -10.2, 4.80003, -4.20004, 10.4, 0.199944, 15.2, 0.599926, 15.2001, 8.59993, 7.60008, 9.79996, 2.80008, 10.6, 0.400098, 15, -3.59992, 10.2, -10.3999, 10.2)
 
 [node name="ReviveZone_p2" type="Area2D" parent="."]

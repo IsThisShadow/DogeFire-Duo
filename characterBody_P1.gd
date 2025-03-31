@@ -7,7 +7,7 @@ extends CharacterBody2D
 @onready var death_announcement: Label = get_node("/root/Main/DeathAnnouncement")
 
 #----------------------------------------------------------------
-const max_speed: int = 200
+const max_speed: int = 250
 const acceleration: int = 5
 const friction: int = 3
 const revive_time := 2.5

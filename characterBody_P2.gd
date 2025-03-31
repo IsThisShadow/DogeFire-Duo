@@ -7,7 +7,7 @@ extends CharacterBody2D
 @onready var death_announcement: Label = get_node("/root/Main/DeathAnnouncement")
 @onready var revive_timer_label: Label = $ReviveCountdownLabel_p2
 #----------------------------------------------------------------
-const max_speed: int = 200
+const max_speed: int = 250
 const acceleration: int = 5
 const friction: int = 3
 const revive_time := 2.5 #seconds
@@ -43,9 +43,6 @@ func _physics_process(delta: float) -> void:
 		animationplayer.play("Idle_p2")
 	else:
 		animationplayer.stop()
-
-	if input.x != 0:
-		$Sprite_p2.flip_h = input.x < 0
 
 	var lerp_weight = delta * (acceleration if input else friction)
 	velocity = lerp(velocity, input * max_speed, lerp_weight)

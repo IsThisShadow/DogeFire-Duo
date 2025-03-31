@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b1tua5vfgxcrt" path="res://UI Sprites/Hearts.png" id="1_sq8ut"]
 [ext_resource type="PackedScene" uid="uid://chjjubkrgfxr8" path="res://characterBodyP1.tscn" id="2_gnif3"]
 [ext_resource type="PackedScene" uid="uid://1kty4inue6nu" path="res://characterBodyP2.tscn" id="3_lwy2l"]
-[ext_resource type="Script" uid="uid://bad56eve8qa48" path="res://Levels/test_area.gd" id="4_nj2yk"]
+[ext_resource type="Script" path="res://Levels/test_area.gd" id="4_nj2yk"]
 [ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur/static/Tektur-Bold.ttf" id="5_7pswh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lwy2l"]
@@ -17,7 +17,7 @@ scale = Vector2(34.125, 17.5625)
 texture = ExtResource("1_sq8ut")
 
 [node name="CharacterBodyP2" parent="." instance=ExtResource("3_lwy2l")]
-position = Vector2(261, 459)
+position = Vector2(261, 466)
 
 [node name="CharacterBodyP1" parent="." instance=ExtResource("2_gnif3")]
 position = Vector2(227, 215)
