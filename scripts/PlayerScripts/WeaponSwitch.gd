@@ -2,7 +2,7 @@ extends Node2D
 
 # Declare variables for different weapon scripts (Weapon1.gd and Weapon2.gd will be handled as objects, not scripts)
 var weapon1_scene = preload("res://Scenes/Weapon1.tscn")
-var weapon2_scene = preload("res://Scenes/Weapon2.tscn")
+var weapon2_scene = preload("res://Scenes/Weapon3.tscn")
 
 @onready var player = $CharacterBody2D  # Referring to the node the script is attached to (TestPlayer)
 @onready var weapon_container = $WeaponContainer  # A container node where weapons are added
