@@ -39,6 +39,23 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_h3jpu"]
+resource_name = "PermaDeath"
+length = 1.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 36, 37, 38, 39, 40, 41, 42, 43, 44]
+}
+
 [sub_resource type="Animation" id="Animation_ghijl"]
 length = 0.001
 tracks/0/type = "value"
@@ -83,23 +100,6 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_h3jpu"]
-resource_name = "PermaDeath"
-length = 1.1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 36, 37, 38, 39, 40, 41, 42, 43, 44]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dd465"]
 _data = {
 &"Death_p1": SubResource("Animation_44cfe"),
@@ -112,11 +112,11 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_4epen"]
 radius = 48.8147
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4epen"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h3jpu"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h3jpu"]
-bg_color = Color(0.6, 1, 0.6, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5wo50"]
+bg_color = Color(0.133512, 0.724249, 1.92523e-07, 1)
 
 [node name="CharacterBodyP1" type="CharacterBody2D"]
 rotation = 1.5708
@@ -146,13 +146,13 @@ shape = SubResource("CircleShape2D_4epen")
 
 [node name="ReviveProgressBar" type="ProgressBar" parent="ReviveZone"]
 visible = false
-offset_left = -24.0001
+offset_left = -26.8001
 offset_top = -26.3999
-offset_right = -20.0001
-offset_bottom = 0.600084
+offset_right = -22.8001
+offset_bottom = 0.600094
 scale = Vector2(2, 2)
-theme_override_styles/background = SubResource("StyleBoxFlat_4epen")
-theme_override_styles/fill = SubResource("StyleBoxFlat_h3jpu")
+theme_override_styles/background = SubResource("StyleBoxFlat_h3jpu")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5wo50")
 rounded = true
 fill_mode = 3
 show_percentage = false
@@ -164,10 +164,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -37.9999
-offset_top = 18.0001
-offset_right = 125.0
-offset_bottom = 83.0001
+offset_left = -38.3999
+offset_top = 16.4001
+offset_right = 124.6
+offset_bottom = 81.4001
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 4.71239
@@ -185,7 +185,7 @@ offset_bottom = 93.8001
 rotation = 4.71239
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("3_h3jpu")
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 40
 
 [connection signal="body_entered" from="ReviveZone" to="." method="_on_revive_zone_body_entered"]
 [connection signal="body_exited" from="ReviveZone" to="." method="_on_revive_zone_body_exited"]

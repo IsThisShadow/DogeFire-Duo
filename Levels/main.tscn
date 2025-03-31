@@ -7,7 +7,7 @@
 [ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur/static/Tektur-Bold.ttf" id="5_7pswh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lwy2l"]
-size = Vector2(179, 575)
+size = Vector2(179, 659)
 
 [node name="Main" type="Node2D"]
 
@@ -28,8 +28,7 @@ script = ExtResource("4_nj2yk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="testArea"]
 modulate = Color(0.898039, 0, 1, 0.870588)
-show_behind_parent = true
-position = Vector2(769, 374.5)
+position = Vector2(769, 332.5)
 shape = SubResource("RectangleShape2D_lwy2l")
 
 [node name="DeathAnnouncement" type="Label" parent="."]
@@ -47,4 +46,5 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="area_entered" from="testArea" to="CharacterBodyP1" method="_on_test_area_area_entered"]
+[connection signal="body_entered" from="testArea" to="CharacterBodyP2" method="_on_test_area_body_entered"]
 [connection signal="body_entered" from="testArea" to="CharacterBodyP1" method="_on_test_area_body_entered"]
