@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0kexyqwmpork"
-path="res://.godot/imported/Enemy Explosion Sprite Sheet.png-aba6bb4655f0ab67ecb06ae2fb45ba8e.ctex"
+uid="uid://3sddadjlfr21"
+path="res://.godot/imported/RA_Atlantis.png-3ed8d1e1942eb865711fcf443ba732cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Enemy Sprits/Enemy Explosion Sprite Sheet.png"
-dest_files=["res://.godot/imported/Enemy Explosion Sprite Sheet.png-aba6bb4655f0ab67ecb06ae2fb45ba8e.ctex"]
+source_file="res://Assets/assets/RA_Atlantis.png"
+dest_files=["res://.godot/imported/RA_Atlantis.png-3ed8d1e1942eb865711fcf443ba732cc.ctex"]
 
 [params]
 
