@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c74jcdx68qmg8"]
+
+[ext_resource type="Script" path="res://scripts/PlayerScripts/Weapon2.gd" id="1_keh3r"]
+[ext_resource type="Texture2D" uid="uid://c1y0swu66cryp" path="res://Assets/Player Sprites/testPlayer.jpg" id="2_p8dut"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvxf3"]
+
+[node name="Weapon2" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_keh3r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+scale = Vector2(1.7, 1.83333)
+shape = SubResource("RectangleShape2D_vvxf3")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+scale = Vector2(0.0414945, 0.0633651)
+texture = ExtResource("2_p8dut")
+
+[node name="ShootPoint" type="Node2D" parent="CharacterBody2D"]
+position = Vector2(17, 0)
