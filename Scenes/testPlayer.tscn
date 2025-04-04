@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://2qtyjfby2jrf"]
+[gd_scene load_steps=5 format=3 uid="uid://n5assoikgk4j"]
 
 [ext_resource type="Script" path="res://scripts/PlayerScripts/WeaponSwitch.gd" id="1_gp2pq"]
 [ext_resource type="Texture2D" uid="uid://c1y0swu66cryp" path="res://Assets/Player Sprites/testPlayer.jpg" id="2_1pabd"]

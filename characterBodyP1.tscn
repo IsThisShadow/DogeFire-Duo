@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bk0x8htvf5fr1"]
+[gd_scene load_steps=13 format=3 uid="uid://b44ebn5xhv34r"]
 
 [ext_resource type="Texture2D" uid="uid://cmue7o4meppar" path="res://Assets/Player Sprites/Ship-Nebula - Sprite Sheet.png" id="1_f50pn"]
 [ext_resource type="Script" path="res://characterBody_P1.gd" id="1_ij6vw"]
