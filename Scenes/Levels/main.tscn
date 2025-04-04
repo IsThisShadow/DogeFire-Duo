@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cm8btmccrf7sc"]
+[gd_scene load_steps=7 format=3 uid="uid://cm8btmccrf7sc"]
 
 [ext_resource type="Texture2D" uid="uid://bvccngnd3tt2b" path="res://2D Space Parallax Backgrounds/layers/black_bg.png" id="2_pqlyo"]
-[ext_resource type="PackedScene" uid="uid://drsl23lw0biok" path="res://test_guy.tscn" id="3_1jrec"]
+[ext_resource type="PackedScene" path="res://test_guy.tscn" id="3_1jrec"]
 [ext_resource type="Texture2D" uid="uid://b71b1etq41ye2" path="res://2D Space Parallax Backgrounds/layers/nebula.png" id="3_3w0of"]
 [ext_resource type="Texture2D" uid="uid://60hvkelfx71c" path="res://2D Space Parallax Backgrounds/layers/small_stars.png" id="4_pn6u7"]
 [ext_resource type="Texture2D" uid="uid://diwt20qjdcldu" path="res://2D Space Parallax Backgrounds/layers/big_stars.png" id="5_wxvke"]
+[ext_resource type="PackedScene" uid="uid://paju1o2f0r43" path="res://characterBodyP2.tscn" id="6_sn2ka"]
 
 [node name="Main" type="Node2D"]
 
@@ -44,3 +45,6 @@ motion_mirroring = Vector2(640, 0)
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
 texture = ExtResource("5_wxvke")
 centered = false
+
+[node name="CharacterBodyP2" parent="." instance=ExtResource("6_sn2ka")]
+position = Vector2(143, 139)
