@@ -120,8 +120,8 @@ bg_color = Color(0.133333, 0.72549, 0, 1)
 
 [node name="CharacterBodyP2" type="CharacterBody2D"]
 texture_filter = 1
+position = Vector2(0, -1)
 rotation = 1.5708
-scale = Vector2(2.5, 2.5)
 script = ExtResource("1_ci73e")
 
 [node name="Sprite_p2" type="Sprite2D" parent="."]
@@ -186,6 +186,10 @@ rotation = 4.71239
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("3_67u87")
 theme_override_font_sizes/font_size = 40
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_top = 0
+limit_bottom = -360
 
 [connection signal="body_entered" from="ReviveZone_p2" to="." method="_on_revive_zone_p_2_body_entered"]
 [connection signal="body_exited" from="ReviveZone_p2" to="." method="_on_revive_zone_p_2_body_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bp7su1t46xldt"]
+[gd_scene load_steps=4 format=3 uid="uid://clm7k1fnprfyf"]
 
 [ext_resource type="Texture2D" uid="uid://dvfs2jqkjiod5" path="res://Assets/Enemy Sprites/ump9.jpg" id="1_8vp4s"]
 [ext_resource type="Script" path="res://scripts/PlayerScripts/Weapon1.gd" id="1_mm25a"]
