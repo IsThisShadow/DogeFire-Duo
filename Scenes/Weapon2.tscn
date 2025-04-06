@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bg6mat88btmsc" path="res://weapon_2.gd" id="1_2ushk"]
 
 [node name="Weapon2" type="Node2D"]
+z_index = 2
 script = ExtResource("1_2ushk")
 
 [node name="ShootPoint" type="Marker2D" parent="."]

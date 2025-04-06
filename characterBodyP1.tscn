@@ -119,6 +119,7 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(0.133512, 0.724249, 1.92523e-07, 1)
 
 [node name="CharacterBodyP1" type="CharacterBody2D"]
+z_index = 1
 rotation = 1.5708
 script = ExtResource("1_ij6vw")
 

@@ -6,16 +6,25 @@ extends CharacterBody2D
 @onready var revive_count_label: Label = $ReviveCountLabel_p2
 @onready var death_announcement: Label = get_node("/root/Main/DeathAnnouncement")
 @onready var revive_timer_label: Label = $ReviveCountdownLabel_p2
+@onready var weapon_container = $WeaponContainer
+@onready var shoot_point = $WeaponContainer/Marker2D
 
+# Weapon scenes
+var weapon1_scene = preload("res://Scenes/Weapon1.tscn")
+var weapon2_scene = preload("res://Scenes/Weapon2.tscn")
+var weapon3_scene = preload("res://Scenes/Weapon3.tscn")
+var weapon4_scene = preload("res://Scenes/Weapon4.tscn")
+var weapon5_scene = preload("res://Scenes/Weapon5.tscn")
 
+var current_weapon_instance = null
+var current_weapon_index = 0
 
-#----------------------------------------------------------------
+# Movement and state
 const max_speed: int = 250
 const acceleration: int = 5
 const friction: int = 3
-const revive_time := 2.5 #seconds
+const revive_time := 2.5
 
-#-------------------------------------------------------------------
 var p2_health = 100
 var p2_maxHealth = 100
 var is_dead = false
@@ -26,9 +35,6 @@ var is_invincible := false
 var revive_time_limit := 10
 var revive_timer := 0.0
 
-
-
-#--------------------------------------------------------------------
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		for body in $ReviveZone_p2.get_overlapping_bodies():
@@ -54,9 +60,9 @@ func _physics_process(delta: float) -> void:
 	velocity = lerp(velocity, input * max_speed, lerp_weight)
 	move_and_slide()
 
-	# Clamp position to stay inside screen bounds
+	# Clamp position to screen
 	var screen_size = get_viewport_rect().size
-	var margin := 10.0  # Optional padding from the screen edges
+	var margin := 10.0
 	position.x = clamp(position.x, margin, screen_size.x - margin)
 	position.y = clamp(position.y, margin, screen_size.y - margin)
 
@@ -66,7 +72,39 @@ func _physics_process(delta: float) -> void:
 		$ReviveZone_p2/ReviveCollision_p2.disabled = false
 		$CollisionShape2D_p2.disabled = true
 
-#--------------------------------------------------------------------
+	# Weapon switching
+	if Input.is_action_just_pressed("p2_b"):
+		equip_weapon(1)
+	elif Input.is_action_just_pressed("p2_l1"):
+		equip_weapon(2)
+	elif Input.is_action_just_pressed("p2_l2"):
+		equip_weapon(3)
+	elif Input.is_action_just_pressed("p2_r1"):
+		equip_weapon(4)
+	elif Input.is_action_just_pressed("p2_r2"):
+		equip_weapon(5)
+
+func equip_weapon(index):
+	if current_weapon_index == index:
+		return
+
+	current_weapon_index = index
+
+	if current_weapon_instance:
+		current_weapon_instance.queue_free()
+
+	var new_weapon_scene
+	match index:
+		1: new_weapon_scene = weapon1_scene
+		2: new_weapon_scene = weapon2_scene
+		3: new_weapon_scene = weapon3_scene
+		4: new_weapon_scene = weapon4_scene
+		5: new_weapon_scene = weapon5_scene
+
+	current_weapon_instance = new_weapon_scene.instantiate()
+	weapon_container.add_child(current_weapon_instance)
+	current_weapon_instance.global_position = shoot_point.global_position
+
 func die():
 	if p2_revive >= p2_max_revive:
 		is_dead = true
@@ -97,7 +135,6 @@ func die():
 	animationplayer.play("reviveNeed_p2")
 	revive_label.visible = true
 
-#--------------------------------------------------------------------
 func revive():
 	is_dead = false
 	revive_progress = 0
@@ -127,7 +164,6 @@ func revive():
 	await get_tree().create_timer(2.0).timeout
 	revive_count_label.visible = false
 
-#--------------------------------------------------------------------
 func take_damage(amount: int):
 	if not is_invincible and not is_dead:
 		p2_health -= amount
@@ -152,13 +188,11 @@ func flash_red():
 	await tween.finished
 	$Sprite_p2.modulate = Color(1, 1, 1)
 
-#-------------------------------------------------------------------
 func _on_test_area_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage"):
 		var damage := 50
 		body.take_damage(damage)
 
-#--------------------------------------------------------------------
 func _on_revive_zone_p_2_body_entered(body: Node2D) -> void:
 	if is_dead and body.name == "CharacterBodyP1":
 		progress_bar.visible = true
