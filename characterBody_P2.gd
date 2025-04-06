@@ -84,6 +84,10 @@ func _physics_process(delta: float) -> void:
 	elif Input.is_action_just_pressed("p2_r2"):
 		equip_weapon(5)
 
+	# Weapon firing
+	if Input.is_action_just_pressed("p2_a") and current_weapon_instance and current_weapon_instance.has_method("fire"):
+		current_weapon_instance.fire()
+
 func equip_weapon(index):
 	if current_weapon_index == index:
 		return
