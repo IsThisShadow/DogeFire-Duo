@@ -12,14 +12,13 @@ config_version=5
 
 config/name="ArcadeTemplate"
 run/main_scene="res://scripts/PlayerScripts/Levels/main.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/mode=3
 window/size/initial_position=Vector2i(320, 180)
 window/size/resizable=false
 window/size/borderless=true

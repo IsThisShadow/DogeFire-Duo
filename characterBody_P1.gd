@@ -5,13 +5,25 @@ extends CharacterBody2D
 @onready var revive_label: Label = $ReviveLabel
 @onready var revive_count_label: Label = $ReviveCountLabel
 @onready var death_announcement: Label = get_node("/root/Main/DeathAnnouncement")
+@onready var weapon_container: Node2D = $WeaponContainer
 
-#----------------------------------------------------------------
+# Weapon system
+var selected_weapon_id := 0  # No weapon selected initially
+var weapon_scenes = {
+	1: preload("res://Scenes/Weapon1.tscn"),
+	2: preload("res://Scenes/Weapon2.tscn"),
+	3: preload("res://Scenes/Weapon3.tscn"),
+	4: preload("res://Scenes/Weapon4.tscn"),
+	5: preload("res://Scenes/Weapon5.tscn")
+}
+var current_weapon = null
+
+# Movement / State
 const max_speed: int = 250
 const acceleration: int = 5
 const friction: int = 3
 const revive_time := 2.5
-#----------------------------------------------------------------
+
 var p1_health = 100
 var p1_maxHealth = 100
 var is_dead = false
@@ -20,7 +32,6 @@ var p1_revive = 0
 var revive_progress := 0.0
 var is_invincible := false
 
-#----------------------------------------------------------------
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		if $ReviveZone.monitoring:
@@ -47,13 +58,50 @@ func _physics_process(delta: float) -> void:
 	velocity = lerp(velocity, input * max_speed, lerp_weight)
 	move_and_slide()
 
+	# Clamp to screen
+	var screen_size = get_viewport_rect().size
+	var margin := 10.0
+	position.x = clamp(position.x, margin, screen_size.x - margin)
+	position.y = clamp(position.y, margin, screen_size.y - margin)
+
 	if p1_health <= 0 and not is_dead:
 		die()
 		$ReviveZone.monitoring = true
 		$ReviveZone/ReviveCollision.disabled = false
 		$CollisionShape2D_p1.disabled = true
 
-#----------------------------------------------------------------
+	# Handle weapon selection
+	if Input.is_action_just_pressed("p1_b"):
+		select_weapon(1)
+	elif Input.is_action_just_pressed("p1_l1"):
+		select_weapon(2)
+	elif Input.is_action_just_pressed("p1_l2"):
+		select_weapon(3)
+	elif Input.is_action_just_pressed("p1_r1"):
+		select_weapon(4)
+	elif Input.is_action_just_pressed("p1_r2"):
+		select_weapon(5)
+
+	# Fire weapon
+	if Input.is_action_just_pressed("p1_a") and current_weapon:
+		current_weapon.fire()
+
+#---------------------------------------------------
+func select_weapon(id: int):
+	if selected_weapon_id == id:
+		return  # Already selected
+
+	selected_weapon_id = id
+
+	if current_weapon:
+		current_weapon.queue_free()
+
+	var weapon_scene = weapon_scenes.get(id)
+	if weapon_scene:
+		current_weapon = weapon_scene.instantiate()
+		weapon_container.add_child(current_weapon)
+
+#---------------------------------------------------
 func die():
 	is_dead = true
 
@@ -81,7 +129,7 @@ func die():
 
 	revive_label.visible = true
 
-#----------------------------------------------------------------
+#---------------------------------------------------
 func revive():
 	is_dead = false
 	revive_progress = 0
@@ -111,7 +159,7 @@ func revive():
 	await get_tree().create_timer(2.0).timeout
 	revive_count_label.visible = false
 
-#----------------------------------------------------------------
+#---------------------------------------------------
 func spawn_damage_number(amount: int):
 	var dmg_label = preload("res://FloatingText.tscn").instantiate()
 	dmg_label.text = "-" + str(amount)
@@ -129,7 +177,7 @@ func flash_red():
 	await tween.finished
 	$Sprite_p1.modulate = Color(1, 1, 1)
 
-#----------------------------------------------------------------
+#---------------------------------------------------
 func _on_test_area_body_entered(body: Node2D) -> void:
 	if body.name == "CharacterBodyP1" and not body.is_invincible:
 		var damage := 50
@@ -138,7 +186,6 @@ func _on_test_area_body_entered(body: Node2D) -> void:
 		body.flash_red()
 		print("player1 HP:", body.p1_health)
 
-#----------------------------------------------------------------
 func _on_revive_zone_body_entered(body: Node2D) -> void:
 	if is_dead:
 		progress_bar.visible = true

@@ -6,12 +6,16 @@ extends CharacterBody2D
 @onready var revive_count_label: Label = $ReviveCountLabel_p2
 @onready var death_announcement: Label = get_node("/root/Main/DeathAnnouncement")
 @onready var revive_timer_label: Label = $ReviveCountdownLabel_p2
+
+
+
 #----------------------------------------------------------------
 const max_speed: int = 250
 const acceleration: int = 5
 const friction: int = 3
 const revive_time := 2.5 #seconds
 
+#-------------------------------------------------------------------
 var p2_health = 100
 var p2_maxHealth = 100
 var is_dead = false
@@ -21,6 +25,8 @@ var revive_progress := 0.0
 var is_invincible := false
 var revive_time_limit := 10
 var revive_timer := 0.0
+
+
 
 #--------------------------------------------------------------------
 func _physics_process(delta: float) -> void:
@@ -47,6 +53,12 @@ func _physics_process(delta: float) -> void:
 	var lerp_weight = delta * (acceleration if input else friction)
 	velocity = lerp(velocity, input * max_speed, lerp_weight)
 	move_and_slide()
+
+	# Clamp position to stay inside screen bounds
+	var screen_size = get_viewport_rect().size
+	var margin := 10.0  # Optional padding from the screen edges
+	position.x = clamp(position.x, margin, screen_size.x - margin)
+	position.y = clamp(position.y, margin, screen_size.y - margin)
 
 	if p2_health <= 0 and not is_dead:
 		die()
@@ -145,6 +157,7 @@ func _on_test_area_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage"):
 		var damage := 50
 		body.take_damage(damage)
+
 #--------------------------------------------------------------------
 func _on_revive_zone_p_2_body_entered(body: Node2D) -> void:
 	if is_dead and body.name == "CharacterBodyP1":

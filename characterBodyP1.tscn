@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://b44ebn5xhv34r"]
 
 [ext_resource type="Texture2D" uid="uid://cmue7o4meppar" path="res://Assets/Player Sprites/Ship-Nebula - Sprite Sheet.png" id="1_f50pn"]
-[ext_resource type="Script" path="res://characterBody_P1.gd" id="1_ij6vw"]
+[ext_resource type="Script" uid="uid://bakimcqipy2cr" path="res://characterBody_P1.gd" id="1_ij6vw"]
 [ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur/static/Tektur-Bold.ttf" id="3_h3jpu"]
 
 [sub_resource type="Animation" id="Animation_44cfe"]
@@ -102,11 +102,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dd465"]
 _data = {
-"Death_p1": SubResource("Animation_44cfe"),
-"Idle_p1": SubResource("Animation_ij6vw"),
-"PermaDeath": SubResource("Animation_h3jpu"),
-"RESET": SubResource("Animation_ghijl"),
-"reviveNeed_p1": SubResource("Animation_4epen")
+&"Death_p1": SubResource("Animation_44cfe"),
+&"Idle_p1": SubResource("Animation_ij6vw"),
+&"PermaDeath": SubResource("Animation_h3jpu"),
+&"RESET": SubResource("Animation_ghijl"),
+&"reviveNeed_p1": SubResource("Animation_4epen")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4epen"]
@@ -120,7 +120,6 @@ bg_color = Color(0.133512, 0.724249, 1.92523e-07, 1)
 
 [node name="CharacterBodyP1" type="CharacterBody2D"]
 rotation = 1.5708
-scale = Vector2(2.5, 2.5)
 script = ExtResource("1_ij6vw")
 
 [node name="Sprite_p1" type="Sprite2D" parent="."]
@@ -131,7 +130,7 @@ vframes = 5
 
 [node name="AnimationPlayer_p1" type="AnimationPlayer" parent="Sprite_p1"]
 libraries = {
-"": SubResource("AnimationLibrary_dd465")
+&"": SubResource("AnimationLibrary_dd465")
 }
 autoplay = "PermaDeath"
 
@@ -186,6 +185,8 @@ rotation = 4.71239
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("3_h3jpu")
 theme_override_font_sizes/font_size = 40
+
+[node name="WeaponContainer" type="Node2D" parent="."]
 
 [connection signal="body_entered" from="ReviveZone" to="." method="_on_revive_zone_body_entered"]
 [connection signal="body_exited" from="ReviveZone" to="." method="_on_revive_zone_body_exited"]

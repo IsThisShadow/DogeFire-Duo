@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cny60vkhgssip"]
+
+[ext_resource type="Script" uid="uid://c5nmewpljw7j1" path="res://scripts/bullet_4.gd" id="1_hv53n"]
+[ext_resource type="Texture2D" uid="uid://df83apy7x063d" path="res://Assets/Bullet Sprites/Laser Sprites/40.png" id="2_hv53n"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3i1xx"]
+radius = 3.0
+height = 18.0
+
+[node name="Area2D" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_hv53n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_hv53n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 4.71239
+shape = SubResource("CapsuleShape2D_3i1xx")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, 1.78814e-07)
+scale = Vector2(0.8, 0.3)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

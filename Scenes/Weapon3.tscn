@@ -1,23 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://baijtmvjfvme0"]
+[gd_scene load_steps=2 format=3 uid="uid://b3pd8ela702qi"]
 
-[ext_resource type="Script" path="res://scripts/PlayerScripts/Weapon3.gd" id="1_7ltt5"]
-[ext_resource type="Texture2D" uid="uid://dvfs2jqkjiod5" path="res://Assets/Enemy Sprites/ump9.jpg" id="2_6ksfn"]
+[ext_resource type="Script" uid="uid://jewcxerieyax" path="res://Weapon3.gd" id="1_evbp2"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvxf3"]
+[node name="Weapon3" type="Node2D"]
+script = ExtResource("1_evbp2")
 
-[node name="Weapon1" type="Node2D"]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-script = ExtResource("1_7ltt5")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-scale = Vector2(1.7, 1.83333)
-shape = SubResource("RectangleShape2D_vvxf3")
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-position = Vector2(10, -4.76837e-07)
-scale = Vector2(0.18125, 0.2)
-texture = ExtResource("2_6ksfn")
-
-[node name="ShootPoint" type="Node2D" parent="CharacterBody2D"]
-position = Vector2(17, 0)
+[node name="ShootPoint" type="Marker2D" parent="."]
