@@ -35,6 +35,11 @@ var is_invincible := false
 var revive_time_limit := 10
 var revive_timer := 0.0
 
+#different color to indicate difference between the two players
+func _ready():
+	$Sprite_p2.modulate = Color(0.6, 0.6, 1.2)
+	
+	
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		for body in $ReviveZone_p2.get_overlapping_bodies():

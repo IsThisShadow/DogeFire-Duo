@@ -32,6 +32,8 @@ var p1_revive = 0
 var revive_progress := 0.0
 var is_invincible := false
 
+func _ready():
+	$Sprite_p1.modulate = Color(1.2, 0.5, 0.5)
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		if $ReviveZone.monitoring:

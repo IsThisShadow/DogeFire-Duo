@@ -38,6 +38,7 @@ motion_scale = Vector2(0.5, 1)
 motion_mirroring = Vector2(640, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(-2, -2)
 texture = ExtResource("3_o266y")
 centered = false
 
