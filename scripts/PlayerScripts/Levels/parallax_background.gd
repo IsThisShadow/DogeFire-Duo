@@ -8,7 +8,7 @@ var scroll_speed := 30.0
 var speed_increment := 2.0
 var time_elapsed := 0.0
 var next_increase_time := 10.0 
-
+ 
 
 func _process(delta):
 	# Move the background left by increasing the scroll_offset.x

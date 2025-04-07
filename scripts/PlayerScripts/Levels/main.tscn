@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://cm8btmccrf7sc"]
 
-[ext_resource type="Script" uid="uid://bxfbh3jp80jpv" path="res://scripts/PlayerScripts/Levels/main.gd" id="1_01l5a"]
+[ext_resource type="Script" path="res://scripts/PlayerScripts/Levels/main.gd" id="1_01l5a"]
 [ext_resource type="PackedScene" uid="uid://b44ebn5xhv34r" path="res://characterBodyP1.tscn" id="1_65p6l"]
 [ext_resource type="Texture2D" uid="uid://bvccngnd3tt2b" path="res://2D Space Parallax Backgrounds/layers/black_bg.png" id="2_qfvo7"]
-[ext_resource type="Script" uid="uid://c26mwf8iuyxsg" path="res://scripts/PlayerScripts/Levels/parallax_background.gd" id="3_bmpxu"]
+[ext_resource type="Script" path="res://scripts/PlayerScripts/Levels/parallax_background.gd" id="3_bmpxu"]
 [ext_resource type="Texture2D" uid="uid://b71b1etq41ye2" path="res://2D Space Parallax Backgrounds/layers/nebula.png" id="3_o266y"]
 [ext_resource type="Texture2D" uid="uid://60hvkelfx71c" path="res://2D Space Parallax Backgrounds/layers/small_stars.png" id="4_dlc5f"]
 [ext_resource type="Texture2D" uid="uid://diwt20qjdcldu" path="res://2D Space Parallax Backgrounds/layers/big_stars.png" id="5_rxhl5"]
