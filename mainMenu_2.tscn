@@ -1,0 +1,210 @@
+[gd_scene load_steps=12 format=3 uid="uid://c08ttg78rqsvj"]
+
+[ext_resource type="Script" uid="uid://bhrw00eoqlu3q" path="res://mainMenu_2.gd" id="1_tbxbm"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="2_20xwr"]
+
+[sub_resource type="Animation" id="Animation_tbxbm"]
+resource_name = "CountdownPulse"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CountdownWrapper:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.4, 1.4), Vector2(0.9, 0.9), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_20xwr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CountdownWrapper:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_80tsv"]
+_data = {
+&"CountdownPulse": SubResource("Animation_tbxbm"),
+&"RESET": SubResource("Animation_20xwr")
+}
+
+[sub_resource type="Animation" id="Animation_80tsv"]
+resource_name = "ZoomIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ReadyWrapperP1:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.9, 0.9), Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_otx5p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ReadyWrapperP1:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.9, 0.9)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_njjfu"]
+_data = {
+&"RESET": SubResource("Animation_otx5p"),
+&"ZoomIn": SubResource("Animation_80tsv")
+}
+
+[sub_resource type="Animation" id="Animation_njjfu"]
+resource_name = "ZoomIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.9, 0.9), Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tudwm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.9, 0.9)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2tw83"]
+_data = {
+&"RESET": SubResource("Animation_tudwm"),
+&"ZoomIn": SubResource("Animation_njjfu")
+}
+
+[node name="MainMenu_2" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tbxbm")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.062
+anchor_bottom = 0.056
+offset_left = 294.0
+offset_top = 148.0
+offset_right = 294.32
+offset_bottom = 165.84
+alignment = 1
+
+[node name="CountdownWrapper" type="Node2D" parent="VBoxContainer"]
+
+[node name="CountdownAnimator" type="AnimationPlayer" parent="VBoxContainer/CountdownWrapper"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_80tsv")
+}
+
+[node name="CountdownLabel" type="Label" parent="VBoxContainer/CountdownWrapper"]
+offset_left = -12.0
+offset_top = -31.0
+offset_right = 559.0
+offset_bottom = 99.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_20xwr")
+theme_override_font_sizes/font_size = 100
+text = "Press Start"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Controls
+"
+
+[node name="TipsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Game Tips"
+
+[node name="ReadyWrapperP1" type="Node2D" parent="."]
+scale = Vector2(0.9, 0.9)
+
+[node name="ReadyLabelP1" type="Label" parent="ReadyWrapperP1"]
+offset_left = 79.0
+offset_top = 315.0
+offset_right = 935.0
+offset_bottom = 445.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_20xwr")
+theme_override_font_sizes/font_size = 100
+text = "Player One Ready"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReadyAnimatorP1" type="AnimationPlayer" parent="ReadyWrapperP1"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_njjfu")
+}
+
+[node name="ReadyWrapperP2" type="Node2D" parent="."]
+scale = Vector2(0.9, 0.9)
+
+[node name="ReadyLabelP2" type="Label" parent="ReadyWrapperP2"]
+offset_left = 426.0
+offset_top = 317.0
+offset_right = 1293.0
+offset_bottom = 447.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_20xwr")
+theme_override_font_sizes/font_size = 100
+text = "Player Two Ready"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReadyAnimatorP2" type="AnimationPlayer" parent="ReadyWrapperP2"]
+root_node = NodePath("../ReadyLabelP2")
+libraries = {
+&"": SubResource("AnimationLibrary_2tw83")
+}

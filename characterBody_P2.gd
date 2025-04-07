@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var progress_bar: ProgressBar = $ReviveZone_p2/ReviveProgressBar_p2
 @onready var revive_label: Label = $ReviveLabel_p2
 @onready var revive_count_label: Label = $ReviveCountLabel_p2
-@onready var death_announcement: Label = get_node("/root/Main/DeathAnnouncement")
+@onready var death_announcement: Label = get_node("/root/MainLvl_1/DeathAnnouncement")
 @onready var revive_timer_label: Label = $ReviveCountdownLabel_p2
 @onready var weapon_container = $WeaponContainer
 @onready var shoot_point = $WeaponContainer/Marker2D

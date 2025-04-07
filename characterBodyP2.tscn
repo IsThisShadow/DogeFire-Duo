@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://ckmiuk6k2658l"]
 
-[ext_resource type="Script" path="res://characterBody_P2.gd" id="1_ci73e"]
+[ext_resource type="Script" uid="uid://bvy8trgugtv67" path="res://characterBody_P2.gd" id="1_ci73e"]
 [ext_resource type="Texture2D" uid="uid://cmue7o4meppar" path="res://Assets/Player Sprites/Ship-Nebula - Sprite Sheet.png" id="2_67u87"]
 [ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur/static/Tektur-Bold.ttf" id="3_67u87"]
 
@@ -102,11 +102,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e6rgf"]
 _data = {
-"Idle_p2": SubResource("Animation_ci73e"),
-"PermaDeath": SubResource("Animation_8h461"),
-"RESET": SubResource("Animation_67u87"),
-"death_p2": SubResource("Animation_e6rgf"),
-"reviveNeed_p2": SubResource("Animation_vhl5d")
+&"Idle_p2": SubResource("Animation_ci73e"),
+&"PermaDeath": SubResource("Animation_8h461"),
+&"RESET": SubResource("Animation_67u87"),
+&"death_p2": SubResource("Animation_e6rgf"),
+&"reviveNeed_p2": SubResource("Animation_vhl5d")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ci73e"]
@@ -132,7 +132,7 @@ vframes = 5
 
 [node name="AnimationPlayer_p2" type="AnimationPlayer" parent="Sprite_p2"]
 libraries = {
-"": SubResource("AnimationLibrary_e6rgf")
+&"": SubResource("AnimationLibrary_e6rgf")
 }
 
 [node name="CollisionShape2D_p2" type="CollisionPolygon2D" parent="."]
