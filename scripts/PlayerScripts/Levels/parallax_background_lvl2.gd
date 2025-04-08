@@ -2,7 +2,7 @@ extends ParallaxBackground
 
 
 # Scroll speed in pixels per second
-var scroll_speed := 50.0
+var scroll_speed := 100.0
 
 # Optional: how much the scroll speed increases over time
 var speed_increment := 2.0

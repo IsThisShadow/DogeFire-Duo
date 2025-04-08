@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://bh4otaylvcd7g"]
+
+[ext_resource type="PackedScene" uid="uid://wosei8oo5blp" path="res://EnemyTest.tscn" id="2_8mvb7"]
+[ext_resource type="PackedScene" uid="uid://b44ebn5xhv34r" path="res://characterBodyP1.tscn" id="3_gh0aw"]
+[ext_resource type="PackedScene" uid="uid://ckmiuk6k2658l" path="res://characterBodyP2.tscn" id="4_5cut2"]
+[ext_resource type="Script" uid="uid://desuikimmojaq" path="res://scripts/PlayerScripts/Levels/parallax_background_lvl2.gd" id="4_7jtt3"]
+[ext_resource type="Texture2D" uid="uid://bvccngnd3tt2b" path="res://2D Space Parallax Backgrounds/layers/black_bg.png" id="6_c1h3g"]
+[ext_resource type="Texture2D" uid="uid://b71b1etq41ye2" path="res://2D Space Parallax Backgrounds/layers/nebula.png" id="7_7ykja"]
+[ext_resource type="Texture2D" uid="uid://60hvkelfx71c" path="res://2D Space Parallax Backgrounds/layers/small_stars.png" id="8_7bq1a"]
+[ext_resource type="Texture2D" uid="uid://diwt20qjdcldu" path="res://2D Space Parallax Backgrounds/layers/big_stars.png" id="9_gp3ic"]
+
+[node name="MainLvl_2" type="Node2D"]
+
+[node name="EnemyTest" parent="." instance=ExtResource("2_8mvb7")]
+position = Vector2(548, 174)
+
+[node name="CharacterBodyP1" parent="." instance=ExtResource("3_gh0aw")]
+position = Vector2(195, 269)
+
+[node name="CharacterBodyP2" parent="." instance=ExtResource("4_5cut2")]
+position = Vector2(142, 138)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = ExtResource("4_7jtt3")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.25, 1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("6_c1h3g")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(-2, -2)
+texture = ExtResource("7_7ykja")
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+texture = ExtResource("8_7bq1a")
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(1.5, 1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+texture = ExtResource("9_gp3ic")
+centered = false
+
+[node name="DeathAnnouncement" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Player 1 has died!
+"
