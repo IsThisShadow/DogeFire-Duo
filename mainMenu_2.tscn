@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://c08ttg78rqsvj"]
+[gd_scene load_steps=15 format=3 uid="uid://c08ttg78rqsvj"]
 
 [ext_resource type="Script" uid="uid://bhrw00eoqlu3q" path="res://mainMenu_2.gd" id="1_tbxbm"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="2_20xwr"]
+[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://2D Space Parallax Backgrounds/layers/complete.png" id="2_otx5p"]
+[ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="3_80tsv"]
 
 [sub_resource type="Animation" id="Animation_tbxbm"]
 resource_name = "CountdownPulse"
@@ -40,6 +42,8 @@ _data = {
 &"CountdownPulse": SubResource("Animation_tbxbm"),
 &"RESET": SubResource("Animation_20xwr")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_otx5p"]
 
 [sub_resource type="Animation" id="Animation_otx5p"]
 length = 0.001
@@ -124,21 +128,26 @@ script = ExtResource("1_tbxbm")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 638.0
+offset_bottom = 360.0
+texture = ExtResource("2_otx5p")
+expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.062
-anchor_bottom = 0.056
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 294.0
 offset_top = 148.0
-offset_right = 294.32
-offset_bottom = 165.84
+offset_right = -306.0
+offset_bottom = -174.0
 alignment = 1
 
 [node name="CountdownWrapper" type="Node2D" parent="VBoxContainer"]
+position = Vector2(-20, -8)
 
 [node name="CountdownAnimator" type="AnimationPlayer" parent="VBoxContainer/CountdownWrapper"]
 root_node = NodePath("../..")
@@ -160,12 +169,20 @@ vertical_alignment = 1
 
 [node name="ControlButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Controls
+theme_override_fonts/font = ExtResource("2_20xwr")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_otx5p")
+text = "Control
 "
+icon = ExtResource("3_80tsv")
+flat = true
+icon_alignment = 1
 
 [node name="TipsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Game Tips"
+icon = ExtResource("3_80tsv")
+flat = true
+icon_alignment = 1
 
 [node name="ReadyWrapperP1" type="Node2D" parent="."]
 scale = Vector2(0.9, 0.9)
