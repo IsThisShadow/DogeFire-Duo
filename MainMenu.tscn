@@ -40,7 +40,6 @@ horizontal_alignment = 1
 uppercase = true
 
 [node name="ButtonOneWrapper" type="Node2D" parent="VBoxContainer"]
-scale = Vector2(1, 1)
 
 [node name="OnePlayerButton" type="Button" parent="VBoxContainer/ButtonOneWrapper"]
 offset_left = 485.0
@@ -55,10 +54,11 @@ icon_alignment = 1
 [node name="ButtonTwoWrapper" type="Node2D" parent="VBoxContainer"]
 
 [node name="TwoPlayerButton" type="Button" parent="VBoxContainer/ButtonTwoWrapper"]
-offset_left = 60.0
-offset_top = 625.0
-offset_right = 1585.0
-offset_bottom = 671.0
+offset_left = -3020.0
+offset_top = 575.0
+offset_right = -1495.0
+offset_bottom = 621.0
+scale = Vector2(5, 3)
 icon = ExtResource("4_qoqlk")
 flat = true
 icon_alignment = 1

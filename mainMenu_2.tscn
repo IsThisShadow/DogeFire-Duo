@@ -146,6 +146,20 @@ offset_right = -306.0
 offset_bottom = -174.0
 alignment = 1
 
+[node name="TipesWrapper" type="Node2D" parent="VBoxContainer"]
+position = Vector2(-294, -148)
+
+[node name="TipsButton" type="Button" parent="VBoxContainer/TipesWrapper"]
+offset_left = 258.0
+offset_top = 206.0
+offset_right = 380.0
+offset_bottom = 252.0
+theme_override_fonts/font = ExtResource("2_20xwr")
+text = "Game Tips"
+icon = ExtResource("3_80tsv")
+flat = true
+icon_alignment = 1
+
 [node name="CountdownWrapper" type="Node2D" parent="VBoxContainer"]
 position = Vector2(-20, -8)
 
@@ -167,19 +181,17 @@ text = "Press Start"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ControlButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
+[node name="ControlWrapper" type="Node2D" parent="VBoxContainer"]
+
+[node name="ControlButton" type="Button" parent="VBoxContainer/ControlWrapper"]
+offset_left = -36.0
+offset_top = 2.0
+offset_right = 86.0
+offset_bottom = 48.0
 theme_override_fonts/font = ExtResource("2_20xwr")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_otx5p")
 text = "Control
 "
-icon = ExtResource("3_80tsv")
-flat = true
-icon_alignment = 1
-
-[node name="TipsButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Game Tips"
 icon = ExtResource("3_80tsv")
 flat = true
 icon_alignment = 1
