@@ -1,9 +1,47 @@
-[gd_scene load_steps=15 format=3 uid="uid://c08ttg78rqsvj"]
+[gd_scene load_steps=21 format=3 uid="uid://c08ttg78rqsvj"]
 
 [ext_resource type="Script" uid="uid://bhrw00eoqlu3q" path="res://mainMenu_2.gd" id="1_tbxbm"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="2_20xwr"]
 [ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://2D Space Parallax Backgrounds/layers/complete.png" id="2_otx5p"]
 [ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="3_80tsv"]
+
+[sub_resource type="Animation" id="Animation_2tw83"]
+resource_name = "FlashStart"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CountdownLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_a5bem"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CountdownLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qlst4"]
+_data = {
+&"FlashStart": SubResource("Animation_2tw83"),
+&"RESET": SubResource("Animation_a5bem")
+}
 
 [sub_resource type="Animation" id="Animation_tbxbm"]
 resource_name = "CountdownPulse"
@@ -50,7 +88,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ReadyWrapperP1:scale")
+tracks/0/path = NodePath("UIFadeGroup/ReadyWrapperP1:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -65,7 +103,7 @@ resource_name = "ZoomIn"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ReadyWrapperP1:scale")
+tracks/0/path = NodePath("UIFadeGroup/ReadyWrapperP1:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -117,6 +155,43 @@ _data = {
 &"ZoomIn": SubResource("Animation_njjfu")
 }
 
+[sub_resource type="Animation" id="Animation_qlst4"]
+resource_name = "FadeUIOut"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UIFadeGroup:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_emgon"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UIFadeGroup:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tpnuv"]
+_data = {
+&"FadeUIOut": SubResource("Animation_qlst4"),
+&"RESET": SubResource("Animation_emgon")
+}
+
 [node name="MainMenu_2" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -135,21 +210,26 @@ offset_bottom = 360.0
 texture = ExtResource("2_otx5p")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="UIFadeGroup" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIFadeGroup"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 294.0
 offset_top = 148.0
-offset_right = -306.0
-offset_bottom = -174.0
+offset_right = 254.0
+offset_bottom = 108.0
 alignment = 1
 
-[node name="TipesWrapper" type="Node2D" parent="VBoxContainer"]
+[node name="TipesWrapper" type="Node2D" parent="UIFadeGroup/VBoxContainer"]
 position = Vector2(-294, -148)
 
-[node name="TipsButton" type="Button" parent="VBoxContainer/TipesWrapper"]
+[node name="TipsButton" type="Button" parent="UIFadeGroup/VBoxContainer/TipesWrapper"]
 offset_left = 258.0
 offset_top = 206.0
 offset_right = 380.0
@@ -160,16 +240,21 @@ icon = ExtResource("3_80tsv")
 flat = true
 icon_alignment = 1
 
-[node name="CountdownWrapper" type="Node2D" parent="VBoxContainer"]
+[node name="CountdownWrapper" type="Node2D" parent="UIFadeGroup/VBoxContainer"]
 position = Vector2(-20, -8)
 
-[node name="CountdownAnimator" type="AnimationPlayer" parent="VBoxContainer/CountdownWrapper"]
+[node name="StartFlasher" type="AnimationPlayer" parent="UIFadeGroup/VBoxContainer/CountdownWrapper"]
+libraries = {
+&"": SubResource("AnimationLibrary_qlst4")
+}
+
+[node name="CountdownAnimator" type="AnimationPlayer" parent="UIFadeGroup/VBoxContainer/CountdownWrapper"]
 root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_80tsv")
 }
 
-[node name="CountdownLabel" type="Label" parent="VBoxContainer/CountdownWrapper"]
+[node name="CountdownLabel" type="Label" parent="UIFadeGroup/VBoxContainer/CountdownWrapper"]
 offset_left = -12.0
 offset_top = -31.0
 offset_right = 559.0
@@ -181,9 +266,9 @@ text = "Press Start"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ControlWrapper" type="Node2D" parent="VBoxContainer"]
+[node name="ControlWrapper" type="Node2D" parent="UIFadeGroup/VBoxContainer"]
 
-[node name="ControlButton" type="Button" parent="VBoxContainer/ControlWrapper"]
+[node name="ControlButton" type="Button" parent="UIFadeGroup/VBoxContainer/ControlWrapper"]
 offset_left = -36.0
 offset_top = 2.0
 offset_right = 86.0
@@ -196,10 +281,10 @@ icon = ExtResource("3_80tsv")
 flat = true
 icon_alignment = 1
 
-[node name="ReadyWrapperP1" type="Node2D" parent="."]
+[node name="ReadyWrapperP1" type="Node2D" parent="UIFadeGroup"]
 scale = Vector2(0.9, 0.9)
 
-[node name="ReadyLabelP1" type="Label" parent="ReadyWrapperP1"]
+[node name="ReadyLabelP1" type="Label" parent="UIFadeGroup/ReadyWrapperP1"]
 offset_left = 79.0
 offset_top = 315.0
 offset_right = 935.0
@@ -211,16 +296,16 @@ text = "Player One Ready"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ReadyAnimatorP1" type="AnimationPlayer" parent="ReadyWrapperP1"]
-root_node = NodePath("../..")
+[node name="ReadyAnimatorP1" type="AnimationPlayer" parent="UIFadeGroup/ReadyWrapperP1"]
+root_node = NodePath("../../..")
 libraries = {
 &"": SubResource("AnimationLibrary_njjfu")
 }
 
-[node name="ReadyWrapperP2" type="Node2D" parent="."]
+[node name="ReadyWrapperP2" type="Node2D" parent="UIFadeGroup"]
 scale = Vector2(0.9, 0.9)
 
-[node name="ReadyLabelP2" type="Label" parent="ReadyWrapperP2"]
+[node name="ReadyLabelP2" type="Label" parent="UIFadeGroup/ReadyWrapperP2"]
 offset_left = 426.0
 offset_top = 317.0
 offset_right = 1293.0
@@ -232,8 +317,13 @@ text = "Player Two Ready"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ReadyAnimatorP2" type="AnimationPlayer" parent="ReadyWrapperP2"]
+[node name="ReadyAnimatorP2" type="AnimationPlayer" parent="UIFadeGroup/ReadyWrapperP2"]
 root_node = NodePath("../ReadyLabelP2")
 libraries = {
 &"": SubResource("AnimationLibrary_2tw83")
+}
+
+[node name="FadeAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_tpnuv")
 }

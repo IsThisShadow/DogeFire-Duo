@@ -7,15 +7,16 @@ var countdown_started := false
 
 func _ready():
 	# Hide "Ready!" labels at start
-	$ReadyWrapperP1/ReadyLabelP1.visible = false
-	$ReadyWrapperP2/ReadyLabelP2.visible = false
+	$UIFadeGroup/ReadyWrapperP1/ReadyLabelP1.visible = false
+	$UIFadeGroup/ReadyWrapperP2/ReadyLabelP2.visible = false
 
 	# Set red color for P1, blue for P2
-	$ReadyWrapperP1/ReadyLabelP1.add_theme_color_override("font_color", Color(1, 0.2, 0.2))  # Red
-	$ReadyWrapperP2/ReadyLabelP2.add_theme_color_override("font_color", Color(0.4, 0.6, 1.0))  # Blue
+	$UIFadeGroup/ReadyWrapperP1/ReadyLabelP1.add_theme_color_override("font_color", Color(1, 0.2, 0.2))  # Red
+	$UIFadeGroup/ReadyWrapperP2/ReadyLabelP2.add_theme_color_override("font_color", Color(0.4, 0.6, 1.0))  # Blue
 
-	# Set initial label text
-	$VBoxContainer/CountdownWrapper/CountdownLabel.text = "Press Start"
+	# Start with flashing "Press Start"
+	$UIFadeGroup/VBoxContainer/CountdownWrapper/CountdownLabel.text = "Press Start"
+	$UIFadeGroup/VBoxContainer/CountdownWrapper/StartFlasher.play("FlashStart")
 
 func _process(delta):
 	if countdown_started:
@@ -23,15 +24,15 @@ func _process(delta):
 
 	if Input.is_action_just_pressed("p1_start") and not p1_ready:
 		p1_ready = true
-		$ReadyWrapperP1/ReadyLabelP1.visible = true
-		$ReadyWrapperP1/ReadyAnimatorP1.play("ZoomIn")
+		$UIFadeGroup/ReadyWrapperP1/ReadyLabelP1.visible = true
+		$UIFadeGroup/ReadyWrapperP1/ReadyAnimatorP1.play("ZoomIn")
 		print("P1 is ready!")
 
 	if is_two_player_mode:
 		if Input.is_action_just_pressed("p2_start") and not p2_ready:
 			p2_ready = true
-			$ReadyWrapperP2/ReadyLabelP2.visible = true
-			$ReadyWrapperP2/ReadyAnimatorP2.play("ZoomIn")
+			$UIFadeGroup/ReadyWrapperP2/ReadyLabelP2.visible = true
+			$UIFadeGroup/ReadyWrapperP2/ReadyAnimatorP2.play("ZoomIn")
 			print("P2 is ready!")
 
 		if p1_ready and p2_ready:
@@ -43,34 +44,40 @@ func _process(delta):
 func start_countdown():
 	countdown_started = true
 	print(">> Starting countdown!")
+
+	# Stop flashing effect
+	$UIFadeGroup/VBoxContainer/CountdownWrapper/StartFlasher.stop()
+	$UIFadeGroup/VBoxContainer/CountdownWrapper/CountdownLabel.modulate.a = 1.0
+
 	await countdown()
 
 func countdown():
 	for i in range(5, 0, -1):
-		$VBoxContainer/CountdownWrapper/CountdownLabel.text = str(i)
-		$VBoxContainer/CountdownWrapper/CountdownAnimator.play("CountdownPulse")
+		$UIFadeGroup/VBoxContainer/CountdownWrapper/CountdownLabel.text = str(i)
+		$UIFadeGroup/VBoxContainer/CountdownWrapper/CountdownAnimator.play("CountdownPulse")
 		await get_tree().create_timer(1.0).timeout
 
-	$VBoxContainer/CountdownWrapper/CountdownLabel.text = "Starting!"
-	$VBoxContainer/CountdownWrapper/CountdownAnimator.play("CountdownPulse")
+	$UIFadeGroup/VBoxContainer/CountdownWrapper/CountdownLabel.text = "Starting!"
+	$UIFadeGroup/VBoxContainer/CountdownWrapper/CountdownAnimator.play("CountdownPulse")
 	await get_tree().create_timer(0.5).timeout
-	start_game()
 
-func start_game():
-	print("Both players ready! Starting game...")
+	await fade_out_ui()
+	start_story_scene()
 
-	var scene_path = "res://scripts/PlayerScripts/Levels/mainLvl_1.tscn"
-	var packed_scene = load(scene_path)
+func fade_out_ui():
+	print(">> Fading out UI...")
+	$FadeAnimator.play("FadeUIOut")
+	await $FadeAnimator.animation_finished
 
-	if packed_scene:
-		var game_scene = packed_scene.instantiate()
-		game_scene.set_2_players(is_two_player_mode)
+func start_story_scene():
+	print(">> Loading story scene...")
 
-		var current = get_tree().current_scene
-		if current:
-			current.queue_free()
+	var story_scene = preload("res://StoryIntro.tscn").instantiate()
+	story_scene.is_two_player_mode = is_two_player_mode
 
-		get_tree().get_root().add_child(game_scene)
-		get_tree().current_scene = game_scene
-	else:
-		print("Failed to load scene:", scene_path)
+	var current = get_tree().current_scene
+	if current:
+		current.queue_free()
+
+	get_tree().get_root().add_child(story_scene)
+	get_tree().current_scene = story_scene

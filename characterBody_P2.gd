@@ -25,7 +25,7 @@ const acceleration: int = 5
 const friction: int = 3
 const revive_time := 2.5
 
-var p2_health = 100
+var p2_health = 70
 var p2_maxHealth = 100
 var is_dead = false
 var p2_max_revive = 3
