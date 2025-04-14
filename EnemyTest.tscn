@@ -4,10 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://by16ih3np6sbl" path="res://Assets/Enemy Sprites/Enemies T1 Sprite Sheet.png" id="1_uape3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uape3"]
-size = Vector2(262, 166)
+size = Vector2(78, 66)
 
 [node name="EnemyTest" type="Area2D" groups=["enemies"]]
-collision_layer = 2
 script = ExtResource("1_8v7th")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -18,5 +17,7 @@ hframes = 6
 vframes = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-6, 0)
+position = Vector2(1, -4)
 shape = SubResource("RectangleShape2D_uape3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

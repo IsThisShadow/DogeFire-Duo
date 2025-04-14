@@ -4,11 +4,11 @@ extends CharacterBody2D
 @onready var progress_bar: ProgressBar = $ReviveZone/ReviveProgressBar
 @onready var revive_label: Label = $ReviveLabel
 @onready var revive_count_label: Label = $ReviveCountLabel
-@onready var death_announcement: Label = get_node("/root/MainLvl_1/DeathAnnouncement")
 @onready var weapon_container: Node2D = $WeaponContainer
 
-# Weapon system
-var selected_weapon_id := 0  # No weapon selected initially
+var death_announcement: Label = null
+
+var selected_weapon_id := 0
 var weapon_scenes = {
 	1: preload("res://Scenes/Weapon1.tscn"),
 	2: preload("res://Scenes/Weapon2.tscn"),
@@ -18,13 +18,12 @@ var weapon_scenes = {
 }
 var current_weapon = null
 
-# Movement / State
-const max_speed: int = 250
-const acceleration: int = 5
-const friction: int = 3
+const max_speed := 250
+const acceleration := 5
+const friction := 3
 const revive_time := 2.5
 
-var p1_health = 50
+var p1_health := 50
 var p1_maxHealth = 100
 var is_dead = false
 var p1_max_revive = 3
@@ -34,7 +33,9 @@ var is_invincible := false
 
 func _ready():
 	$Sprite_p1.modulate = Color(1.2, 0.5, 0.5)
-func _physics_process(delta: float) -> void:
+	death_announcement = get_tree().get_first_node_in_group("death_announcement")
+
+func _physics_process(delta):
 	if is_dead:
 		if $ReviveZone.monitoring:
 			for body in $ReviveZone.get_overlapping_bodies():
@@ -60,7 +61,6 @@ func _physics_process(delta: float) -> void:
 	velocity = lerp(velocity, input * max_speed, lerp_weight)
 	move_and_slide()
 
-	# Clamp to screen
 	var screen_size = get_viewport_rect().size
 	var margin := 10.0
 	position.x = clamp(position.x, margin, screen_size.x - margin)
@@ -68,11 +68,7 @@ func _physics_process(delta: float) -> void:
 
 	if p1_health <= 0 and not is_dead:
 		die()
-		$ReviveZone.monitoring = true
-		$ReviveZone/ReviveCollision.disabled = false
-		$CollisionShape2D_p1.disabled = true
 
-	# Handle weapon selection
 	if Input.is_action_just_pressed("p1_b"):
 		select_weapon(1)
 	elif Input.is_action_just_pressed("p1_l1"):
@@ -84,29 +80,22 @@ func _physics_process(delta: float) -> void:
 	elif Input.is_action_just_pressed("p1_r2"):
 		select_weapon(5)
 
-	# Fire weapon
 	if Input.is_action_just_pressed("p1_a") and current_weapon:
 		current_weapon.fire()
 
-#---------------------------------------------------
 func select_weapon(id: int):
 	if selected_weapon_id == id:
-		return  # Already selected
-
+		return
 	selected_weapon_id = id
-
 	if current_weapon:
 		current_weapon.queue_free()
-
 	var weapon_scene = weapon_scenes.get(id)
 	if weapon_scene:
 		current_weapon = weapon_scene.instantiate()
 		weapon_container.add_child(current_weapon)
 
-#---------------------------------------------------
 func die():
 	is_dead = true
-
 	if p1_revive >= p1_max_revive:
 		$CollisionShape2D_p1.disabled = true
 		animationplayer.play("PermaDeath")
@@ -114,24 +103,21 @@ func die():
 		set_physics_process(false)
 		set_process(false)
 		visible = false
-		death_announcement.text = "Player 1 has Died!"
-		death_announcement.visible = true
-		await get_tree().create_timer(2.0).timeout
-		death_announcement.visible = false
+		if death_announcement:
+			death_announcement.text = "Player 1 has Died!"
+			death_announcement.visible = true
+			await get_tree().create_timer(2.0).timeout
+			death_announcement.visible = false
 		return
 
 	$ReviveZone.monitoring = true
 	$ReviveZone/ReviveCollision.disabled = false
 	$CollisionShape2D_p1.disabled = true
-
 	animationplayer.play("Death_p1")
 	await animationplayer.animation_finished
-	animationplayer.stop()
 	animationplayer.play("reviveNeed_p1")
-
 	revive_label.visible = true
 
-#---------------------------------------------------
 func revive():
 	is_dead = false
 	revive_progress = 0
@@ -154,14 +140,18 @@ func revive():
 	if p1_revive >= p1_max_revive:
 		revive_count_label.text = "No revives left!"
 	else:
-		var revives_left = p1_max_revive - p1_revive
-		revive_count_label.text = str(revives_left) + " Revives Left"
+		revive_count_label.text = str(p1_max_revive - p1_revive) + " Revives Left"
 
 	revive_count_label.visible = true
 	await get_tree().create_timer(2.0).timeout
 	revive_count_label.visible = false
 
-#---------------------------------------------------
+func take_damage(amount: int):
+	if not is_dead and not is_invincible:
+		p1_health -= amount
+		spawn_damage_number(amount)
+		flash_red()
+
 func spawn_damage_number(amount: int):
 	var dmg_label = preload("res://FloatingText.tscn").instantiate()
 	dmg_label.text = "-" + str(amount)
@@ -179,20 +169,14 @@ func flash_red():
 	await tween.finished
 	$Sprite_p1.modulate = Color(1, 1, 1)
 
-#---------------------------------------------------
 func _on_test_area_body_entered(body: Node2D) -> void:
-	if body.name == "CharacterBodyP1" and not body.is_invincible:
-		var damage := 50
-		p1_health -= damage
-		body.spawn_damage_number(damage)
-		body.flash_red()
-		print("player1 HP:", body.p1_health)
+	if body.has_method("take_damage"):
+		body.take_damage(50)
 
 func _on_revive_zone_body_entered(body: Node2D) -> void:
 	if is_dead:
 		progress_bar.visible = true
-		if progress_bar.visible:
-			print("Reviving...")
+		print("Reviving...")
 
 func _on_revive_zone_body_exited(body: Node2D) -> void:
 	revive_progress = 0

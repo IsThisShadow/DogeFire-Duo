@@ -43,3 +43,9 @@ vertical_alignment = 1
 layout_mode = 2
 text = "Press Start to Continue
 "
+
+[node name="nextLevelLabel" type="Label" parent="UIBox"]
+layout_mode = 2
+
+[node name="equipInfoLabel" type="Label" parent="UIBox"]
+layout_mode = 2

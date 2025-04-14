@@ -15,7 +15,7 @@ func _ready():
 
 	# ⏳ For testing: after 10s, go to unlock screen (except after level 5)
 	if current_level < 5:
-		await get_tree().create_timer(10.0).timeout
+		await get_tree().create_timer(60.0).timeout
 		_show_weapon_unlock_screen(current_level + 1)
 
 func _process(delta):

@@ -4,12 +4,12 @@ extends CharacterBody2D
 @onready var progress_bar: ProgressBar = $ReviveZone_p2/ReviveProgressBar_p2
 @onready var revive_label: Label = $ReviveLabel_p2
 @onready var revive_count_label: Label = $ReviveCountLabel_p2
-@onready var death_announcement: Label = get_node("/root/MainLvl_1/DeathAnnouncement")
 @onready var revive_timer_label: Label = $ReviveCountdownLabel_p2
 @onready var weapon_container = $WeaponContainer
 @onready var shoot_point = $WeaponContainer/Marker2D
 
-# Weapon scenes
+var death_announcement: Label = null
+
 var weapon1_scene = preload("res://Scenes/Weapon1.tscn")
 var weapon2_scene = preload("res://Scenes/Weapon2.tscn")
 var weapon3_scene = preload("res://Scenes/Weapon3.tscn")
@@ -19,10 +19,9 @@ var weapon5_scene = preload("res://Scenes/Weapon5.tscn")
 var current_weapon_instance = null
 var current_weapon_index = 0
 
-# Movement and state
-const max_speed: int = 250
-const acceleration: int = 5
-const friction: int = 3
+const max_speed := 250
+const acceleration := 5
+const friction := 3
 const revive_time := 2.5
 
 var p2_health = 70
@@ -35,11 +34,10 @@ var is_invincible := false
 var revive_time_limit := 10
 var revive_timer := 0.0
 
-#different color to indicate difference between the two players
 func _ready():
 	$Sprite_p2.modulate = Color(0.6, 0.6, 1.2)
-	
-	
+	death_announcement = get_tree().get_first_node_in_group("death_announcement")
+
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		for body in $ReviveZone_p2.get_overlapping_bodies():
@@ -65,7 +63,6 @@ func _physics_process(delta: float) -> void:
 	velocity = lerp(velocity, input * max_speed, lerp_weight)
 	move_and_slide()
 
-	# Clamp position to screen
 	var screen_size = get_viewport_rect().size
 	var margin := 10.0
 	position.x = clamp(position.x, margin, screen_size.x - margin)
@@ -77,7 +74,6 @@ func _physics_process(delta: float) -> void:
 		$ReviveZone_p2/ReviveCollision_p2.disabled = false
 		$CollisionShape2D_p2.disabled = true
 
-	# Weapon switching
 	if Input.is_action_just_pressed("p2_b"):
 		equip_weapon(1)
 	elif Input.is_action_just_pressed("p2_l1"):
@@ -89,7 +85,6 @@ func _physics_process(delta: float) -> void:
 	elif Input.is_action_just_pressed("p2_r2"):
 		equip_weapon(5)
 
-	# Weapon firing
 	if Input.is_action_just_pressed("p2_a") and current_weapon_instance and current_weapon_instance.has_method("fire"):
 		current_weapon_instance.fire()
 
@@ -129,10 +124,11 @@ func die():
 		set_physics_process(false)
 		visible = false
 
-		death_announcement.text = "Player 2 has Died!"
-		death_announcement.visible = true
-		await get_tree().create_timer(2.0).timeout
-		death_announcement.visible = false
+		if death_announcement:
+			death_announcement.text = "Player 2 has Died!"
+			death_announcement.visible = true
+			await get_tree().create_timer(2.0).timeout
+			death_announcement.visible = false
 		return
 
 	is_dead = true
@@ -166,8 +162,7 @@ func revive():
 	if p2_revive >= p2_max_revive:
 		revive_count_label.text = "No revives left!"
 	else:
-		var revives_left = p2_max_revive - p2_revive
-		revive_count_label.text = str(revives_left) + " Revives Left"
+		revive_count_label.text = str(p2_max_revive - p2_revive) + " Revives Left"
 
 	revive_count_label.visible = true
 	await get_tree().create_timer(2.0).timeout

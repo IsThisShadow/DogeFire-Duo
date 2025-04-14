@@ -130,7 +130,7 @@ motion_mirroring = Vector2(640, 0)
 texture = ExtResource("9_lx85q")
 centered = false
 
-[node name="DeathAnnouncement" type="Label" parent="."]
+[node name="DeathAnnouncement" type="Label" parent="." groups=["death_announcement"]]
 visible = false
 offset_right = 40.0
 offset_bottom = 23.0

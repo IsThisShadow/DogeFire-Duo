@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/mode=3
 window/size/initial_position=Vector2i(320, 180)
 window/size/resizable=false
 window/size/borderless=true
