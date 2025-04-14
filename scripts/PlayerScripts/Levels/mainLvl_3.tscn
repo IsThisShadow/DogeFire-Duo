@@ -53,6 +53,14 @@ offset_right = 76.0
 offset_bottom = 24.0
 text = "100"
 
+[node name="P1ScoreLabel" type="Label" parent="HUD/Control" groups=["p1_score_label"]]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 47.0
+offset_right = 75.0
+offset_bottom = 70.0
+text = "Score: 0"
+
 [node name="Control2" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 1
@@ -92,6 +100,14 @@ offset_top = -1.0
 offset_bottom = 22.0
 text = "100"
 
+[node name="P2ScoreLabel" type="Label" parent="HUD/Control2" groups=["p2_score_label"]]
+layout_mode = 0
+offset_left = -23.0
+offset_top = 47.0
+offset_right = 38.0
+offset_bottom = 70.0
+text = "Score: 0"
+
 [node name="EnemyTest" parent="." instance=ExtResource("2_q8xvq")]
 position = Vector2(548, 174)
 
@@ -130,7 +146,7 @@ motion_mirroring = Vector2(640, 0)
 texture = ExtResource("9_hsyqg")
 centered = false
 
-[node name="DeathAnnouncement" type="Label" parent="."]
+[node name="DeathAnnouncement" type="Label" parent="." groups=["death_announcement"]]
 visible = false
 offset_right = 40.0
 offset_bottom = 23.0

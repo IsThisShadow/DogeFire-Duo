@@ -24,7 +24,7 @@ const acceleration := 5
 const friction := 3
 const revive_time := 2.5
 
-var p2_health = 70
+var p2_health = 100
 var p2_maxHealth = 100
 var is_dead = false
 var p2_max_revive = 3
@@ -145,16 +145,18 @@ func revive():
 	revive_progress = 0
 	progress_bar.visible = false
 	revive_label.visible = false
-	$ReviveZone_p2.monitoring = false
 	p2_health = p2_maxHealth
-	$ReviveZone_p2/ReviveCollision_p2.disabled = true
-	$CollisionShape2D_p2.disabled = false
 
 	is_invincible = true
-	var blink = get_tree().create_tween()
-	blink.set_loops(4)
-	blink.tween_property($Sprite_p2, "modulate", Color(0.6, 0.6, 1.8), 0.25)
-	blink.tween_property($Sprite_p2, "modulate", Color(1, 1, 1), 0.25)
+	animationplayer.play("reviveNeed_p2")
+
+	while $ReviveZone_p2.get_overlapping_bodies().size() > 0:
+		await get_tree().process_frame
+
+	$CollisionShape2D_p2.disabled = false
+	$ReviveZone_p2.monitoring = false
+	$ReviveZone_p2/ReviveCollision_p2.disabled = true
+
 	await get_tree().create_timer(2.0).timeout
 	is_invincible = false
 

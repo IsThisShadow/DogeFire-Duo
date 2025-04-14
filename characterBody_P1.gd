@@ -23,7 +23,7 @@ const acceleration := 5
 const friction := 3
 const revive_time := 2.5
 
-var p1_health := 50
+var p1_health := 100
 var p1_maxHealth = 100
 var is_dead = false
 var p1_max_revive = 3
@@ -96,6 +96,7 @@ func select_weapon(id: int):
 
 func die():
 	is_dead = true
+
 	if p1_revive >= p1_max_revive:
 		$CollisionShape2D_p1.disabled = true
 		animationplayer.play("PermaDeath")
@@ -103,6 +104,7 @@ func die():
 		set_physics_process(false)
 		set_process(false)
 		visible = false
+
 		if death_announcement:
 			death_announcement.text = "Player 1 has Died!"
 			death_announcement.visible = true
@@ -113,9 +115,13 @@ func die():
 	$ReviveZone.monitoring = true
 	$ReviveZone/ReviveCollision.disabled = false
 	$CollisionShape2D_p1.disabled = true
+
 	animationplayer.play("Death_p1")
 	await animationplayer.animation_finished
+
+	animationplayer.stop()
 	animationplayer.play("reviveNeed_p1")
+
 	revive_label.visible = true
 
 func revive():
@@ -123,16 +129,19 @@ func revive():
 	revive_progress = 0
 	progress_bar.visible = false
 	revive_label.visible = false
-	$ReviveZone.monitoring = false
 	p1_health = p1_maxHealth
-	$ReviveZone/ReviveCollision.disabled = true
-	$CollisionShape2D_p1.disabled = false
 
 	is_invincible = true
-	var blink_tween = get_tree().create_tween()
-	blink_tween.set_loops(4)
-	blink_tween.tween_property($Sprite_p1, "modulate", Color(0.6, 0.6, 1.8), 0.25)
-	blink_tween.tween_property($Sprite_p1, "modulate", Color(1, 1, 1), 0.25)
+	animationplayer.play("reviveNeed_p1")
+	print("revive animation")
+
+	while $ReviveZone.get_overlapping_bodies().size() > 0:
+		await get_tree().process_frame
+
+	$CollisionShape2D_p1.disabled = false
+	$ReviveZone.monitoring = false
+	$ReviveZone/ReviveCollision.disabled = true
+
 	await get_tree().create_timer(2.0).timeout
 	is_invincible = false
 
