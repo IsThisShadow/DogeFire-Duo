@@ -1,8 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://b41y3qaub0rna"]
+[gd_scene load_steps=12 format=3 uid="uid://b41y3qaub0rna"]
 
+[ext_resource type="Script" uid="uid://blfx22055wjwc" path="res://scripts/PlayerScripts/Levels/main_lvl_4.gd" id="1_tm4t6"]
 [ext_resource type="PackedScene" uid="uid://wosei8oo5blp" path="res://EnemyTest.tscn" id="2_k2cak"]
+[ext_resource type="Texture2D" uid="uid://bfgjf0iyokkp4" path="res://Assets/Pixel Health Bar/Bar/no health bar.png" id="3_k2cak"]
 [ext_resource type="PackedScene" uid="uid://b44ebn5xhv34r" path="res://characterBodyP1.tscn" id="3_tm4t6"]
 [ext_resource type="Script" uid="uid://dtdcfjsj4r8i0" path="res://scripts/PlayerScripts/Levels/parallax_background_lvl4.gd" id="4_jimy6"]
+[ext_resource type="Texture2D" uid="uid://ctysprhh2qur0" path="res://Assets/Pixel Health Bar/Bar/health bar.png" id="4_tm4t6"]
 [ext_resource type="PackedScene" uid="uid://ckmiuk6k2658l" path="res://characterBodyP2.tscn" id="4_vi2yg"]
 [ext_resource type="Texture2D" uid="uid://bvccngnd3tt2b" path="res://2D Space Parallax Backgrounds/layers/black_bg.png" id="6_qr2eo"]
 [ext_resource type="Texture2D" uid="uid://b71b1etq41ye2" path="res://2D Space Parallax Backgrounds/layers/nebula.png" id="7_ovuje"]
@@ -10,15 +13,87 @@
 [ext_resource type="Texture2D" uid="uid://diwt20qjdcldu" path="res://2D Space Parallax Backgrounds/layers/big_stars.png" id="9_k3o1g"]
 
 [node name="MainLvl_4" type="Node2D"]
-
-[node name="EnemyTest" parent="." instance=ExtResource("2_k2cak")]
-position = Vector2(548, 174)
+script = ExtResource("1_tm4t6")
 
 [node name="CharacterBodyP1" parent="." instance=ExtResource("3_tm4t6")]
 position = Vector2(195, 269)
 
 [node name="CharacterBodyP2" parent="." instance=ExtResource("4_vi2yg")]
 position = Vector2(142, 138)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="P1HealthBar" type="TextureProgressBar" parent="HUD/Control"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 129.0
+offset_bottom = 40.0
+texture_under = ExtResource("3_k2cak")
+texture_progress = ExtResource("4_tm4t6")
+
+[node name="P1HealthBar2" type="Label" parent="HUD/Control"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 15.0
+offset_right = 91.0
+offset_bottom = 38.0
+text = "PLAYER 1"
+
+[node name="P1PercentLabel" type="Label" parent="HUD/Control"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 1.0
+offset_right = 76.0
+offset_bottom = 24.0
+text = "100"
+
+[node name="Control2" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="P2HealthBar" type="TextureProgressBar" parent="HUD/Control2"]
+modulate = Color(0.4, 1, 1, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -89.0
+offset_top = 2.0
+offset_right = -1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_under = ExtResource("3_k2cak")
+texture_progress = ExtResource("4_tm4t6")
+
+[node name="P2HealthBar2" type="Label" parent="HUD/Control2"]
+layout_mode = 0
+offset_left = -38.0
+offset_top = 20.0
+offset_right = 34.0
+offset_bottom = 43.0
+text = "PLAYER 2"
+
+[node name="P2PercentLabel" type="Label" parent="HUD/Control2"]
+layout_mode = 0
+offset_left = -40.0
+offset_top = -1.0
+offset_bottom = 22.0
+text = "100"
+
+[node name="EnemyTest" parent="." instance=ExtResource("2_k2cak")]
+position = Vector2(548, 174)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource("4_jimy6")

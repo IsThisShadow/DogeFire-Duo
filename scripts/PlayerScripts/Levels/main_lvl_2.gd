@@ -1,7 +1,7 @@
 extends Node2D
 
 var is_two_player_mode := false
-var current_level := 1  # 👈 Set this to 1, 2, 3, 4, or 5 depending on the scene
+var current_level := 2  # 👈 Set this to 1, 2, 3, 4, or 5 depending on the scene
 
 func set_2_players(enable: bool):
 	is_two_player_mode = enable
