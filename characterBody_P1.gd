@@ -34,6 +34,10 @@ var is_invincible := false
 func _ready():
 	$Sprite_p1.modulate = Color(1.2, 0.5, 0.5)
 	death_announcement = get_tree().get_first_node_in_group("death_announcement")
+	
+	# Load stats from global
+	p1_health = Global.player1_health
+	p1_revive = Global.player1_revives
 
 func _physics_process(delta):
 	if is_dead:
@@ -146,18 +150,19 @@ func revive():
 	is_invincible = false
 
 	p1_revive += 1
-	if p1_revive >= p1_max_revive:
-		revive_count_label.text = "No revives left!"
-	else:
-		revive_count_label.text = str(p1_max_revive - p1_revive) + " Revives Left"
-
+	revive_count_label.text = "No revives left!" if p1_revive >= p1_max_revive else str(p1_max_revive - p1_revive) + " Revives Left"
 	revive_count_label.visible = true
 	await get_tree().create_timer(2.0).timeout
 	revive_count_label.visible = false
 
+	# Save updated stats
+	Global.player1_health = p1_health
+	Global.player1_revives = p1_revive
+
 func take_damage(amount: int):
 	if not is_dead and not is_invincible:
 		p1_health -= amount
+		Global.player1_health = p1_health  # Save to global
 		spawn_damage_number(amount)
 		flash_red()
 

@@ -191,5 +191,5 @@ theme_override_font_sizes/font_size = 40
 
 [node name="Marker2D" type="Marker2D" parent="WeaponContainer"]
 
-[connection signal="body_entered" from="ReviveZone_p2" to="." method="_on_revive_zone_p_2_body_entered"]
-[connection signal="body_exited" from="ReviveZone_p2" to="." method="_on_revive_zone_p_2_body_exited"]
+[connection signal="body_entered" from="ReviveZone_p2" to="." method="_on_revive_zone_body_entered"]
+[connection signal="body_exited" from="ReviveZone_p2" to="." method="_on_revive_zone_body_exited"]
