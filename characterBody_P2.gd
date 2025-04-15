@@ -100,7 +100,7 @@ func select_weapon(id: int):
 
 func die():
 	is_dead = true
-
+	progress_bar.visible = false
 	if p2_revive >= p2_max_revive:
 		$CollisionShape2D_p2.disabled = true
 		animationplayer.play("PermaDeath")
@@ -127,7 +127,6 @@ func die():
 	animationplayer.play("reviveNeed_p2")
 
 	revive_label.visible = true
-	progress_bar.visible = true  # <- force show for debug
 	print("Player 2 is dead. Showing revive UI.")
 
 func revive():
@@ -195,7 +194,8 @@ func _on_revive_zone_body_entered(body: Node2D) -> void:
 		print("P2 Revive Started: P1 entered the zone.")
 
 func _on_revive_zone_body_exited(body: Node2D) -> void:
-	revive_progress = 0
-	progress_bar.value = 0
-	progress_bar.visible = false
-	print("P2 Revive Cancelled: P1 left the zone.")
+	if is_dead and body.name == "CharacterBodyP1":
+		revive_progress = 0
+		progress_bar.value = 0
+		progress_bar.visible = false
+		print("P2 Revive Cancelled: P1 left the zone.")
