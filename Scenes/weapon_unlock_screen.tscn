@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0pwgemgq86bc"]
+[gd_scene load_steps=4 format=3 uid="uid://b0pwgemgq86bc"]
 
 [ext_resource type="Script" uid="uid://cxyxbje4y883d" path="res://weapon_unlock_screen.gd" id="1_tmbdm"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="2_5w55y"]
+[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://2D Space Parallax Backgrounds/layers/complete.png" id="2_n816y"]
 
 [node name="WeaponUnlockScreen" type="Control"]
 layout_mode = 3
@@ -11,41 +13,79 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tmbdm")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 640.0
 offset_bottom = 360.0
-color = Color(0, 0, 0, 1)
+texture = ExtResource("2_n816y")
+expand_mode = 2
 
 [node name="UIBox" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 240.0
-offset_top = 48.0
-offset_right = 385.0
-offset_bottom = 114.0
+offset_left = 235.0
+offset_top = 69.0
+offset_right = 427.0
+offset_bottom = 206.0
 alignment = 1
-
-[node name="TitleLabel" type="Label" parent="UIBox"]
-layout_mode = 2
-text = "Weapon Unlocked!"
 
 [node name="WeaponIcon" type="TextureRect" parent="UIBox"]
 layout_mode = 2
 stretch_mode = 5
 
-[node name="weaponNameLabel" type="Label" parent="UIBox"]
-layout_mode = 2
-text = "Weapon 3 - laser cannon"
+[node name="wrapperWeapon" type="Node2D" parent="UIBox"]
+position = Vector2(-37, -32)
+
+[node name="weaponNameLabel" type="Label" parent="UIBox/wrapperWeapon"]
+offset_left = 44.0
+offset_top = 2.0
+offset_right = 593.0
+offset_bottom = 106.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_5w55y")
+theme_override_font_sizes/font_size = 80
+text = "weapon name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ContinueButton" type="Button" parent="UIBox"]
-layout_mode = 2
-text = "Press Start to Continue
-"
+[node name="wrapperContinue" type="Node2D" parent="UIBox"]
+position = Vector2(-9, 205)
+scale = Vector2(1.1, 1)
 
-[node name="nextLevelLabel" type="Label" parent="UIBox"]
-layout_mode = 2
+[node name="ContinueButton" type="Button" parent="UIBox/wrapperContinue"]
+offset_left = 1.81818
+offset_top = 42.0
+offset_right = 949.818
+offset_bottom = 154.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_5w55y")
+theme_override_font_sizes/font_size = 80
+text = "Press Start to Continue "
 
-[node name="equipInfoLabel" type="Label" parent="UIBox"]
-layout_mode = 2
+[node name="wrapperNextLevel" type="Node2D" parent="UIBox"]
+position = Vector2(-26, 55)
+
+[node name="nextLevelLabel" type="Label" parent="UIBox/wrapperNextLevel"]
+offset_left = 55.0
+offset_top = 163.0
+offset_right = 455.0
+offset_bottom = 274.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_5w55y")
+theme_override_font_sizes/font_size = 85
+text = "next level"
+horizontal_alignment = 1
+
+[node name="wrapperEquip" type="Node2D" parent="UIBox"]
+position = Vector2(5, 70)
+
+[node name="equipInfoLabel" type="Label" parent="UIBox/wrapperEquip"]
+z_index = 9
+offset_left = 2.0
+offset_top = -71.0
+offset_right = 194.0
+offset_bottom = -48.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_5w55y")
+theme_override_font_sizes/font_size = 80
+text = "press to equip"
+horizontal_alignment = 1
