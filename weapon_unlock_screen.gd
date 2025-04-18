@@ -16,12 +16,12 @@ func _ready():
 func _show_weapon_info():
 	match next_level_index:
 		2:
-			# weapon_icon.texture = preload("res://weapons/weapon3.png")
+			#weapon_icon.texture = preload("res://gun (1).png")
 			weapon_name_label.text = "Weapon 3 - Laser Cannon"
 			next_level_label.text = "Next: Entering Level 2"
 			equip_info_label.text = "Press '3' to equip this weapon in-game"
 		3:
-			# weapon_icon.texture = preload("res://weapons/weapon4.png")
+			#weapon_icon.texture = preload("res://weapons/weapon4.png")
 			weapon_name_label.text = "Weapon 4 - Plasma Beam"
 			next_level_label.text = "Next: Entering Level 3"
 			equip_info_label.text = "Press '4' to equip this weapon in-game"
