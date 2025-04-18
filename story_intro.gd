@@ -53,7 +53,7 @@ func type_story():
 	if current_index < full_story.length():
 		story_label.text += full_story[current_index]
 		current_index += 1
-		await get_tree().create_timer(0.035).timeout
+		await get_tree().create_timer(0.01).timeout
 		type_story()
 	else:
 		await get_tree().create_timer(2.0).timeout

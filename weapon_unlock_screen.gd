@@ -1,10 +1,10 @@
 extends Control
 
-@onready var continue_button = $UIBox/ContinueButton
-@onready var weapon_name_label = $UIBox/weaponNameLabel
+@onready var continue_button = $UIBox/wrapperContinue/ContinueButton
+@onready var weapon_name_label = $UIBox/wrapperWeapon/weaponNameLabel
 @onready var weapon_icon = $UIBox/WeaponIcon
-@onready var next_level_label = $UIBox/nextLevelLabel
-@onready var equip_info_label = $UIBox/equipInfoLabel
+@onready var next_level_label = $UIBox/wrapperNextLevel/nextLevelLabel
+@onready var equip_info_label = $UIBox/wrapperEquip/equipInfoLabel
 
 var is_two_player_mode := false
 var next_level_index := 0
@@ -19,17 +19,17 @@ func _show_weapon_info():
 			#weapon_icon.texture = preload("res://gun (1).png")
 			weapon_name_label.text = "Weapon 3 - Laser Cannon"
 			next_level_label.text = "Next: Entering Level 2"
-			equip_info_label.text = "Press '3' to equip this weapon in-game"
+			equip_info_label.text = "Press 'L2' to equip this weapon in-game"
 		3:
 			#weapon_icon.texture = preload("res://weapons/weapon4.png")
 			weapon_name_label.text = "Weapon 4 - Plasma Beam"
 			next_level_label.text = "Next: Entering Level 3"
-			equip_info_label.text = "Press '4' to equip this weapon in-game"
+			equip_info_label.text = "Press 'R1' to equip this weapon in-game"
 		4:
 			# weapon_icon.texture = preload("res://weapons/weapon5.png")
 			weapon_name_label.text = "Weapon 5 - Omega Blaster"
 			next_level_label.text = "Next: Entering Level 4"
-			equip_info_label.text = "Press '5' to equip this weapon in-game"
+			equip_info_label.text = "Press 'R2' to equip this weapon in-game"
 		5:
 			# weapon_icon.texture = null
 			weapon_name_label.text = "ALL Weapons Unlocked!"
