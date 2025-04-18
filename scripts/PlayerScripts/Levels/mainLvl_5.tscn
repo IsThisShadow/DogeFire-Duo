@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cua80e6cbtcbg"]
+[gd_scene load_steps=13 format=3 uid="uid://cua80e6cbtcbg"]
 
 [ext_resource type="Script" uid="uid://b4jxxb3dyy5ki" path="res://scripts/PlayerScripts/Levels/main_lvl_5.gd" id="1_5pm2v"]
 [ext_resource type="PackedScene" uid="uid://wosei8oo5blp" path="res://EnemyTest.tscn" id="2_67rsj"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ctysprhh2qur0" path="res://Assets/Pixel Health Bar/Bar/health bar.png" id="4_5pm2v"]
 [ext_resource type="PackedScene" uid="uid://ckmiuk6k2658l" path="res://characterBodyP2.tscn" id="4_jbsp5"]
 [ext_resource type="Texture2D" uid="uid://bvccngnd3tt2b" path="res://2D Space Parallax Backgrounds/layers/black_bg.png" id="6_6qmfb"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="6_jbsp5"]
 [ext_resource type="Texture2D" uid="uid://b71b1etq41ye2" path="res://2D Space Parallax Backgrounds/layers/nebula.png" id="7_84b1l"]
 [ext_resource type="Texture2D" uid="uid://60hvkelfx71c" path="res://2D Space Parallax Backgrounds/layers/small_stars.png" id="8_w3b7r"]
 [ext_resource type="Texture2D" uid="uid://diwt20qjdcldu" path="res://2D Space Parallax Backgrounds/layers/big_stars.png" id="9_lx85q"]
@@ -39,24 +40,36 @@ texture_progress = ExtResource("4_5pm2v")
 
 [node name="P1HealthBar2" type="Label" parent="HUD/Control"]
 layout_mode = 0
-offset_left = 19.0
+offset_left = 5.0
 offset_top = 15.0
-offset_right = 91.0
-offset_bottom = 38.0
+offset_right = 309.0
+offset_bottom = 121.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_jbsp5")
+theme_override_font_sizes/font_size = 70
 text = "PLAYER 1"
 
 [node name="P1PercentLabel" type="Label" parent="HUD/Control"]
 layout_mode = 0
-offset_left = 36.0
-offset_top = 1.0
-offset_right = 76.0
-offset_bottom = 24.0
+offset_left = 49.0
+offset_top = -1.0
+offset_right = 204.0
+offset_bottom = 90.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_jbsp5")
+theme_override_font_sizes/font_size = 70
 text = "100"
 
 [node name="P1ScoreLabel" type="Label" parent="HUD/Control" groups=["p1_score_label"]]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 5.0
+offset_top = 35.0
+offset_right = 286.0
+offset_bottom = 175.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_jbsp5")
+theme_override_font_sizes/font_size = 70
+text = "Score: 0"
 
 [node name="Control2" type="Control" parent="HUD"]
 layout_mode = 3
@@ -84,23 +97,36 @@ texture_progress = ExtResource("4_5pm2v")
 
 [node name="P2HealthBar2" type="Label" parent="HUD/Control2"]
 layout_mode = 0
-offset_left = -38.0
-offset_top = 20.0
+offset_left = -84.0
+offset_top = 17.0
 offset_right = 34.0
 offset_bottom = 43.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_jbsp5")
+theme_override_font_sizes/font_size = 70
 text = "PLAYER 2"
 
 [node name="P2PercentLabel" type="Label" parent="HUD/Control2"]
 layout_mode = 0
 offset_left = -40.0
-offset_top = -1.0
-offset_bottom = 22.0
+offset_top = 1.0
+offset_right = 81.0
+offset_bottom = 101.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_jbsp5")
+theme_override_font_sizes/font_size = 70
 text = "100"
 
 [node name="P2ScoreLabel" type="Label" parent="HUD/Control2" groups=["p2_score_label"]]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = -84.0
+offset_top = 37.0
+offset_right = 197.0
+offset_bottom = 132.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_jbsp5")
+theme_override_font_sizes/font_size = 70
+text = "Score: 0"
 
 [node name="EnemyTest" parent="." instance=ExtResource("2_67rsj")]
 position = Vector2(548, 174)
