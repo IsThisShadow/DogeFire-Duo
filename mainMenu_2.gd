@@ -72,6 +72,10 @@ func fade_out_ui():
 func start_story_scene():
 	print(">> Loading story scene...")
 
+	# Set global values for pause system and scene tracking
+	Global.is_two_player_mode = is_two_player_mode
+	Global.current_scene_name = "StoryIntro"
+
 	var story_scene = preload("res://StoryIntro.tscn").instantiate()
 	story_scene.is_two_player_mode = is_two_player_mode
 
@@ -81,3 +85,6 @@ func start_story_scene():
 
 	get_tree().get_root().add_child(story_scene)
 	get_tree().current_scene = story_scene
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()

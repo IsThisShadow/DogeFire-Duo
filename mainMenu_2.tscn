@@ -227,7 +227,7 @@ offset_bottom = 108.0
 alignment = 1
 
 [node name="TipesWrapper" type="Node2D" parent="UIFadeGroup/VBoxContainer"]
-position = Vector2(-294, -148)
+position = Vector2(-296, -172)
 
 [node name="TipsButton" type="Button" parent="UIFadeGroup/VBoxContainer/TipesWrapper"]
 offset_left = 258.0
@@ -267,6 +267,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ControlWrapper" type="Node2D" parent="UIFadeGroup/VBoxContainer"]
+position = Vector2(-2, -14)
 
 [node name="ControlButton" type="Button" parent="UIFadeGroup/VBoxContainer/ControlWrapper"]
 offset_left = -36.0
@@ -276,6 +277,21 @@ offset_bottom = 48.0
 theme_override_fonts/font = ExtResource("2_20xwr")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_otx5p")
 text = "Control
+"
+icon = ExtResource("3_80tsv")
+flat = true
+icon_alignment = 1
+
+[node name="QuitGameWrapper" type="Node2D" parent="UIFadeGroup/VBoxContainer"]
+position = Vector2(-13, -16)
+
+[node name="QuitButton" type="Button" parent="UIFadeGroup/VBoxContainer/QuitGameWrapper"]
+offset_left = -215.0
+offset_top = 51.0
+offset_right = 289.0
+offset_bottom = 189.0
+theme_override_fonts/font = ExtResource("2_20xwr")
+text = "Quit Game
 "
 icon = ExtResource("3_80tsv")
 flat = true
@@ -303,6 +319,7 @@ libraries = {
 }
 
 [node name="ReadyWrapperP2" type="Node2D" parent="UIFadeGroup"]
+position = Vector2(9, 1)
 scale = Vector2(0.9, 0.9)
 
 [node name="ReadyLabelP2" type="Label" parent="UIFadeGroup/ReadyWrapperP2"]
@@ -327,3 +344,5 @@ libraries = {
 libraries = {
 &"": SubResource("AnimationLibrary_tpnuv")
 }
+
+[connection signal="pressed" from="UIFadeGroup/VBoxContainer/QuitGameWrapper/QuitButton" to="." method="_on_quit_button_pressed"]

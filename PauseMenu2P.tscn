@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7fcqsn5jatcy"]
+
+[ext_resource type="Script" uid="uid://chenxecmtkix7" path="res://pause_menu_2p.gd" id="1_tf24n"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tf24n")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.0562916, 0.0562916, 0.0562916, 1)
+
+[node name="CenterContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 47.0
+
+[node name="GamePausedLabel" type="Label" parent="CenterContainer"]
+layout_mode = 2
+text = "Game Paused 2 player"
+
+[node name="ResumeButton" type="Button" parent="CenterContainer"]
+layout_mode = 2
+text = "Resume
+"
+
+[node name="ReturnMainMenuButton" type="Button" parent="CenterContainer"]
+layout_mode = 2
+text = "Return to main menu"
+
+[node name="ControlsButton" type="Button" parent="CenterContainer"]
+layout_mode = 2
+text = "Controls
+"
+
+[node name="GameTipsButton" type="Button" parent="CenterContainer"]
+layout_mode = 2
+text = "Game Tips"
+
+[node name="QuitGameButton" type="Button" parent="CenterContainer"]
+layout_mode = 2
+text = "Quit Game
+"
+
+[connection signal="pressed" from="CenterContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CenterContainer/ReturnMainMenuButton" to="." method="_on_return_main_menu_button_pressed"]
+[connection signal="pressed" from="CenterContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]

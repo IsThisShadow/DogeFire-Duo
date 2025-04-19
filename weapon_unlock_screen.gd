@@ -7,6 +7,10 @@ var is_two_player_mode := false
 var next_level_index := 1  # Set this appropriately before this screen loads
 
 func _ready():
+	# Set scene context for pause system
+	Global.current_scene_name = "weapon_unlock_screen"
+	Global.is_two_player_mode = is_two_player_mode
+
 	# Hide "Ready" labels initially
 	$UIBox/ReadyWrapperP1/Player1ReadyLabel.visible = false
 	$UIBox/ReadyWrapperP2/Player2ReadyLabel.visible = false
@@ -55,6 +59,10 @@ func start_countdown():
 	load_next_level()
 
 func load_next_level():
+	# Set up next level info for pause system
+	Global.current_scene_name = "mainLvl_%d" % next_level_index
+	Global.is_two_player_mode = is_two_player_mode
+
 	var next_scene_path = "res://scripts/PlayerScripts/Levels/mainLvl_%d.tscn" % next_level_index
 	var next_scene = load(next_scene_path).instantiate()
 	next_scene.set_2_players(is_two_player_mode)

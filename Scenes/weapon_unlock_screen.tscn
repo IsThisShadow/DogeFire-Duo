@@ -160,7 +160,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="wrapperContinue" type="Node2D" parent="UIBox"]
-position = Vector2(-9, 205)
+position = Vector2(2, 207)
 scale = Vector2(1.1, 1)
 
 [node name="CountdownLabel" type="Label" parent="UIBox/wrapperContinue"]
@@ -180,7 +180,7 @@ libraries = {
 }
 
 [node name="wrapperNextLevel" type="Node2D" parent="UIBox"]
-position = Vector2(-26, 55)
+position = Vector2(-18, 55)
 
 [node name="nextLevelLabel" type="Label" parent="UIBox/wrapperNextLevel"]
 offset_left = 34.0
