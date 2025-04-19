@@ -1,8 +1,10 @@
 extends Control
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false  # Hide until shown
 	set_process_input(true)
+	
 
 func _input(event):
 	if event.is_action_pressed("p1_x") or event.is_action_pressed("p2_x"):

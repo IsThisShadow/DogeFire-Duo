@@ -9,13 +9,14 @@ func set_2_players(enable: bool):
 	_setup_players()
 
 func _ready():
+	Global.current_scene_name = "mainLvl_3"
 	print(">> Scene loaded, 2P mode is:", is_two_player_mode)
 	_setup_health_bars()
 	_set_parallax_speed()
 
 	# ⏳ For testing: after 10s, go to unlock screen (except after level 5)
 	if current_level < 5:
-		await get_tree().create_timer(10.0).timeout
+		await get_tree().create_timer(10.0, true).timeout
 		_show_weapon_unlock_screen(current_level + 1)
 
 func _process(delta):
