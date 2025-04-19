@@ -42,15 +42,16 @@ func pause_game():
 		var scene_path = "res://PauseMenu2P.tscn" if is_two_player_mode else "res://PauseMenu1P.tscn"
 		pause_menu = load(scene_path).instantiate()
 		get_tree().get_root().add_child(pause_menu)
+		pause_menu.process_mode = Node.PROCESS_MODE_ALWAYS  # Ensure it works while paused
 
 	pause_menu.visible = true
-
 
 # === Resume the game ===
 func resume_game():
 	get_tree().paused = false
 	if pause_menu:
-		pause_menu.visible = false
+		pause_menu.queue_free()  # Clean it up
+		pause_menu = null
 
 # === Reset Method ===
 func reset_stats():

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://djvn33og7lda1" path="res://pause_menu_1p.gd" id="1_4bko2"]
 
 [node name="Control" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -17,6 +17,7 @@
 script = ExtResource("1_gtmw4")
 
 [node name="CharacterBodyP1" parent="." instance=ExtResource("3_0w4dj")]
+z_index = 0
 position = Vector2(195, 269)
 
 [node name="CharacterBodyP2" parent="." instance=ExtResource("4_f1hde")]

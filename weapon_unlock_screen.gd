@@ -7,9 +7,10 @@ var is_two_player_mode := false
 var next_level_index := 1  # Set this appropriately before this screen loads
 
 func _ready():
-	# Set scene context for pause system
+	
 	Global.current_scene_name = "weapon_unlock_screen"
 	Global.is_two_player_mode = is_two_player_mode
+	set_process_input(true)  #  Needed to use _input()
 
 	# Hide "Ready" labels initially
 	$UIBox/ReadyWrapperP1/Player1ReadyLabel.visible = false
@@ -24,6 +25,13 @@ func _ready():
 	$UIBox/wrapperContinue/AnimationPlayer.play("FlashStart")
 
 	_show_weapon_info()
+
+func _input(event):
+	if countdown_started:
+		return
+
+	if event.is_action_pressed("p1_x") or event.is_action_pressed("p2_x"):
+		Global.toggle_pause_menu()
 
 func _process(delta):
 	if countdown_started:
@@ -59,7 +67,6 @@ func start_countdown():
 	load_next_level()
 
 func load_next_level():
-	# Set up next level info for pause system
 	Global.current_scene_name = "mainLvl_%d" % next_level_index
 	Global.is_two_player_mode = is_two_player_mode
 

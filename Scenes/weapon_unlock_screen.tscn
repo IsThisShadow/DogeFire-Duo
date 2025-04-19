@@ -197,7 +197,6 @@ horizontal_alignment = 1
 position = Vector2(5, 70)
 
 [node name="equipInfoLabel" type="Label" parent="UIBox/wrapperEquip"]
-z_index = 9
 offset_left = 2.0
 offset_top = -71.0
 offset_right = 194.0

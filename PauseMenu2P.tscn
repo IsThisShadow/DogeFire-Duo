@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://chenxecmtkix7" path="res://pause_menu_2p.gd" id="1_tf24n"]
 
 [node name="Control" type="Control"]
+process_mode = 3
+z_index = 5
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,37 +20,37 @@ offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0.0562916, 0.0562916, 0.0562916, 1)
 
-[node name="CenterContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 offset_right = 40.0
 offset_bottom = 47.0
 
-[node name="GamePausedLabel" type="Label" parent="CenterContainer"]
+[node name="GamePausedLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Game Paused 2 player"
 
-[node name="ResumeButton" type="Button" parent="CenterContainer"]
+[node name="ResumeButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Resume
 "
 
-[node name="ReturnMainMenuButton" type="Button" parent="CenterContainer"]
+[node name="ReturnMainMenuButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Return to main menu"
 
-[node name="ControlsButton" type="Button" parent="CenterContainer"]
+[node name="ControlsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Controls
 "
 
-[node name="GameTipsButton" type="Button" parent="CenterContainer"]
+[node name="GameTipsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Game Tips"
 
-[node name="QuitGameButton" type="Button" parent="CenterContainer"]
+[node name="QuitGameButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Quit Game
 "
 
-[connection signal="pressed" from="CenterContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="CenterContainer/ReturnMainMenuButton" to="." method="_on_return_main_menu_button_pressed"]
-[connection signal="pressed" from="CenterContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ReturnMainMenuButton" to="." method="_on_return_main_menu_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]
