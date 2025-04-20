@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://b44ebn5xhv34r"]
+[gd_scene load_steps=14 format=3 uid="uid://b44ebn5xhv34r"]
 
 [ext_resource type="Texture2D" uid="uid://cmue7o4meppar" path="res://Assets/Player Sprites/Ship-Nebula - Sprite Sheet.png" id="1_f50pn"]
 [ext_resource type="Script" uid="uid://bakimcqipy2cr" path="res://characterBody_P1.gd" id="1_ij6vw"]
 [ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur/static/Tektur-Bold.ttf" id="3_h3jpu"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="4_5wo50"]
 
 [sub_resource type="Animation" id="Animation_44cfe"]
 resource_name = "testing"
@@ -187,6 +188,18 @@ theme_override_fonts/font = ExtResource("3_h3jpu")
 theme_override_font_sizes/font_size = 40
 
 [node name="WeaponContainer" type="Node2D" parent="."]
+
+[node name="ReviveTimerLabel" type="Label" parent="."]
+visible = false
+offset_left = -50.9999
+offset_top = 28.0002
+offset_right = 248.0
+offset_bottom = 97.0002
+rotation = 4.71239
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("4_5wo50")
+theme_override_font_sizes/font_size = 50
+text = "Revive in: 10"
 
 [connection signal="body_entered" from="ReviveZone" to="." method="_on_revive_zone_body_entered"]
 [connection signal="body_exited" from="ReviveZone" to="." method="_on_revive_zone_body_exited"]

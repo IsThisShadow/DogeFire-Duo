@@ -4,7 +4,7 @@ var is_two_player_mode := false
 var current_level := 2  # Set this to 1, 2, 3, 4, or 5 depending on the scene
 
 var level_time := 0.0
-const TIME_LIMIT := 10.0
+const TIME_LIMIT := 30.0
 var transitioned := false
 
 func set_2_players(enable: bool):
@@ -19,7 +19,7 @@ func _ready():
 	_set_parallax_speed()
 
 func _process(delta):
-	# ⏳ Track gameplay time only when not paused
+	# Track gameplay time only when not paused
 	if not get_tree().paused and current_level < 5 and not transitioned:
 		level_time += delta
 		if level_time >= TIME_LIMIT:

@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var revive_label: Label = $ReviveLabel_p2
 @onready var revive_count_label: Label = $ReviveCountLabel_p2
 @onready var weapon_container: Node2D = $WeaponContainer
+@onready var revive_timer_label: Label = $ReviveTimerLabelP2
 
 var death_announcement: Label = null
 
@@ -22,7 +23,11 @@ const max_speed := 250
 const acceleration := 5
 const friction := 3
 const revive_time := 2.5
+const MAX_REVIVE_TIME := 10.0
 
+var revive_active := false
+var is_downed := false
+var revive_time_left := 10.0
 var p2_health := 100
 var p2_maxHealth = 100
 var is_dead = false
@@ -35,20 +40,44 @@ func _ready():
 	$Sprite_p2.modulate = Color(0.5, 0.5, 1.2)
 	death_announcement = get_tree().get_first_node_in_group("death_announcement")
 
-	# Load stats from global
 	p2_health = Global.player2_health
 	p2_revive = Global.player2_revives
 
 func _physics_process(delta):
 	if is_dead:
+		if is_downed and revive_active:
+			revive_time_left -= delta
+			revive_timer_label.text = "Revive in: " + str(int(revive_time_left))
+
+			# Flash red under 3 seconds
+			if revive_time_left <= 4.0:
+				var t = int(revive_time_left * 5) % 2  # fast flicker
+				revive_timer_label.modulate = Color(1, 0.2, 0.2) if t == 0 else Color(1, 1, 1)
+			else:
+				revive_timer_label.modulate = Color(1, 1, 1)
+
+			if revive_time_left <= 0:
+				revive_timer_label.visible = false
+				revive_active = false
+				is_downed = false
+				die_for_real()
+
 		if $ReviveZone_p2.monitoring:
+			var is_being_revived = false
 			for body in $ReviveZone_p2.get_overlapping_bodies():
 				if body.name == "CharacterBodyP1":
+					is_being_revived = true
 					revive_progress += delta
 					progress_bar.value = (revive_progress / revive_time) * 100
 					if revive_progress >= revive_time:
 						revive()
 					break
+			if is_being_revived:
+				revive_active = false
+				revive_timer_label.visible = false
+			else:
+				if not revive_active:
+					start_revive_timer()
 		return
 
 	var input = Vector2(
@@ -100,53 +129,67 @@ func select_weapon(id: int):
 
 func die():
 	is_dead = true
-	progress_bar.visible = false
 
 	if p2_revive >= p2_max_revive:
-		$CollisionShape2D_p2.disabled = true
-		animationplayer.play("PermaDeath")
-		await animationplayer.animation_finished
-		set_physics_process(false)
-		set_process(false)
-		visible = false
-
-		if death_announcement:
-			death_announcement.text = "Player 2 has Died!"
-			death_announcement.visible = true
-			await get_tree().create_timer(2.0).timeout
-			death_announcement.visible = false
-
-		Global.check_for_game_over()
+		die_for_real()
 		return
 
-	# Revivable death (player can be brought back)
+	# Show revive setup
 	$ReviveZone_p2.monitoring = true
 	$ReviveZone_p2/ReviveCollision_p2.disabled = false
 	$CollisionShape2D_p2.disabled = true
 
+	#  This adds the visual feedback
+	$Sprite_p2.modulate = Color(0.7, 0.4, 0.4)
+
+	# Play death animation, then revive prompt animation
 	animationplayer.play("death_p2")
 	await animationplayer.animation_finished
 
 	animationplayer.stop()
 	animationplayer.play("reviveNeed_p2")
 
-	revive_label.visible = true
-	print("Player 2 is dead. Showing revive UI.")
+	revive_label.visible = false  # hide legacy label
+	start_revive_timer()
 
-	# Check if both players are dead — even if revivable
 	Global.check_for_game_over()
 
+func start_revive_timer():
+	is_downed = true
+	revive_time_left = MAX_REVIVE_TIME
+	revive_active = true
+	revive_timer_label.visible = true
+	revive_timer_label.text = "Revive in: " + str(int(revive_time_left))
+
+func die_for_real():
+	revive_timer_label.visible = false
+	$CollisionShape2D_p2.disabled = true
+	animationplayer.play("PermaDeath")
+	await animationplayer.animation_finished
+	set_physics_process(false)
+	set_process(false)
+	visible = false
+
+	if death_announcement:
+		death_announcement.text = "Player 2 has Died!"
+		death_announcement.visible = true
+		await get_tree().create_timer(2.0).timeout
+		death_announcement.visible = false
+
+	Global.check_for_game_over()
 
 func revive():
 	is_dead = false
+	is_downed = false
+	revive_active = false
 	revive_progress = 0
 	progress_bar.visible = false
 	revive_label.visible = false
+	revive_timer_label.visible = false
 	p2_health = p2_maxHealth
 
 	is_invincible = true
 	animationplayer.play("reviveNeed_p2")
-	print("Revive animation playing for P2.")
 
 	while $ReviveZone_p2.get_overlapping_bodies().size() > 0:
 		await get_tree().process_frame
@@ -164,14 +207,13 @@ func revive():
 	await get_tree().create_timer(2.0).timeout
 	revive_count_label.visible = false
 
-	# Save updated stats
 	Global.player2_health = p2_health
 	Global.player2_revives = p2_revive
-	
+
 func take_damage(amount: int):
 	if not is_dead and not is_invincible:
 		p2_health -= amount
-		Global.player2_health = p2_health  # Save to global
+		Global.player2_health = p2_health
 		spawn_damage_number(amount)
 		flash_red()
 
@@ -192,18 +234,12 @@ func flash_red():
 	await tween.finished
 	$Sprite_p2.modulate = Color(1, 1, 1)
 
-func _on_test_area_body_entered(body: Node2D) -> void:
-	if body.has_method("take_damage"):
-		body.take_damage(50)
-
 func _on_revive_zone_body_entered(body: Node2D) -> void:
 	if is_dead:
 		progress_bar.visible = true
-		print("P2 Revive Started: P1 entered the zone.")
+		print("Reviving...")
 
 func _on_revive_zone_body_exited(body: Node2D) -> void:
-	if is_dead and body.name == "CharacterBodyP1":
-		revive_progress = 0
-		progress_bar.value = 0
-		progress_bar.visible = false
-		print("P2 Revive Cancelled: P1 left the zone.")
+	revive_progress = 0
+	progress_bar.value = 0
+	progress_bar.visible = false

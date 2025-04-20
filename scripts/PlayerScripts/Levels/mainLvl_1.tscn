@@ -98,10 +98,10 @@ texture_progress = ExtResource("5_f1hde")
 
 [node name="P2HealthBar2" type="Label" parent="HUD/Control2"]
 layout_mode = 0
-offset_left = -84.0
-offset_top = 17.0
-offset_right = 34.0
-offset_bottom = 43.0
+offset_left = -28.0
+offset_top = 19.0
+offset_right = 292.0
+offset_bottom = 110.0
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("6_f1hde")
 theme_override_font_sizes/font_size = 70
@@ -120,9 +120,9 @@ text = "100"
 
 [node name="P2ScoreLabel" type="Label" parent="HUD/Control2" groups=["p2_score_label"]]
 layout_mode = 0
-offset_left = -84.0
+offset_left = -25.0
 offset_top = 37.0
-offset_right = 197.0
+offset_right = 256.0
 offset_bottom = 132.0
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("6_f1hde")

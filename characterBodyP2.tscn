@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://ckmiuk6k2658l"]
+[gd_scene load_steps=14 format=3 uid="uid://ckmiuk6k2658l"]
 
 [ext_resource type="Script" uid="uid://bvy8trgugtv67" path="res://characterBody_P2.gd" id="1_ci73e"]
 [ext_resource type="Texture2D" uid="uid://cmue7o4meppar" path="res://Assets/Player Sprites/Ship-Nebula - Sprite Sheet.png" id="2_67u87"]
 [ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur/static/Tektur-Bold.ttf" id="3_67u87"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="4_e6rgf"]
 
 [sub_resource type="Animation" id="Animation_ci73e"]
 resource_name = "Idle_p2"
@@ -190,6 +191,18 @@ theme_override_font_sizes/font_size = 40
 [node name="WeaponContainer" type="Node2D" parent="."]
 
 [node name="Marker2D" type="Marker2D" parent="WeaponContainer"]
+
+[node name="ReviveTimerLabelP2" type="Label" parent="."]
+visible = false
+offset_left = -38.9999
+offset_top = 27.0001
+offset_right = 255.0
+offset_bottom = 92.0001
+rotation = 4.71239
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("4_e6rgf")
+theme_override_font_sizes/font_size = 50
+text = "Revive in: 10"
 
 [connection signal="body_entered" from="ReviveZone_p2" to="." method="_on_revive_zone_body_entered"]
 [connection signal="body_exited" from="ReviveZone_p2" to="." method="_on_revive_zone_body_exited"]

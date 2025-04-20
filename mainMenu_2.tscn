@@ -286,10 +286,10 @@ icon_alignment = 1
 position = Vector2(-13, -16)
 
 [node name="QuitButton" type="Button" parent="UIFadeGroup/VBoxContainer/QuitGameWrapper"]
-offset_left = -215.0
-offset_top = 51.0
-offset_right = 289.0
-offset_bottom = 189.0
+offset_left = -25.0
+offset_top = 95.0
+offset_right = 97.0
+offset_bottom = 141.0
 theme_override_fonts/font = ExtResource("2_20xwr")
 text = "Quit Game
 "

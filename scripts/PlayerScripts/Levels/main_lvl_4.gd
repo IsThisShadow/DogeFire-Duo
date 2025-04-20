@@ -1,7 +1,11 @@
 extends Node2D
 
 var is_two_player_mode := false
-var current_level := 4  # 👈 Set this to 1, 2, 3, 4, or 5 depending on the scene
+var current_level := 4  # Set this to 1, 2, 3, 4, or 5 depending on the scene
+
+var level_time := 0.0
+const TIME_LIMIT := 10.0
+var transitioned := false
 
 func set_2_players(enable: bool):
 	is_two_player_mode = enable
@@ -14,12 +18,15 @@ func _ready():
 	_setup_health_bars()
 	_set_parallax_speed()
 
-	# ⏳ For testing: after 10s, go to unlock screen (except after level 5)
-	if current_level < 5:
-		await get_tree().create_timer(10.0, true).timeout
-		_show_weapon_unlock_screen(current_level + 1)
-
 func _process(delta):
+	# Only accumulate gameplay time while not paused
+	if not get_tree().paused and current_level < 5 and not transitioned:
+		level_time += delta
+		if level_time >= TIME_LIMIT:
+			transitioned = true
+			_show_weapon_unlock_screen(current_level + 1)
+
+	# Update health bars
 	var p1_health = $CharacterBodyP1.p1_health
 	var p1_max = $CharacterBodyP1.p1_maxHealth
 	$HUD/Control/P1HealthBar.value = p1_health
