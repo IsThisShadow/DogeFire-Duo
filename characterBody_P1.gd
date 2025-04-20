@@ -9,7 +9,7 @@ extends CharacterBody2D
 @onready var heart_ui := $HeartUI
 
 var death_announcement: Label = null
-var is_single_player := true 
+var is_single_player := Global.is_single_player
 
 var selected_weapon_id := 0
 var weapon_scenes = {
