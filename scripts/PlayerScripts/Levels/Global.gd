@@ -7,7 +7,6 @@ var player1_revives := 0
 var player1_max_revives := 3
 var player1_permadead = false
 
-
 # === Player 2 Stats ===
 var player2_health := 100
 var player2_max_health := 100
@@ -15,11 +14,15 @@ var player2_revives := 0
 var player2_max_revives := 3
 var player2_permadead = false
 
-
 # === Pause & Scene Info ===
 var is_two_player_mode := false
 var current_scene_name := ""
 var pause_menu: Control = null
+
+# === Game Mode Shortcut ===
+var is_single_player: bool:
+	get:
+		return not is_two_player_mode
 
 # === Called when game starts ===
 func _ready():

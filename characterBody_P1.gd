@@ -6,8 +6,10 @@ extends CharacterBody2D
 @onready var revive_count_label: Label = $ReviveCountLabel
 @onready var weapon_container: Node2D = $WeaponContainer
 @onready var revive_timer_label: Label = $ReviveTimerLabel
+@onready var heart_ui := $HeartUI
 
 var death_announcement: Label = null
+var is_single_player := true 
 
 var selected_weapon_id := 0
 var weapon_scenes = {
@@ -36,30 +38,43 @@ var p1_max_revive = 3
 var p1_revive = 0
 var revive_progress := 0.0
 var is_invincible := false
+var p1_hearts := 3
 
 func _ready():
-	# If player 1 was permadead in a previous level, do not spawn
 	if Global.player1_permadead:
 		queue_free()
 		return
+
 	$Sprite_p1.modulate = Color(1.2, 0.5, 0.5)
 	death_announcement = get_tree().get_first_node_in_group("death_announcement")
-	# Load stats from global
 	p1_health = Global.player1_health
 	p1_revive = Global.player1_revives
 
+	if is_single_player:
+		p1_hearts = 3
+		$HeartUI.visible = true
+		update_heart_display()
+		$ReviveZone.visible = false
+		revive_label.visible = false
+		revive_count_label.visible = false
+		revive_timer_label.visible = false
+	else:
+		$HeartUI.visible = false
+
 func _physics_process(delta):
 	if is_dead:
+		if is_single_player:
+			die_for_real()
+			return
+
 		if is_downed and revive_active:
 			revive_time_left -= delta
 			revive_timer_label.text = "Revive in: " + str(int(revive_time_left))
-
 			if revive_time_left <= 4.0:
 				var t = int(revive_time_left * 5) % 2
 				revive_timer_label.modulate = Color(1, 0.2, 0.2) if t == 0 else Color(1, 1, 1)
 			else:
 				revive_timer_label.modulate = Color(1, 1, 1)
-
 			if revive_time_left <= 0 and not is_permadead:
 				revive_timer_label.visible = false
 				revive_active = false
@@ -133,6 +148,21 @@ func select_weapon(id: int):
 
 func die():
 	is_dead = true
+
+	if is_single_player:
+		p1_hearts -= 1
+		update_heart_display()
+		if p1_hearts <= 0:
+			die_for_real()
+		else:
+			is_dead = false
+			p1_health = p1_maxHealth
+			$CollisionShape2D_p1.disabled = false
+			set_physics_process(true)
+			set_process(true)
+			visible = true
+		return
+
 	if p1_revive >= p1_max_revive:
 		die_for_real()
 		return
@@ -213,6 +243,13 @@ func revive():
 
 	Global.player1_health = p1_health
 	Global.player1_revives = p1_revive
+
+func update_heart_display():
+	if not is_single_player:
+		return
+	for i in range(3):
+		var heart = heart_ui.get_child(i)
+		heart.visible = i < p1_hearts
 
 func take_damage(amount: int):
 	if not is_dead and not is_invincible:

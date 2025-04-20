@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://b44ebn5xhv34r"]
+[gd_scene load_steps=15 format=3 uid="uid://b44ebn5xhv34r"]
 
 [ext_resource type="Texture2D" uid="uid://cmue7o4meppar" path="res://Assets/Player Sprites/Ship-Nebula - Sprite Sheet.png" id="1_f50pn"]
 [ext_resource type="Script" uid="uid://bakimcqipy2cr" path="res://characterBody_P1.gd" id="1_ij6vw"]
 [ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur/static/Tektur-Bold.ttf" id="3_h3jpu"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="4_5wo50"]
+[ext_resource type="Texture2D" uid="uid://b1tua5vfgxcrt" path="res://UI Sprites/Hearts.png" id="5_4lx6x"]
 
 [sub_resource type="Animation" id="Animation_44cfe"]
 resource_name = "testing"
@@ -200,6 +201,41 @@ scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("4_5wo50")
 theme_override_font_sizes/font_size = 50
 text = "Revive in: 10"
+
+[node name="HeartUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0001
+offset_top = -17.9998
+offset_right = -16.0001
+offset_bottom = 22.0002
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Heart1" type="Sprite2D" parent="HeartUI"]
+position = Vector2(22.0001, 34.9999)
+rotation = 4.71239
+texture = ExtResource("5_4lx6x")
+hframes = 4
+vframes = 5
+
+[node name="Heart2" type="Sprite2D" parent="HeartUI"]
+position = Vector2(22.0001, 18.9999)
+rotation = 4.71239
+texture = ExtResource("5_4lx6x")
+hframes = 4
+vframes = 5
+
+[node name="Heart3" type="Sprite2D" parent="HeartUI"]
+position = Vector2(22, 2.99992)
+rotation = 4.71239
+texture = ExtResource("5_4lx6x")
+hframes = 4
+vframes = 5
 
 [connection signal="body_entered" from="ReviveZone" to="." method="_on_revive_zone_body_entered"]
 [connection signal="body_exited" from="ReviveZone" to="." method="_on_revive_zone_body_exited"]
