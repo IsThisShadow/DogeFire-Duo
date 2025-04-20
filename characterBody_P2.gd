@@ -114,6 +114,7 @@ func die():
 			death_announcement.visible = true
 			await get_tree().create_timer(2.0).timeout
 			death_announcement.visible = false
+		Global.check_for_game_over() 
 		return
 
 	$ReviveZone_p2.monitoring = true

@@ -62,3 +62,19 @@ func reset_stats():
 	# Player 2
 	player2_health = player2_max_health
 	player2_revives = 0
+
+# === Check for total game over ===
+func check_for_game_over():
+	if player1_health <= 0 and player2_health <= 0:
+		if player1_revives >= player1_max_revives and player2_revives >= player2_max_revives:
+			show_you_died_screen()
+
+# === Show You Died UI ===
+func show_you_died_screen():
+	var scene = load("res://Scenes/YouDiedScreen.tscn")
+	if scene:
+		var you_died_screen = scene.instantiate()
+		get_tree().get_root().add_child(you_died_screen)
+		get_tree().paused = true
+	else:
+		print("YouDiedScreen scene not found!")
