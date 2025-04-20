@@ -31,31 +31,36 @@ var revive_time_left := 10.0
 var p1_health := 100
 var p1_maxHealth = 100
 var is_dead = false
+var is_permadead = false
 var p1_max_revive = 3
 var p1_revive = 0
 var revive_progress := 0.0
 var is_invincible := false
 
 func _ready():
+	# If player 1 was permadead in a previous level, do not spawn
+	if Global.player1_permadead:
+		queue_free()
+		return
 	$Sprite_p1.modulate = Color(1.2, 0.5, 0.5)
 	death_announcement = get_tree().get_first_node_in_group("death_announcement")
-
+	# Load stats from global
 	p1_health = Global.player1_health
 	p1_revive = Global.player1_revives
+
 func _physics_process(delta):
 	if is_dead:
 		if is_downed and revive_active:
 			revive_time_left -= delta
 			revive_timer_label.text = "Revive in: " + str(int(revive_time_left))
 
-			# Flash red under 3 seconds
 			if revive_time_left <= 4.0:
-				var t = int(revive_time_left * 5) % 2  # fast flicker
+				var t = int(revive_time_left * 5) % 2
 				revive_timer_label.modulate = Color(1, 0.2, 0.2) if t == 0 else Color(1, 1, 1)
 			else:
 				revive_timer_label.modulate = Color(1, 1, 1)
 
-			if revive_time_left <= 0:
+			if revive_time_left <= 0 and not is_permadead:
 				revive_timer_label.visible = false
 				revive_active = false
 				is_downed = false
@@ -75,7 +80,7 @@ func _physics_process(delta):
 				revive_active = false
 				revive_timer_label.visible = false
 			else:
-				if not revive_active:
+				if not revive_active and not is_permadead:
 					start_revive_timer()
 		return
 
@@ -128,7 +133,6 @@ func select_weapon(id: int):
 
 func die():
 	is_dead = true
-
 	if p1_revive >= p1_max_revive:
 		die_for_real()
 		return
@@ -139,13 +143,11 @@ func die():
 
 	animationplayer.play("Death_p1")
 	await animationplayer.animation_finished
-
 	animationplayer.stop()
 	animationplayer.play("reviveNeed_p1")
 
-	revive_label.visible = false #can change this to something else in the future but because of the timer dont need it anymore. 
+	revive_label.visible = false
 	start_revive_timer()
-
 	Global.check_for_game_over()
 
 func start_revive_timer():
@@ -156,7 +158,14 @@ func start_revive_timer():
 	revive_timer_label.text = "Revive in: " + str(int(revive_time_left))
 
 func die_for_real():
+	Global.player1_permadead = true
+	is_permadead = true
+	revive_active = false
+	is_downed = false
+	revive_time_left = 0
 	revive_timer_label.visible = false
+	revive_timer_label.modulate = Color(1, 1, 1)
+
 	$CollisionShape2D_p1.disabled = true
 	animationplayer.play("PermaDeath")
 	await animationplayer.animation_finished
@@ -175,6 +184,7 @@ func die_for_real():
 func revive():
 	is_dead = false
 	is_downed = false
+	is_permadead = false
 	revive_active = false
 	revive_progress = 0
 	progress_bar.visible = false

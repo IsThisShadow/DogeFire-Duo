@@ -16,10 +16,10 @@
 [node name="MainLvl_4" type="Node2D"]
 script = ExtResource("1_tm4t6")
 
-[node name="CharacterBodyP1" parent="." groups=["gameplay"] instance=ExtResource("3_tm4t6")]
+[node name="CharacterBodyP1" parent="." instance=ExtResource("3_tm4t6")]
 position = Vector2(195, 269)
 
-[node name="CharacterBodyP2" parent="." groups=["gameplay"] instance=ExtResource("4_vi2yg")]
+[node name="CharacterBodyP2" parent="." instance=ExtResource("4_vi2yg")]
 position = Vector2(142, 138)
 
 [node name="HUD" type="CanvasLayer" parent="." groups=["gameplay"]]

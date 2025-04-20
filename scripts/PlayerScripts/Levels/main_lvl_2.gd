@@ -19,22 +19,28 @@ func _ready():
 	_set_parallax_speed()
 
 func _process(delta):
-	# Track gameplay time only when not paused
 	if not get_tree().paused and current_level < 5 and not transitioned:
 		level_time += delta
 		if level_time >= TIME_LIMIT:
 			transitioned = true
 			_show_weapon_unlock_screen(current_level + 1)
 
-	# Update health bars
-	var p1_health = $CharacterBodyP1.p1_health
-	var p1_max = $CharacterBodyP1.p1_maxHealth
-	$HUD/Control/P1HealthBar.value = p1_health
-	$HUD/Control/P1PercentLabel.text = str(int((p1_health / p1_max) * 100)) + "%"
+	# Update Player 1 Health UI (only if P1 still exists)
+	var p1 = get_node_or_null("CharacterBodyP1")
+	if p1:
+		var p1_health = p1.p1_health
+		var p1_max = p1.p1_maxHealth
+		$HUD/Control/P1HealthBar.value = p1_health
+		$HUD/Control/P1PercentLabel.text = str(int((p1_health / p1_max) * 100)) + "%"
+	else:
+		$HUD/Control/P1HealthBar.value = 0
+		$HUD/Control/P1PercentLabel.text = "0%"
 
-	if is_two_player_mode:
-		var p2_health = $CharacterBodyP2.p2_health
-		var p2_max = $CharacterBodyP2.p2_maxHealth
+	# Update Player 2 Health UI (only if 2P mode and P2 exists)
+	var p2 = get_node_or_null("CharacterBodyP2")
+	if is_two_player_mode and p2:
+		var p2_health = p2.p2_health
+		var p2_max = p2.p2_maxHealth
 		$HUD/Control2/P2HealthBar.value = p2_health
 		$HUD/Control2/P2PercentLabel.text = str(int((p2_health / p2_max) * 100)) + "%"
 		$HUD/Control2.visible = true
@@ -42,32 +48,39 @@ func _process(delta):
 		$HUD/Control2.visible = false
 
 func _setup_players():
-	if is_two_player_mode:
+	var p2 = get_node_or_null("CharacterBodyP2")
+	if is_two_player_mode and p2:
 		print(">> Enabling Player 2")
-		$CharacterBodyP2.visible = true
-		$CharacterBodyP2.set_process(true)
-		$CharacterBodyP2.set_physics_process(true)
-		$CharacterBodyP2.set_process_input(true)
-		$CharacterBodyP2.set_process_unhandled_input(true)
-		_set_collision_polygons_enabled($CharacterBodyP2, true)
-	else:
+		p2.visible = true
+		p2.set_process(true)
+		p2.set_physics_process(true)
+		p2.set_process_input(true)
+		p2.set_process_unhandled_input(true)
+		_set_collision_polygons_enabled(p2, true)
+	elif p2:
 		print(">> Disabling Player 2")
-		$CharacterBodyP2.visible = false
-		$CharacterBodyP2.set_process(false)
-		$CharacterBodyP2.set_physics_process(false)
-		$CharacterBodyP2.set_process_input(false)
-		$CharacterBodyP2.set_process_unhandled_input(false)
-		_set_collision_polygons_enabled($CharacterBodyP2, false)
+		p2.visible = false
+		p2.set_process(false)
+		p2.set_physics_process(false)
+		p2.set_process_input(false)
+		p2.set_process_unhandled_input(false)
+		_set_collision_polygons_enabled(p2, false)
 
 func _setup_health_bars():
-	$HUD/Control.visible = true
-	$HUD/Control/P1HealthBar.max_value = $CharacterBodyP1.p1_maxHealth
-	$HUD/Control/P1HealthBar.value = $CharacterBodyP1.p1_health
+	var p1 = get_node_or_null("CharacterBodyP1")
+	if p1:
+		$HUD/Control.visible = true
+		$HUD/Control/P1HealthBar.max_value = p1.p1_maxHealth
+		$HUD/Control/P1HealthBar.value = p1.p1_health
+	else:
+		$HUD/Control/P1HealthBar.max_value = 1
+		$HUD/Control/P1HealthBar.value = 0
 
-	if is_two_player_mode:
+	var p2 = get_node_or_null("CharacterBodyP2")
+	if is_two_player_mode and p2:
 		$HUD/Control2.visible = true
-		$HUD/Control2/P2HealthBar.max_value = $CharacterBodyP2.p2_maxHealth
-		$HUD/Control2/P2HealthBar.value = $CharacterBodyP2.p2_health
+		$HUD/Control2/P2HealthBar.max_value = p2.p2_maxHealth
+		$HUD/Control2/P2HealthBar.value = p2.p2_health
 	else:
 		$HUD/Control2.visible = false
 

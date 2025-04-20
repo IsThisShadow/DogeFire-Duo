@@ -5,12 +5,16 @@ var player1_health := 100
 var player1_max_health := 100
 var player1_revives := 0
 var player1_max_revives := 3
+var player1_permadead = false
+
 
 # === Player 2 Stats ===
 var player2_health := 100
 var player2_max_health := 100
 var player2_revives := 0
 var player2_max_revives := 3
+var player2_permadead = false
+
 
 # === Pause & Scene Info ===
 var is_two_player_mode := false
