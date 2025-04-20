@@ -188,8 +188,6 @@ scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("3_h3jpu")
 theme_override_font_sizes/font_size = 40
 
-[node name="WeaponContainer" type="Node2D" parent="."]
-
 [node name="ReviveTimerLabel" type="Label" parent="."]
 visible = false
 offset_left = -50.9999
@@ -236,6 +234,10 @@ rotation = 4.71239
 texture = ExtResource("5_4lx6x")
 hframes = 4
 vframes = 5
+
+[node name="WeaponContainer" type="Node2D" parent="."]
+position = Vector2(-3.8147e-06, 1.38092e-11)
+scale = Vector2(1, 1)
 
 [connection signal="body_entered" from="ReviveZone" to="." method="_on_revive_zone_body_entered"]
 [connection signal="body_exited" from="ReviveZone" to="." method="_on_revive_zone_body_exited"]
