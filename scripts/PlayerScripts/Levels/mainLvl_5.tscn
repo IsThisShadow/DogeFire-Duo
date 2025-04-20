@@ -16,13 +16,13 @@
 [node name="MainLvl_5" type="Node2D"]
 script = ExtResource("1_5pm2v")
 
-[node name="CharacterBodyP1" parent="." instance=ExtResource("3_5pm2v")]
+[node name="CharacterBodyP1" parent="." groups=["gameplay"] instance=ExtResource("3_5pm2v")]
 position = Vector2(195, 269)
 
-[node name="CharacterBodyP2" parent="." instance=ExtResource("4_jbsp5")]
+[node name="CharacterBodyP2" parent="." groups=["gameplay"] instance=ExtResource("4_jbsp5")]
 position = Vector2(142, 138)
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="." groups=["gameplay"]]
 
 [node name="Control" type="Control" parent="HUD"]
 layout_mode = 3
