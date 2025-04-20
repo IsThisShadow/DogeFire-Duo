@@ -2,7 +2,7 @@ extends Control
 
 @onready var story_label = $MarginContainer/VBoxContainer/StoryLabel
 
-var is_two_player_mode := false
+var is_two_player_mode := Global.is_two_player_mode  # Pull from Global
 var current_index := 0
 var full_story := ""
 
@@ -61,7 +61,7 @@ func type_story():
 
 func load_main_level():
 	var next_scene = preload("res://scripts/PlayerScripts/Levels/mainLvl_1.tscn").instantiate()
-	next_scene.set_2_players(is_two_player_mode)
+	next_scene.set_2_players(is_two_player_mode)  # will pass true if set from Global
 	get_tree().get_root().add_child(next_scene)
 	get_tree().current_scene.queue_free()
 	get_tree().current_scene = next_scene

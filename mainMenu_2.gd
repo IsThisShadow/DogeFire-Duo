@@ -2,7 +2,6 @@ extends Control
 
 var p1_ready := false
 var p2_ready := false
-var is_two_player_mode := false
 var countdown_started := false
 
 func _ready():
@@ -28,7 +27,7 @@ func _process(delta):
 		$UIFadeGroup/ReadyWrapperP1/ReadyAnimatorP1.play("ZoomIn")
 		print("P1 is ready!")
 
-	if is_two_player_mode:
+	if Global.is_two_player_mode:
 		if Input.is_action_just_pressed("p2_start") and not p2_ready:
 			p2_ready = true
 			$UIFadeGroup/ReadyWrapperP2/ReadyLabelP2.visible = true
@@ -72,12 +71,10 @@ func fade_out_ui():
 func start_story_scene():
 	print(">> Loading story scene...")
 
-	# Set global values for pause system and scene tracking
-	Global.is_two_player_mode = is_two_player_mode
+	# Set scene info globally
 	Global.current_scene_name = "StoryIntro"
 
 	var story_scene = preload("res://StoryIntro.tscn").instantiate()
-	story_scene.is_two_player_mode = is_two_player_mode
 
 	var current = get_tree().current_scene
 	if current:
