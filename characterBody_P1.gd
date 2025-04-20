@@ -258,6 +258,18 @@ func take_damage(amount: int):
 		spawn_damage_number(amount)
 		flash_red()
 
+		# Handle heart loss
+		if p1_health <= 0:
+			p1_hearts -= 1
+			update_heart_display()
+
+			if p1_hearts <= 0:
+				is_dead = true
+			else:
+				# Restore health for the next heart
+				p1_health = p1_maxHealth
+				Global.player1_health = p1_health
+
 func spawn_damage_number(amount: int):
 	var dmg_label = preload("res://FloatingText.tscn").instantiate()
 	dmg_label.text = "-" + str(amount)

@@ -85,7 +85,10 @@ func reset_stats():
 func check_for_game_over():
 	var p1_dead = player1_health <= 0
 	var p2_dead = player2_health <= 0
-	if p1_dead and p2_dead:
+
+	if Global.is_single_player and p1_dead:
+		show_you_died_screen()
+	elif p1_dead and p2_dead:
 		show_you_died_screen()
 
 # === Show You Died UI ===

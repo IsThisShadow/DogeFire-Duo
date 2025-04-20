@@ -239,5 +239,7 @@ vframes = 5
 position = Vector2(-3.8147e-06, 1.38092e-11)
 scale = Vector2(1, 1)
 
+[node name="Marker2D" type="Marker2D" parent="WeaponContainer"]
+
 [connection signal="body_entered" from="ReviveZone" to="." method="_on_revive_zone_body_entered"]
 [connection signal="body_exited" from="ReviveZone" to="." method="_on_revive_zone_body_exited"]
