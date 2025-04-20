@@ -16,11 +16,11 @@
 [node name="MainLvl_1" type="Node2D"]
 script = ExtResource("1_gtmw4")
 
-[node name="CharacterBodyP1" parent="." groups=["gameplay"] instance=ExtResource("3_0w4dj")]
+[node name="CharacterBodyP1" parent="." instance=ExtResource("3_0w4dj")]
 z_index = 0
 position = Vector2(195, 269)
 
-[node name="CharacterBodyP2" parent="." groups=["gameplay"] instance=ExtResource("4_f1hde")]
+[node name="CharacterBodyP2" parent="." instance=ExtResource("4_f1hde")]
 position = Vector2(142, 138)
 
 [node name="HUD" type="CanvasLayer" parent="." groups=["gameplay"]]
@@ -77,8 +77,8 @@ layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
+offset_left = -50.0
+offset_bottom = 52.0
 grow_horizontal = 0
 
 [node name="P2HealthBar" type="TextureProgressBar" parent="HUD/Control2"]
