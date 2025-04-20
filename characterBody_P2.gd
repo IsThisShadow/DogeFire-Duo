@@ -101,6 +101,7 @@ func select_weapon(id: int):
 func die():
 	is_dead = true
 	progress_bar.visible = false
+
 	if p2_revive >= p2_max_revive:
 		$CollisionShape2D_p2.disabled = true
 		animationplayer.play("PermaDeath")
@@ -114,9 +115,11 @@ func die():
 			death_announcement.visible = true
 			await get_tree().create_timer(2.0).timeout
 			death_announcement.visible = false
-		Global.check_for_game_over() 
+
+		Global.check_for_game_over()
 		return
 
+	# Revivable death (player can be brought back)
 	$ReviveZone_p2.monitoring = true
 	$ReviveZone_p2/ReviveCollision_p2.disabled = false
 	$CollisionShape2D_p2.disabled = true
@@ -129,6 +132,10 @@ func die():
 
 	revive_label.visible = true
 	print("Player 2 is dead. Showing revive UI.")
+
+	# Check if both players are dead — even if revivable
+	Global.check_for_game_over()
+
 
 func revive():
 	is_dead = false

@@ -65,13 +65,17 @@ func reset_stats():
 
 # === Check for total game over ===
 func check_for_game_over():
-	if player1_health <= 0 and player2_health <= 0:
-		if player1_revives >= player1_max_revives and player2_revives >= player2_max_revives:
-			show_you_died_screen()
+	var p1_dead = player1_health <= 0
+	var p2_dead = player2_health <= 0
+
+	# Trigger death screen if both players are dead
+	if p1_dead and p2_dead:
+		show_you_died_screen()
 
 # === Show You Died UI ===
 func show_you_died_screen():
-	var scene = load("res://Scenes/YouDiedScreen.tscn")
+	await get_tree().create_timer(1.0).timeout  # Optional: delay before showing screen
+	var scene = load("res://YouDiedScreen.tscn")
 	if scene:
 		var you_died_screen = scene.instantiate()
 		get_tree().get_root().add_child(you_died_screen)

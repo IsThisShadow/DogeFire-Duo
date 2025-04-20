@@ -114,9 +114,11 @@ func die():
 			death_announcement.visible = true
 			await get_tree().create_timer(2.0).timeout
 			death_announcement.visible = false
-		Global.check_for_game_over() 
+
+		Global.check_for_game_over()
 		return
 
+	# Revivable death (player can be brought back)
 	$ReviveZone.monitoring = true
 	$ReviveZone/ReviveCollision.disabled = false
 	$CollisionShape2D_p1.disabled = true
@@ -128,6 +130,10 @@ func die():
 	animationplayer.play("reviveNeed_p1")
 
 	revive_label.visible = true
+
+	# Still check if both are down and no one can revive anyone
+	Global.check_for_game_over()
+
 
 func revive():
 	is_dead = false
