@@ -53,6 +53,9 @@ func _ready():
 
 
 func _physics_process(delta):
+	if not Global.is_two_player_mode:
+		return  # Disable Player 2 entirely in single-player mode
+
 	if is_dead:
 		if is_downed and revive_active:
 			revive_time_left -= delta
@@ -123,7 +126,7 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed("p2_a") and current_weapon:
 		current_weapon.fire()
-
+		
 func select_weapon(id: int):
 	if selected_weapon_id == id:
 		return
