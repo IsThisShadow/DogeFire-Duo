@@ -6,6 +6,7 @@ var player1_max_health := 100
 var player1_revives := 0
 var player1_max_revives := 3
 var player1_permadead = false
+var player1_hearts := 3
 
 # === Player 2 Stats ===
 var player2_health := 100

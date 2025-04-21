@@ -51,7 +51,7 @@ func _ready():
 	p1_revive = Global.player1_revives
 
 	if is_single_player:
-		p1_hearts = 3
+		p1_hearts = Global.player1_hearts
 		$HeartUI.visible = true
 		update_heart_display()
 		$ReviveZone.visible = false
@@ -151,13 +151,15 @@ func die():
 
 	if is_single_player:
 		p1_hearts -= 1
+		Global.player1_hearts = p1_hearts
 		update_heart_display()
 		if p1_hearts <= 0:
 			die_for_real()
 		else:
 			is_dead = false
 			p1_health = p1_maxHealth
-			$CollisionShape2D_p1.disabled = false
+			Global.player1_health = p1_health
+			$CollisionShape2D_p1.call_deferred("set_disabled", false)
 			set_physics_process(true)
 			set_process(true)
 			visible = true
@@ -167,9 +169,9 @@ func die():
 		die_for_real()
 		return
 
-	$ReviveZone.monitoring = true
-	$ReviveZone/ReviveCollision.disabled = false
-	$CollisionShape2D_p1.disabled = true
+	$ReviveZone.call_deferred("set_monitoring", true)
+	$ReviveZone/ReviveCollision.call_deferred("set_disabled", false)
+	$CollisionShape2D_p1.call_deferred("set_disabled", true)
 
 	animationplayer.play("Death_p1")
 	await animationplayer.animation_finished
@@ -196,7 +198,7 @@ func die_for_real():
 	revive_timer_label.visible = false
 	revive_timer_label.modulate = Color(1, 1, 1)
 
-	$CollisionShape2D_p1.disabled = true
+	$CollisionShape2D_p1.call_deferred("set_disabled", true)
 	animationplayer.play("PermaDeath")
 	await animationplayer.animation_finished
 	set_physics_process(false)
@@ -212,6 +214,9 @@ func die_for_real():
 	Global.check_for_game_over()
 
 func revive():
+	if not is_dead or is_permadead:
+		return
+
 	is_dead = false
 	is_downed = false
 	is_permadead = false
@@ -220,7 +225,9 @@ func revive():
 	progress_bar.visible = false
 	revive_label.visible = false
 	revive_timer_label.visible = false
+
 	p1_health = p1_maxHealth
+	Global.player1_health = p1_health
 
 	is_invincible = true
 	animationplayer.play("reviveNeed_p1")
@@ -228,21 +235,20 @@ func revive():
 	while $ReviveZone.get_overlapping_bodies().size() > 0:
 		await get_tree().process_frame
 
-	$CollisionShape2D_p1.disabled = false
-	$ReviveZone.monitoring = false
-	$ReviveZone/ReviveCollision.disabled = true
+	$CollisionShape2D_p1.call_deferred("set_disabled", false)
+	$ReviveZone.call_deferred("set_monitoring", false)
+	$ReviveZone/ReviveCollision.call_deferred("set_disabled", true)
 
 	await get_tree().create_timer(2.0).timeout
 	is_invincible = false
 
 	p1_revive += 1
+	Global.player1_revives = p1_revive
+
 	revive_count_label.text = "No revives left!" if p1_revive >= p1_max_revive else str(p1_max_revive - p1_revive) + " Revives Left"
 	revive_count_label.visible = true
 	await get_tree().create_timer(2.0).timeout
 	revive_count_label.visible = false
-
-	Global.player1_health = p1_health
-	Global.player1_revives = p1_revive
 
 func update_heart_display():
 	if not is_single_player:
@@ -258,17 +264,19 @@ func take_damage(amount: int):
 		spawn_damage_number(amount)
 		flash_red()
 
-		# Handle heart loss
 		if p1_health <= 0:
-			p1_hearts -= 1
-			update_heart_display()
+			if is_single_player:
+				p1_hearts -= 1
+				Global.player1_hearts = p1_hearts
+				update_heart_display()
 
-			if p1_hearts <= 0:
-				is_dead = true
+				if p1_hearts <= 0:
+					is_dead = true
+				else:
+					p1_health = p1_maxHealth
+					Global.player1_health = p1_health
 			else:
-				# Restore health for the next heart
-				p1_health = p1_maxHealth
-				Global.player1_health = p1_health
+				die()
 
 func spawn_damage_number(amount: int):
 	var dmg_label = preload("res://FloatingText.tscn").instantiate()
@@ -287,16 +295,15 @@ func flash_red():
 	await tween.finished
 	$Sprite_p1.modulate = Color(1, 1, 1)
 
-func _on_test_area_body_entered(body: Node2D) -> void:
-	if body.has_method("take_damage"):
-		body.take_damage(50)
+func _on_test_area_body_entered(_body: Node2D) -> void:
+	pass
 
-func _on_revive_zone_body_entered(body: Node2D) -> void:
+func _on_revive_zone_body_entered(_body: Node2D) -> void:
 	if is_dead:
 		progress_bar.visible = true
 		print("Reviving...")
 
-func _on_revive_zone_body_exited(body: Node2D) -> void:
+func _on_revive_zone_body_exited(_body: Node2D) -> void:
 	revive_progress = 0
 	progress_bar.value = 0
 	progress_bar.visible = false

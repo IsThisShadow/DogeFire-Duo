@@ -237,7 +237,6 @@ vframes = 5
 
 [node name="WeaponContainer" type="Node2D" parent="."]
 position = Vector2(-3.8147e-06, 1.38092e-11)
-scale = Vector2(1, 1)
 
 [node name="Marker2D" type="Marker2D" parent="WeaponContainer"]
 
