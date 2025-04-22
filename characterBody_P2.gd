@@ -1,3 +1,9 @@
+
+"""
+1. Player 2 health bar's visuals are bugged Just started the game and it was already messed up
+2. play again doesnt work after the death screen, after both players die the play again button doesnt work
+"""
+
 extends CharacterBody2D
 
 @onready var animationplayer: AnimationPlayer = $Sprite_p2/AnimationPlayer_p2
