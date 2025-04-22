@@ -297,6 +297,15 @@ icon = ExtResource("3_80tsv")
 flat = true
 icon_alignment = 1
 
+[node name="BackWraper" type="Node2D" parent="UIFadeGroup/VBoxContainer"]
+
+[node name="BackButton" type="Button" parent="UIFadeGroup/VBoxContainer/BackWraper"]
+offset_left = 2.0
+offset_top = 135.0
+offset_right = 47.0
+offset_bottom = 166.0
+text = "Back"
+
 [node name="ReadyWrapperP1" type="Node2D" parent="UIFadeGroup"]
 scale = Vector2(0.9, 0.9)
 
@@ -346,3 +355,4 @@ libraries = {
 }
 
 [connection signal="pressed" from="UIFadeGroup/VBoxContainer/QuitGameWrapper/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="UIFadeGroup/VBoxContainer/BackWraper/BackButton" to="." method="_on_back_button_pressed"]

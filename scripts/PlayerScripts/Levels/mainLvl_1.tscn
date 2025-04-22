@@ -25,6 +25,16 @@ position = Vector2(142, 138)
 
 [node name="HUD" type="CanvasLayer" parent="." groups=["gameplay"]]
 
+[node name="LevelProgressBar" type="ProgressBar" parent="HUD"]
+offset_left = 228.0
+offset_top = 52.0
+offset_right = 268.0
+offset_bottom = 252.0
+rotation = 4.71239
+value = 50.0
+fill_mode = 2
+show_percentage = false
+
 [node name="Control" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 0
