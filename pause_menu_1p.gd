@@ -1,5 +1,10 @@
 extends Control
+"""
+On entering level 2 the pause button does not hide the player.
 
+During the entering Level 2 menu, when pressing start and pressing pause immediately after, 
+nothing is hidden on the pause menu.
+"""
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false  # Hide until shown
