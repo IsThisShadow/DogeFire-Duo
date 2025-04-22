@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bas7g8kt51ufe"]
+[gd_scene load_steps=3 format=3 uid="uid://bas7g8kt51ufe"]
 
 [ext_resource type="Script" uid="uid://djvn33og7lda1" path="res://pause_menu_1p.gd" id="1_4bko2"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="2_oxmis"]
 
 [node name="Control" type="Control"]
 process_mode = 3
@@ -24,33 +25,69 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 47.0
 
-[node name="GamePausedLabel" type="Label" parent="CenterContainer"]
-layout_mode = 2
-text = "Game Paused 1 player"
+[node name="pauseWrapper" type="Node2D" parent="CenterContainer"]
 
-[node name="ResumeButton" type="Button" parent="CenterContainer"]
-layout_mode = 2
+[node name="GamePausedLabel" type="Label" parent="CenterContainer/pauseWrapper"]
+offset_left = 241.0
+offset_top = 10.0
+offset_right = 415.0
+offset_bottom = 33.0
+theme_override_fonts/font = ExtResource("2_oxmis")
+text = "1 Player Game Paused"
+
+[node name="resumeWrapper" type="Node2D" parent="CenterContainer"]
+
+[node name="ResumeButton" type="Button" parent="CenterContainer/resumeWrapper"]
+offset_left = 281.0
+offset_top = 69.0
+offset_right = 373.0
+offset_bottom = 100.0
+theme_override_fonts/font = ExtResource("2_oxmis")
 text = "Resume
 "
 
-[node name="ReturnMainMenuButton" type="Button" parent="CenterContainer"]
-layout_mode = 2
+[node name="returnWrapper" type="Node2D" parent="CenterContainer"]
+
+[node name="ReturnMainMenuButton" type="Button" parent="CenterContainer/returnWrapper"]
+offset_left = 248.0
+offset_top = 270.0
+offset_right = 422.0
+offset_bottom = 301.0
+theme_override_fonts/font = ExtResource("2_oxmis")
 text = "Return to main menu"
 
-[node name="ControlsButton" type="Button" parent="CenterContainer"]
-layout_mode = 2
+[node name="controlWrapper" type="Node2D" parent="CenterContainer"]
+
+[node name="ControlsButton" type="Button" parent="CenterContainer/controlWrapper"]
+offset_left = 281.0
+offset_top = 144.0
+offset_right = 373.0
+offset_bottom = 175.0
+theme_override_fonts/font = ExtResource("2_oxmis")
 text = "Controls
 "
 
-[node name="GameTipsButton" type="Button" parent="CenterContainer"]
-layout_mode = 2
+[node name="tipWrapper" type="Node2D" parent="CenterContainer"]
+
+[node name="GameTipsButton" type="Button" parent="CenterContainer/tipWrapper"]
+offset_left = 281.0
+offset_top = 177.0
+offset_right = 373.0
+offset_bottom = 208.0
+theme_override_fonts/font = ExtResource("2_oxmis")
 text = "Game Tips"
 
-[node name="QuitGameButton" type="Button" parent="CenterContainer"]
-layout_mode = 2
+[node name="quitWrapper" type="Node2D" parent="CenterContainer"]
+
+[node name="QuitGameButton" type="Button" parent="CenterContainer/quitWrapper"]
+offset_left = 286.0
+offset_top = 310.0
+offset_right = 378.0
+offset_bottom = 341.0
+theme_override_fonts/font = ExtResource("2_oxmis")
 text = "Quit Game
 "
 
-[connection signal="pressed" from="CenterContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="CenterContainer/ReturnMainMenuButton" to="." method="_on_return_main_menu_button_pressed"]
-[connection signal="pressed" from="CenterContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]
+[connection signal="pressed" from="CenterContainer/resumeWrapper/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CenterContainer/returnWrapper/ReturnMainMenuButton" to="." method="_on_return_main_menu_button_pressed"]
+[connection signal="pressed" from="CenterContainer/quitWrapper/QuitGameButton" to="." method="_on_quit_game_button_pressed"]
