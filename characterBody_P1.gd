@@ -1,7 +1,7 @@
 extends CharacterBody2D
 """
 When the player starts the game it starts as the damaged version of the ship instead of the normal version.
-
+pp
 When firing weapon and switching to another and back to the same it ignores the cooldown.
 """
 @onready var animationplayer: AnimationPlayer = $Sprite_p1/AnimationPlayer_p1
