@@ -21,6 +21,12 @@ func _ready():
 func _process(delta):
 	if not get_tree().paused and current_level < 5 and not transitioned:
 		level_time += delta
+		
+		# Update level progress bar dynamically
+		$HUD/LevelProgressBar.max_value = TIME_LIMIT
+		$HUD/LevelProgressBar.value = level_time
+		
+		
 		if level_time >= TIME_LIMIT:
 			transitioned = true
 			_show_weapon_unlock_screen(current_level + 1)
