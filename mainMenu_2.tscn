@@ -300,11 +300,16 @@ icon_alignment = 1
 [node name="BackWraper" type="Node2D" parent="UIFadeGroup/VBoxContainer"]
 
 [node name="BackButton" type="Button" parent="UIFadeGroup/VBoxContainer/BackWraper"]
-offset_left = 2.0
-offset_top = 135.0
-offset_right = 47.0
-offset_bottom = 166.0
+offset_left = -40.0
+offset_top = 128.0
+offset_right = 86.0
+offset_bottom = 174.0
+theme_override_fonts/font = ExtResource("2_20xwr")
+action_mode = 0
 text = "Back"
+icon = ExtResource("3_80tsv")
+flat = true
+icon_alignment = 1
 
 [node name="ReadyWrapperP1" type="Node2D" parent="UIFadeGroup"]
 scale = Vector2(0.9, 0.9)
