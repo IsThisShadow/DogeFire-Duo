@@ -73,4 +73,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_0cb6b")
 }
 
+[node name="DamageLabel" type="Label" parent="."]
+texture_filter = 1
+offset_right = 40.0
+offset_bottom = 23.0
+
 [connection signal="timeout" from="BulletTimer" to="." method="_on_bullet_timer_timeout"]

@@ -23,7 +23,7 @@ func take_damage(amount, shooter_player := 1):
 		return
 	
 	current_health -= amount
-
+	spawn_damage_number(amount)
 	if current_health <= 0:
 		die(shooter_player)
 
@@ -53,3 +53,20 @@ func _on_bullet_timer_timeout() -> void:
 	var bullet = bullet_scene.instantiate()
 	bullet.position = position
 	get_tree().current_scene.add_child(bullet)
+
+func spawn_damage_number(amount: int):
+	var label = $DamageLabel
+	label.text = "-" + str(amount)
+	label.modulate = Color(1, 0, 0, 1)  # <-- RED color immediately!
+	label.visible = true
+	label.position = Vector2(0, -20)
+
+	# Animate faster (shorter time)
+	var tween = get_tree().create_tween()
+	tween.tween_property(label, "position", Vector2(0, -40), 0.2)  # move up quickly
+	tween.parallel().tween_property(label, "modulate:a", 0, 0.2)  # fade out quickly
+	await tween.finished
+
+	label.visible = false
+	label.modulate = Color(1, 1, 1, 1)  # Reset color and alpha
+	label.position = Vector2(0, -20)  # Reset position
