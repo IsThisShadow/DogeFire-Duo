@@ -3,7 +3,7 @@ extends Node2D
 var bullet_scene = preload("res://Scenes/Bullet1.tscn")
 
 @onready var shoot_point = $ShootPoint
-
+@onready var player_id := 1
 var can_shoot := true
 var cooldown := .3 #delay between shots in seconds
 
@@ -15,6 +15,7 @@ func fire():
 	can_shoot = false
 
 	var bullet = bullet_scene.instantiate()
+	bullet.shooter_player = player_id
 	bullet.global_position = shoot_point.global_position
 	bullet.direction = Vector2(1, 0)
 	get_tree().current_scene.add_child(bullet)
