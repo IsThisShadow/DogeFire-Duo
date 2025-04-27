@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var speed = 80
 @export var max_health = 50
 var is_dead = false
-var current_health
+var current_health = max_health
 var bullet_scene = preload("res://enemies/Enemy_1_bullet.tscn")
 
 func _physics_process(delta):
@@ -30,8 +30,7 @@ func die():
 	# After animation is finished, remove the enemy
 	await $AnimatedSprite2D.animation_finished
 	queue_free()
-			
-			
+	
 
 
 func _on_bullet_timer_timeout() -> void:

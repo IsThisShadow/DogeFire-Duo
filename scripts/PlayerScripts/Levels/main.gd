@@ -4,7 +4,7 @@ var is_two_player_mode := false
 var current_level := 1  # Set this to 1, 2, 3, 4, or 5 depending on the scene
 
 var level_time := 0.0
-const TIME_LIMIT := 20.0
+const TIME_LIMIT := 40.0
 const ENEMY_SPAWN_MARGIN = 50  #makes it so the enemies dont spawn on the edge of the screen. 
 var transitioned := false
 
