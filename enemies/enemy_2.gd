@@ -9,6 +9,10 @@ var bullet_scene = preload("res://enemies/Enemy_1_bullet.tscn")
 
 func _ready():
 	current_health = max_health
+	# Check if enemy escaped (x < -buffer)
+	if position.x < -50:
+		apply_escape_penalty()
+		queue_free()
 
 func _physics_process(delta):
 	position.x -= speed * delta
@@ -65,3 +69,15 @@ func spawn_damage_number(amount: int):
 	label.visible = false
 	label.modulate = Color(1, 1, 1, 1)  # Reset color and alpha
 	label.position = Vector2(0, -20)  # Reset position
+
+
+func apply_escape_penalty():
+	var penalty_amount = 30  # or whatever penalty you want
+
+	if Global.is_single_player:
+		Global.player1_score -= penalty_amount
+	else:
+		Global.player1_score -= penalty_amount
+		Global.player2_score -= penalty_amount
+
+	print("Enemy escaped! Penalty applied.")

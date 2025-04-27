@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6ifodwc74f7"]
+
+[ext_resource type="Script" uid="uid://cxmgbbaqvidwk" path="res://enemies/enemy3_bullet.gd" id="1_e80t6"]
+[ext_resource type="Texture2D" uid="uid://cy8h41pjn6xpm" path="res://Assets/Foozle_2DS0012_Void_EnemyFleet_1/Kla'ed/Projectiles/PNGs/Kla'ed - Big Bullet.png" id="2_obqbe"]
+
+[sub_resource type="Animation" id="Animation_gfu87"]
+resource_name = "Enemy_3_Bullet"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_eacob"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yf5lb"]
+_data = {
+&"Enemy3_bullet": SubResource("Animation_gfu87"),
+&"RESET": SubResource("Animation_eacob")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e80t6"]
+size = Vector2(6, 11)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_e80t6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_obqbe")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yf5lb")
+}
+autoplay = "Enemy3_bullet"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_e80t6")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

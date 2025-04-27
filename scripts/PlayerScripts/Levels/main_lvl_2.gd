@@ -1,11 +1,17 @@
 extends Node2D
 
 var is_two_player_mode := false
-var current_level := 2  # Set this to 1, 2, 3, 4, or 5 depending on the scene
+var current_level := 2
 
 var level_time := 0.0
-const TIME_LIMIT := 30.0
+const TIME_LIMIT := 50.0
 var transitioned := false
+
+# Enemy Spawning
+@onready var screen_size = get_viewport_rect().size
+var enemy3_scene = preload("res://enemies/Enemy_3.tscn")
+var enemy4_scene = preload("res://enemies/Enemy_4.tscn")
+@onready var enemy_timer = $EnemySpawnTimer
 
 func set_2_players(enable: bool):
 	is_two_player_mode = enable
@@ -17,21 +23,19 @@ func _ready():
 	print(">> Scene loaded, 2P mode is:", is_two_player_mode)
 	_setup_health_bars()
 	_set_parallax_speed()
+	
+	start_enemy_spawning()
 
 func _process(delta):
 	if not get_tree().paused and current_level < 5 and not transitioned:
 		level_time += delta
-		
-		# Update level progress bar dynamically
 		$HUD/LevelProgressBar.max_value = TIME_LIMIT
 		$HUD/LevelProgressBar.value = level_time
-		
 		
 		if level_time >= TIME_LIMIT:
 			transitioned = true
 			_show_weapon_unlock_screen(current_level + 1)
 
-	# Update Player 1 Health UI (only if P1 still exists)
 	var p1 = get_node_or_null("CharacterBodyP1")
 	if p1:
 		var p1_health = p1.p1_health
@@ -42,7 +46,6 @@ func _process(delta):
 		$HUD/Control/P1HealthBar.value = 0
 		$HUD/Control/P1PercentLabel.text = "0%"
 
-	# Update Player 2 Health UI (only if 2P mode and P2 exists)
 	var p2 = get_node_or_null("CharacterBodyP2")
 	if is_two_player_mode and p2:
 		var p2_health = p2.p2_health
@@ -108,3 +111,51 @@ func _show_weapon_unlock_screen(next_level: int):
 	get_tree().get_root().add_child(unlock_scene)
 	get_tree().current_scene.queue_free()
 	get_tree().current_scene = unlock_scene
+
+# --- Enemy Spawning System ---
+func start_enemy_spawning():
+	enemy_timer.start()
+
+func _on_enemy_spawn_timer_timeout() -> void:
+	var enemy_count = 0
+	for child in get_children():
+		if child.name.begins_with("Enemy"):
+			enemy_count += 1
+
+	if enemy_count < 7:
+		spawn_enemy_level2()
+
+	# Randomize spawn time slightly
+	enemy_timer.wait_time = randf_range(1.5, 3.5)
+	enemy_timer.start()
+
+func spawn_enemy_level2():
+	var roll = randi() % 100
+	
+	if roll < 50:
+		# 50% chance to spawn 3 enemies in arrow
+		spawn_arrow_formation()
+	else:
+		# 50% chance spawn 1 random Enemy 4
+		var enemy = enemy4_scene.instantiate()
+		var y_pos = randf_range(50, screen_size.y - 50)
+		enemy.position = Vector2(screen_size.x + 50, y_pos)
+		add_child(enemy)
+
+func spawn_arrow_formation():
+	var base_y = randf_range(100, screen_size.y - 100)
+
+	# Middle enemy
+	var enemy_mid = enemy3_scene.instantiate()
+	enemy_mid.position = Vector2(screen_size.x + 50, base_y)
+	add_child(enemy_mid)
+
+	# Top enemy
+	var enemy_top = enemy3_scene.instantiate()
+	enemy_top.position = Vector2(screen_size.x + 30, base_y - 25)
+	add_child(enemy_top)
+
+	# Bottom enemy
+	var enemy_bot = enemy3_scene.instantiate()
+	enemy_bot.position = Vector2(screen_size.x + 30, base_y + 25)
+	add_child(enemy_bot)

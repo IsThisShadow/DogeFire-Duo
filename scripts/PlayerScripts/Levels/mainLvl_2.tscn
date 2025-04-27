@@ -199,3 +199,5 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "Player 1 has died!
 "
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]

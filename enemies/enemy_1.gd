@@ -17,7 +17,12 @@ func _ready():
 
 func _physics_process(delta):
 	position.x -= speed * delta
-
+		# Check if enemy escaped (x < -buffer)
+	if position.x < -50:
+		apply_escape_penalty()
+		queue_free()
+		
+		
 func take_damage(amount, shooter_player := 1):
 	if is_dead:
 		return
@@ -70,3 +75,12 @@ func spawn_damage_number(amount: int):
 	label.visible = false
 	label.modulate = Color(1, 1, 1, 1)  # Reset color and alpha
 	label.position = Vector2(0, -20)  # Reset position
+
+func apply_escape_penalty():
+	var penalty_amount = 20  # or whatever penalty you want
+
+	if Global.is_single_player:
+		Global.player1_score -= penalty_amount
+	else:
+		Global.player1_score -= penalty_amount
+		Global.player2_score -= penalty_amount
