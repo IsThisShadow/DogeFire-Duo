@@ -142,9 +142,8 @@ func select_weapon(id: int):
 	var weapon_scene = weapon_scenes.get(id)
 	if weapon_scene:
 		current_weapon = weapon_scene.instantiate()
-		current_weapon.player_id = 2  # <-- Player 2
 		weapon_container.add_child(current_weapon)
-
+		current_weapon.initialize(2)  # <<< NEW call!
 
 func die():
 	is_dead = true

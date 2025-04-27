@@ -9,6 +9,7 @@ var cooldown := .3 #delay between shots in seconds
 
 
 func fire():
+	print("FIRING: player_id =", player_id)
 	if not can_shoot:
 		return
 
@@ -16,6 +17,7 @@ func fire():
 
 	var bullet = bullet_scene.instantiate()
 	bullet.shooter_player = player_id
+	print("FIRING: player_id =", player_id)
 	bullet.global_position = shoot_point.global_position
 	bullet.direction = Vector2(1, 0)
 	get_tree().current_scene.add_child(bullet)
@@ -24,5 +26,8 @@ func fire():
 	await get_tree().create_timer(cooldown).timeout
 	can_shoot = true
 	
+func initialize(owner_player_id: int):
+	player_id = owner_player_id
+
 	
 	

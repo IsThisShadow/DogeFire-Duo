@@ -57,9 +57,9 @@ func _process(delta):
 		$HUD/Control2.visible = false
 
 	# Update Player Scores
-	$HUD/Control/P1ScoreLabel.text = str(Global.player1_score)
+	$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
 	if is_two_player_mode:
-		$HUD/Control2/P2ScoreLabel.text = str(Global.player2_score)
+		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
 
 func _setup_players():
 	if is_two_player_mode:
