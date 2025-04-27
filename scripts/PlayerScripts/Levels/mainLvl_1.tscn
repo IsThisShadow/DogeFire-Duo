@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://cm8btmccrf7sc"]
+[gd_scene load_steps=14 format=3 uid="uid://cm8btmccrf7sc"]
 
 [ext_resource type="Script" uid="uid://bxfbh3jp80jpv" path="res://scripts/PlayerScripts/Levels/main.gd" id="1_gtmw4"]
-[ext_resource type="PackedScene" uid="uid://wosei8oo5blp" path="res://EnemyTest.tscn" id="2_1dunk"]
 [ext_resource type="PackedScene" uid="uid://b44ebn5xhv34r" path="res://characterBodyP1.tscn" id="3_0w4dj"]
 [ext_resource type="Texture2D" uid="uid://bfgjf0iyokkp4" path="res://Assets/Pixel Health Bar/Bar/no health bar.png" id="4_0w4dj"]
 [ext_resource type="PackedScene" uid="uid://ckmiuk6k2658l" path="res://characterBodyP2.tscn" id="4_f1hde"]
@@ -154,9 +153,6 @@ scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("6_f1hde")
 theme_override_font_sizes/font_size = 70
 text = "Score: 0"
-
-[node name="EnemyTest" parent="." instance=ExtResource("2_1dunk")]
-position = Vector2(548, 174)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource("5_64ibx")

@@ -45,6 +45,8 @@ _data = {
 }
 
 [node name="CharacterBody_enemy_3" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_oi8fn")
 
 [node name="enemy_3_Fighter" type="Sprite2D" parent="."]
