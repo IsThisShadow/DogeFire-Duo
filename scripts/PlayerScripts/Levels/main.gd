@@ -5,7 +5,13 @@ var current_level := 1  # Set this to 1, 2, 3, 4, or 5 depending on the scene
 
 var level_time := 0.0
 const TIME_LIMIT := 20.0
+const ENEMY_SPAWN_MARGIN = 50  #makes it so the enemies dont spawn on the edge of the screen. 
 var transitioned := false
+
+# === Enemy spawning setup ===
+@onready var screen_size = get_viewport_rect().size
+var enemy_scene = preload("res://enemies/Enemy_1.tscn")
+@onready var enemy_timer = $Enemy1SpawnTimer
 
 func set_2_players(enable: bool):
 	is_two_player_mode = enable
@@ -17,6 +23,10 @@ func _ready():
 	print(">> Scene loaded, 2P mode is:", is_two_player_mode)
 	_setup_health_bars()
 	_set_parallax_speed()
+
+	# Start enemy spawning if Level 1
+	if current_level == 1:
+		start_enemy_spawning()
 
 func _process(delta):
 	# Only accumulate gameplay time while not paused
@@ -94,3 +104,27 @@ func _show_weapon_unlock_screen(next_level: int):
 	get_tree().get_root().add_child(unlock_scene)
 	get_tree().current_scene.queue_free()
 	get_tree().current_scene = unlock_scene
+
+# === Enemy Spawning ===
+func start_enemy_spawning():
+	enemy_timer.start()
+
+func _on_enemy_1_spawn_timer_timeout() -> void:
+	# Only spawn if we have less than 5 enemies alive
+	var enemy_count = 0
+	for child in get_children():
+		if child.name.begins_with("Enemy"):
+			enemy_count += 1
+
+	if enemy_count < 5:
+		spawn_enemy()
+
+	# Randomize the next spawn time
+	enemy_timer.wait_time = randf_range(1.5, 3.5)
+	enemy_timer.start()
+
+func spawn_enemy():
+	var enemy = enemy_scene.instantiate()
+	var y_pos = randf_range(ENEMY_SPAWN_MARGIN, screen_size.y - ENEMY_SPAWN_MARGIN)
+	enemy.position = Vector2(screen_size.x + 50, y_pos)
+	add_child(enemy)
