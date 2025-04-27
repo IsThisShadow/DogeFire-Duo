@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@export var speed := 80
-@export var max_health := 50
+@export var speed := 60
+@export var max_health := 20
 var current_health := max_health
 var is_dead := false
 
@@ -23,7 +23,6 @@ func take_damage(amount):
 		return
 	
 	current_health -= amount
-	print("Enemy health:", current_health)
 	
 	if current_health <= 0:
 		die()

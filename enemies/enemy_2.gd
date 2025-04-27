@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@export var speed = 70  # Maybe slightly slower
-@export var max_health = 80  # More health
+@export var speed = 50  # Maybe slightly slower
+@export var max_health = 30 # More health
 var is_dead = false
 var current_health = max_health
 var bullet_scene = preload("res://enemies/Enemy_1_bullet.tscn")
@@ -18,7 +18,6 @@ func take_damage(amount):
 		return
 	
 	current_health -= amount
-	print("Enemy_2 health:", current_health)
 	if current_health <= 0:
 		die()
 

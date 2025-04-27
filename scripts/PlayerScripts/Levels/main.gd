@@ -129,7 +129,7 @@ func spawn_enemy():
 
 	var enemy
 	
-	if roll < 80:
+	if roll < 65:
 		# 80% chance to spawn normal Enemy_1
 		enemy = enemy1_scene.instantiate()
 	else:
