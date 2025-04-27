@@ -25,24 +25,23 @@ func take_damage(amount, shooter_player := 1):
 
 func die(shooter_player := 1):
 	is_dead = true
-	Global.player1_score += 30
+	
 	if $enemy_2_Scout:
 		$enemy_2_Scout.visible = false
 	if $DeathSprite_EN_2:
 		$DeathSprite_EN_2.visible = true
 	if $AnimationPlayer_EN_2:
 		$AnimationPlayer_EN_2.play("death_enemy_2")
-		
-	# Give points
+
+	# Correctly give points
 	if shooter_player == 1:
-		Global.player1_score += 15
+		Global.player1_score += 30
 	elif shooter_player == 2:
-		Global.player2_score += 15
-		
-		
+		Global.player2_score += 30
+
 	await $AnimationPlayer_EN_2.animation_finished
 	queue_free()
-
+	
 func _on_bullet_timer_timeout() -> void:
 	var bullet = bullet_scene.instantiate()
 	bullet.position = position

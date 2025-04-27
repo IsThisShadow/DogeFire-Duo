@@ -10,6 +10,7 @@ func _physics_process(delta):
 func _on_body_entered(body):
 	if body.is_in_group("enemies"):
 		if body.has_method("take_damage"):
+			print("BULLET hit enemy! shooter_player = ", shooter_player)
 			body.take_damage(damage, shooter_player)
 		queue_free()
 
