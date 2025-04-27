@@ -31,11 +31,12 @@ func _process(delta):
 		level_time += delta
 		$HUD/LevelProgressBar.max_value = TIME_LIMIT
 		$HUD/LevelProgressBar.value = level_time
-		
+
 		if level_time >= TIME_LIMIT:
 			transitioned = true
 			_show_weapon_unlock_screen(current_level + 1)
 
+	# Update Player 1 Health
 	var p1 = get_node_or_null("CharacterBodyP1")
 	if p1:
 		var p1_health = p1.p1_health
@@ -46,15 +47,21 @@ func _process(delta):
 		$HUD/Control/P1HealthBar.value = 0
 		$HUD/Control/P1PercentLabel.text = "0%"
 
+	# Update Player 1 Score
+	$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
+
+	# Update Player 2 (only if two-player mode)
 	var p2 = get_node_or_null("CharacterBodyP2")
 	if is_two_player_mode and p2:
 		var p2_health = p2.p2_health
 		var p2_max = p2.p2_maxHealth
 		$HUD/Control2/P2HealthBar.value = p2_health
 		$HUD/Control2/P2PercentLabel.text = str(int((p2_health / p2_max) * 100)) + "%"
+		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
 		$HUD/Control2.visible = true
 	else:
 		$HUD/Control2.visible = false
+
 
 func _setup_players():
 	var p2 = get_node_or_null("CharacterBodyP2")

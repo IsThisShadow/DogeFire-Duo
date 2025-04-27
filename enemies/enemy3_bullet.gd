@@ -10,7 +10,7 @@ func _physics_process(delta):
 func _ready():
 	rotation_degrees = 270
 	if has_node("AnimationPlayer"):
-		$AnimationPlayer.play("Enemy34_bullet")  # (Or the new animation name)
+		$AnimationPlayer.play("Enemy3_bullet")  # (Or the new animation name)
 
 	await get_tree().create_timer(5.0).timeout
 	queue_free()

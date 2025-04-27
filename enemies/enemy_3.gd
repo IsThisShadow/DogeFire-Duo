@@ -3,16 +3,23 @@ extends CharacterBody2D
 @export var speed := 60
 @export var max_health := 40
 @export var bullet_damage := 18  # Stronger bullet damage
-var is_dead := false
-var current_health := max_health
+var is_dead = false
+var current_health = max_health
 
 var bullet_scene = preload("res://enemies/Enemy_3_bullet.tscn")  # Make sure path is right!
 
 func _ready():
 	current_health = max_health
+	$BulletTimer.wait_time = 2.5
+	$BulletTimer.start()
 
 func _physics_process(delta):
 	position.x -= speed * delta
+
+	# Check if enemy goes off the left side of the screen
+	if position.x < -100 and not is_dead:
+		apply_penalty()
+		queue_free()
 
 func take_damage(amount: int, shooter_player := 1):
 	if is_dead:
@@ -37,7 +44,7 @@ func die(shooter_player := 1):
 
 	# Award points
 	if shooter_player == 1:
-		Global.player1_score += 20  # or whatever you want
+		Global.player1_score += 20
 	elif shooter_player == 2:
 		Global.player2_score += 20
 
@@ -58,10 +65,17 @@ func spawn_damage_number(amount: int):
 	label.position = Vector2(0, -20)
 
 	var tween = get_tree().create_tween()
-	tween.tween_property(label, "position", Vector2(0, -50), 0.3)  # Fast move up
-	tween.tween_property(label, "modulate:a", 0, 0.3)  # Fade out
+	tween.tween_property(label, "position", Vector2(0, -50), 0.3)
+	tween.tween_property(label, "modulate:a", 0, 0.3)
 	await tween.finished
 
 	label.visible = false
 	label.modulate.a = 1.0
 	label.position = Vector2(0, -20)
+
+func apply_penalty():
+	if Global.is_two_player_mode:
+		Global.player1_score = max(Global.player1_score - 15, 0)
+		Global.player2_score = max(Global.player2_score - 15, 0)
+	else:
+		Global.player1_score = max(Global.player1_score - 20, 0)

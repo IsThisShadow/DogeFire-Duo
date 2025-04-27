@@ -4,15 +4,22 @@ extends CharacterBody2D
 @export var max_health := 50
 @export var bullet_damage := 18  # Same stronger bullet as Enemy 3
 var is_dead := false
-var current_health := max_health
+var current_health = max_health
 
 var bullet_scene = preload("res://enemies/Enemy_3_bullet.tscn")  # SAME bullet as enemy 3
 
 func _ready():
 	current_health = max_health
+	$BulletTimer.wait_time = 2.5
+	$BulletTimer.start()
 
 func _physics_process(delta):
 	position.x -= speed * delta
+
+	# Check if enemy goes off the left side of the screen
+	if position.x < -100 and not is_dead:
+		apply_penalty()
+		queue_free()
 
 func take_damage(amount: int, shooter_player := 1):
 	if is_dead:
@@ -28,7 +35,7 @@ func take_damage(amount: int, shooter_player := 1):
 func die(shooter_player := 1):
 	is_dead = true
 
-	# Make sure the normal flying sprite hides IMMEDIATELY
+	# Make sure the normal flying sprite hides immediately
 	if $enemy_4_Bomber:
 		$enemy_4_Bomber.visible = false
 
@@ -46,7 +53,6 @@ func die(shooter_player := 1):
 	elif shooter_player == 2:
 		Global.player2_score += 25
 
-	# Wait for death animation to finish before removing enemy
 	await $AnimationPlayer_EN_4.animation_finished
 	queue_free()
 
@@ -71,3 +77,10 @@ func spawn_damage_number(amount: int):
 	label.visible = false
 	label.modulate.a = 1.0
 	label.position = Vector2(0, -20)
+
+func apply_penalty():
+	if Global.is_two_player_mode:
+		Global.player1_score = max(Global.player1_score - 15, 0)
+		Global.player2_score = max(Global.player2_score - 15, 0)
+	else:
+		Global.player1_score = max(Global.player1_score - 20, 0)

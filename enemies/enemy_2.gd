@@ -79,5 +79,3 @@ func apply_escape_penalty():
 	else:
 		Global.player1_score -= penalty_amount
 		Global.player2_score -= penalty_amount
-
-	print("Enemy escaped! Penalty applied.")

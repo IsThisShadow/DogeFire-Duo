@@ -1,5 +1,5 @@
 extends Area2D
-@export var damage := 15 
+@export var damage := 10
 @export var shooter_player := 1 
 var direction: Vector2 = Vector2(1, 0)
 const SPEED := 400  # Adjust per weapon style
