@@ -133,10 +133,14 @@ func spawn_enemy_level2():
 	var roll = randi() % 100
 	
 	if roll < 50:
-		# 50% chance to spawn 3 enemies in arrow
-		spawn_arrow_formation()
+		# 50% chance to spawn arrow formation
+		if randf() < 0.5:  # Only allow arrow spawn 50% of the time when picked
+			spawn_arrow_formation()
+		else:
+			# If not, do nothing (skip)
+			return
 	else:
-		# 50% chance spawn 1 random Enemy 4
+		# 50% chance spawn one Enemy 4
 		var enemy = enemy4_scene.instantiate()
 		var y_pos = randf_range(50, screen_size.y - 50)
 		enemy.position = Vector2(screen_size.x + 50, y_pos)

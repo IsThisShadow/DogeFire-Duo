@@ -28,19 +28,25 @@ func take_damage(amount: int, shooter_player := 1):
 func die(shooter_player := 1):
 	is_dead = true
 
-	if $enemy_4_Fighter:
-		$enemy_4_Fighter.visible = false
+	# Make sure the normal flying sprite hides IMMEDIATELY
+	if $enemy_4_Bomber:
+		$enemy_4_Bomber.visible = false
+
+	# Show death sprite before animation plays
 	if $DeathSprite_EN_4:
 		$DeathSprite_EN_4.visible = true
+
+	# Now safely play death animation
 	if $AnimationPlayer_EN_4:
 		$AnimationPlayer_EN_4.play("death_enemy_4")
 
 	# Award points
 	if shooter_player == 1:
-		Global.player1_score += 25  # Maybe worth slightly more points
+		Global.player1_score += 25
 	elif shooter_player == 2:
 		Global.player2_score += 25
 
+	# Wait for death animation to finish before removing enemy
 	await $AnimationPlayer_EN_4.animation_finished
 	queue_free()
 

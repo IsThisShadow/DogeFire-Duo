@@ -20,3 +20,6 @@ func fire():
 
 	await get_tree().create_timer(cooldown).timeout
 	can_shoot = true
+
+func initialize(owner_player_id: int):
+	player_id = owner_player_id

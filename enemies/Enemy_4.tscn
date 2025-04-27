@@ -61,7 +61,6 @@ shape = SubResource("RectangleShape2D_xmeel")
 [node name="BulletTimer" type="Timer" parent="."]
 
 [node name="DeathSprite_EN_4" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 1
 position = Vector2(-2.59519e-09, 0.217628)
 rotation = 4.71239
