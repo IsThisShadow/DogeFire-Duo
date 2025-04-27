@@ -1,8 +1,8 @@
 extends Area2D
-
+@export var damage := 100
 var direction: Vector2 = Vector2(1, 0)
 const SPEED := 300
-@export var shooter_player: int = 1
+@export var shooter_player:= 1
 
 
 func _physics_process(delta):
