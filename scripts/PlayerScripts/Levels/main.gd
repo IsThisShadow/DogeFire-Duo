@@ -5,10 +5,10 @@ var current_level := 1  # Set this to 1, 2, 3, 4, or 5 depending on the scene
 
 var level_time := 0.0
 const TIME_LIMIT := 40.0
-const ENEMY_SPAWN_MARGIN = 50  #makes it so the enemies dont spawn on the edge of the screen. 
+const ENEMY_SPAWN_MARGIN = 50
 var transitioned := false
 
-#  Enemy spawning setup
+# Enemy spawning setup
 @onready var screen_size = get_viewport_rect().size
 var enemy1_scene = preload("res://enemies/Enemy_1.tscn")
 var enemy2_scene = preload("res://enemies/Enemy_2.tscn")
@@ -25,7 +25,6 @@ func _ready():
 	_setup_health_bars()
 	_set_parallax_speed()
 
-	# Start enemy spawning if Level 1
 	if current_level == 1:
 		start_enemy_spawning()
 
@@ -56,6 +55,11 @@ func _process(delta):
 		$HUD/Control2.visible = true
 	else:
 		$HUD/Control2.visible = false
+
+	# Update Player Scores
+	$HUD/Control/P1ScoreLabel.text = str(Global.player1_score)
+	if is_two_player_mode:
+		$HUD/Control2/P2ScoreLabel.text = str(Global.player2_score)
 
 func _setup_players():
 	if is_two_player_mode:
@@ -106,12 +110,11 @@ func _show_weapon_unlock_screen(next_level: int):
 	get_tree().current_scene.queue_free()
 	get_tree().current_scene = unlock_scene
 
-#  Enemy Spawning 
+# Enemy Spawning
 func start_enemy_spawning():
 	enemy_timer.start()
 
 func _on_enemy_1_spawn_timer_timeout() -> void:
-	# Only spawn if we have less than 5 enemies alive
 	var enemy_count = 0
 	for child in get_children():
 		if child.name.begins_with("Enemy"):
@@ -120,22 +123,19 @@ func _on_enemy_1_spawn_timer_timeout() -> void:
 	if enemy_count < 5:
 		spawn_enemy()
 
-	# Randomize the next spawn time
+	# Randomize next spawn time
 	enemy_timer.wait_time = randf_range(1.5, 3.5)
 	enemy_timer.start()
 
 func spawn_enemy():
-	var roll = randi() % 100  # Random number between 0 and 99
-
+	var roll = randi() % 100  # Random number between 0-99
 	var enemy
 	
 	if roll < 65:
-		# 80% chance to spawn normal Enemy_1
 		enemy = enemy1_scene.instantiate()
 	else:
-		# 20% chance to spawn tougher Enemy_2
 		enemy = enemy2_scene.instantiate()
 
-	var y_pos = randf_range(50, screen_size.y - 50)
+	var y_pos = randf_range(ENEMY_SPAWN_MARGIN, screen_size.y - ENEMY_SPAWN_MARGIN)
 	enemy.position = Vector2(screen_size.x + 50, y_pos)
 	add_child(enemy)

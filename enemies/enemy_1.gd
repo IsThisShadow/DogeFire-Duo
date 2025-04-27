@@ -18,30 +18,34 @@ func _ready():
 func _physics_process(delta):
 	position.x -= speed * delta
 
-func take_damage(amount):
+func take_damage(amount, shooter_player := 1):
 	if is_dead:
 		return
 	
 	current_health -= amount
-	
-	if current_health <= 0:
-		die()
 
-func die():
+	if current_health <= 0:
+		die(shooter_player)
+
+func die(shooter_player := 1):
 	is_dead = true
 	
-	# Hide the normal flying sprite
+	# Hide the idle sprite
 	if $enemy_1_SupportShip:
 		$enemy_1_SupportShip.visible = false
-	
-	# Show the DeathSprite and play the death animation
 	if $DeathSprite:
 		$DeathSprite.visible = true
 	
+	# Play death animation
 	if $AnimationPlayer:
 		$AnimationPlayer.play("death_enemy_1")
 
-	# After death animation finishes, remove the enemy
+	# Give points
+	if shooter_player == 1:
+		Global.player1_score += 15
+	elif shooter_player == 2:
+		Global.player2_score += 15
+
 	await $AnimationPlayer.animation_finished
 	queue_free()
 
