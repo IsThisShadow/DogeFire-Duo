@@ -8,9 +8,10 @@ const TIME_LIMIT := 40.0
 const ENEMY_SPAWN_MARGIN = 50  #makes it so the enemies dont spawn on the edge of the screen. 
 var transitioned := false
 
-# === Enemy spawning setup ===
+#  Enemy spawning setup
 @onready var screen_size = get_viewport_rect().size
-var enemy_scene = preload("res://enemies/Enemy_1.tscn")
+var enemy1_scene = preload("res://enemies/Enemy_1.tscn")
+var enemy2_scene = preload("res://enemies/Enemy_2.tscn")
 @onready var enemy_timer = $Enemy1SpawnTimer
 
 func set_2_players(enable: bool):
@@ -105,7 +106,7 @@ func _show_weapon_unlock_screen(next_level: int):
 	get_tree().current_scene.queue_free()
 	get_tree().current_scene = unlock_scene
 
-# === Enemy Spawning ===
+#  Enemy Spawning 
 func start_enemy_spawning():
 	enemy_timer.start()
 
@@ -124,7 +125,17 @@ func _on_enemy_1_spawn_timer_timeout() -> void:
 	enemy_timer.start()
 
 func spawn_enemy():
-	var enemy = enemy_scene.instantiate()
-	var y_pos = randf_range(ENEMY_SPAWN_MARGIN, screen_size.y - ENEMY_SPAWN_MARGIN)
+	var roll = randi() % 100  # Random number between 0 and 99
+
+	var enemy
+	
+	if roll < 80:
+		# 80% chance to spawn normal Enemy_1
+		enemy = enemy1_scene.instantiate()
+	else:
+		# 20% chance to spawn tougher Enemy_2
+		enemy = enemy2_scene.instantiate()
+
+	var y_pos = randf_range(50, screen_size.y - 50)
 	enemy.position = Vector2(screen_size.x + 50, y_pos)
 	add_child(enemy)
