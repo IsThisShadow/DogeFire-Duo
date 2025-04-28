@@ -6,7 +6,7 @@ extends CharacterBody2D
 
 var is_dead = false
 var current_health = max_health
-@onready var visibility_notifier = $VisibilityNotifier2D
+@onready var visibility_notifier = $VisibleOnScreenNotifier2D
 var bullet_scene = preload("res://enemies/Enemy_8_bullet.tscn")
 
 func _ready():
