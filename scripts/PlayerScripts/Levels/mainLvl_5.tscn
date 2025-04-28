@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://cua80e6cbtcbg"]
+[gd_scene load_steps=14 format=3 uid="uid://cua80e6cbtcbg"]
 
 [ext_resource type="Script" uid="uid://b4jxxb3dyy5ki" path="res://scripts/PlayerScripts/Levels/main_lvl_5.gd" id="1_5pm2v"]
-[ext_resource type="PackedScene" uid="uid://wosei8oo5blp" path="res://EnemyTest.tscn" id="2_67rsj"]
 [ext_resource type="PackedScene" uid="uid://b44ebn5xhv34r" path="res://characterBodyP1.tscn" id="3_5pm2v"]
 [ext_resource type="Texture2D" uid="uid://bfgjf0iyokkp4" path="res://Assets/Pixel Health Bar/Bar/no health bar.png" id="3_67rsj"]
 [ext_resource type="Script" uid="uid://chnd25exe3l3t" path="res://scripts/PlayerScripts/Levels/parallax_background_lvl5.gd" id="4_4rceu"]
@@ -147,9 +146,6 @@ offset_top = 43.0
 offset_right = 34.0
 offset_bottom = 66.0
 text = "Score: 0"
-
-[node name="EnemyTest" parent="." instance=ExtResource("2_67rsj")]
-position = Vector2(548, 174)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource("4_4rceu")

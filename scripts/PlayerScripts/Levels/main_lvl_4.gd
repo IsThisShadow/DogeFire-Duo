@@ -4,7 +4,7 @@ var is_two_player_mode := false
 var current_level := 4
 
 var level_time := 0.0
-const TIME_LIMIT := 50.0
+const TIME_LIMIT := 10.0
 var transitioned := false
 
 # Enemy Spawning
@@ -55,25 +55,25 @@ func _process(delta):
 			transitioned = true
 			_show_weapon_unlock_screen(current_level + 1)
 
-	# Update Player 1 Health
-	var p1_health = $CharacterBodyP1.p1_health
-	var p1_max = $CharacterBodyP1.p1_maxHealth
-	$HUD/Control/P1HealthBar.value = p1_health
-	$HUD/Control/P1PercentLabel.text = str(int((p1_health / p1_max) * 100)) + "%"
+	# Safely check if Player 1 exists
+	var p1 = get_node_or_null("CharacterBodyP1")
+	if p1:
+		var p1_health = p1.p1_health
+		var p1_max = p1.p1_maxHealth
+		$HUD/Control/P1HealthBar.value = p1_health
+		$HUD/Control/P1PercentLabel.text = str(int((p1_health / p1_max) * 100)) + "%"
+		$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
+	else:
+		$HUD/Control.visible = false
 
-	# Update Player 1 Score
-	$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
-
-	if is_two_player_mode:
-		# Update Player 2 Health
-		var p2_health = $CharacterBodyP2.p2_health
-		var p2_max = $CharacterBodyP2.p2_maxHealth
+	# Safely check if Player 2 exists
+	var p2 = get_node_or_null("CharacterBodyP2")
+	if is_two_player_mode and p2:
+		var p2_health = p2.p2_health
+		var p2_max = p2.p2_maxHealth
 		$HUD/Control2/P2HealthBar.value = p2_health
 		$HUD/Control2/P2PercentLabel.text = str(int((p2_health / p2_max) * 100)) + "%"
-
-		# Update Player 2 Score
 		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
-
 		$HUD/Control2.visible = true
 	else:
 		$HUD/Control2.visible = false

@@ -78,11 +78,13 @@ func reset_stats():
 	player1_health = player1_max_health
 	player1_revives = 0
 	player1_permadead = false
-
+	player1_score = 0 
+	
+	
 	player2_health = player2_max_health
 	player2_revives = 0
 	player2_permadead = false
-
+	player2_score = 0 
 # === Check for total game over ===
 func check_for_game_over():
 	var p1_dead = player1_health <= 0

@@ -4,7 +4,7 @@ var is_two_player_mode := false
 var current_level := 5  # Set this to 1, 2, 3, 4, or 5 depending on the scene
 
 var level_time := 0.0
-const TIME_LIMIT := 10.0
+const TIME_LIMIT := 20.0
 var transitioned := false
 
 func set_2_players(enable: bool):
@@ -19,32 +19,34 @@ func _ready():
 	_set_parallax_speed()
 
 func _process(delta):
-	# Final level — no auto transition after timeout
-	if current_level < 5 and not get_tree().paused and not transitioned:
+	if not get_tree().paused and not transitioned:
 		level_time += delta
-				
+
 		# Update level progress bar dynamically
 		$HUD/LevelProgressBar.max_value = TIME_LIMIT
 		$HUD/LevelProgressBar.value = level_time
 		
 		if level_time >= TIME_LIMIT:
 			transitioned = true
-			_show_weapon_unlock_screen(current_level + 1)
+			_show_win_screen()
 
-	# Update health bars
+	# Update Player 1 Health
 	var p1_health = $CharacterBodyP1.p1_health
 	var p1_max = $CharacterBodyP1.p1_maxHealth
 	$HUD/Control/P1HealthBar.value = p1_health
 	$HUD/Control/P1PercentLabel.text = str(int((p1_health / p1_max) * 100)) + "%"
 
-	if is_two_player_mode:
-		var p2_health = $CharacterBodyP2.p2_health
-		var p2_max = $CharacterBodyP2.p2_maxHealth
+	# Safely check if Player 2 exists
+	var p2 = get_node_or_null("CharacterBodyP2")
+	if is_two_player_mode and p2:
+		var p2_health = p2.p2_health
+		var p2_max = p2.p2_maxHealth
 		$HUD/Control2/P2HealthBar.value = p2_health
 		$HUD/Control2/P2PercentLabel.text = str(int((p2_health / p2_max) * 100)) + "%"
 		$HUD/Control2.visible = true
 	else:
 		$HUD/Control2.visible = false
+
 
 func _setup_players():
 	if is_two_player_mode:
@@ -87,10 +89,9 @@ func _set_collision_polygons_enabled(node: Node, enabled: bool):
 		elif child.get_child_count() > 0:
 			_set_collision_polygons_enabled(child, enabled)
 
-func _show_weapon_unlock_screen(next_level: int):
-	var unlock_scene = preload("res://Scenes/weapon_unlock_screen.tscn").instantiate()
-	unlock_scene.next_level_index = next_level
-	unlock_scene.is_two_player_mode = is_two_player_mode
-	get_tree().get_root().add_child(unlock_scene)
+func _show_win_screen():
+	await get_tree().create_timer(1.0).timeout  # Optional small delay for polish
+	var win_scene = preload("res://WinScreen.tscn").instantiate()
+	get_tree().get_root().add_child(win_scene)
 	get_tree().current_scene.queue_free()
-	get_tree().current_scene = unlock_scene
+	get_tree().current_scene = win_scene
