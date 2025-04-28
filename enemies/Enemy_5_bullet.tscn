@@ -50,6 +50,7 @@ script = ExtResource("1_x6tdg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+rotation = 4.71239
 texture = ExtResource("2_jkweh")
 hframes = 3
 
@@ -60,7 +61,8 @@ libraries = {
 autoplay = "Enemy5_bullet"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(-6, 0)
+rotation = 4.71239
 shape = SubResource("RectangleShape2D_0rqm4")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -19,11 +19,11 @@ func _physics_process(delta):
 	if is_dead:
 		return
 
-	# Slight tilt/movement like enemy 7
+	# Smooth left movement + slight vertical tilt
 	position.x -= speed * delta
-	position.y += sin(position.x / 40.0) * 2.0  # Wavy movement
+	position.y += sin(position.x / 40.0) * 2.0
 
-	# Update health bar
+	# Health bar update
 	$HealthBar.max_value = max_health
 	$HealthBar.value = current_health
 
@@ -54,7 +54,7 @@ func die(shooter_player := 1):
 		$AnimationPlayer_EN_8.play("death_enemy_8")
 
 	if shooter_player == 1:
-		Global.player1_score += 100  # Big bonus for boss kill
+		Global.player1_score += 100
 	elif shooter_player == 2:
 		Global.player2_score += 100
 

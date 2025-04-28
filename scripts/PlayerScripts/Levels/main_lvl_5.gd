@@ -19,8 +19,8 @@ var enemy8_scene = preload("res://enemies/Enemy_8.tscn")
 @onready var enemy_timer = $EnemySpawnTimer
 
 var wave1_spawned := false
-var boss_spawned := false
 var wave2_spawned := false
+var boss_spawned := false
 
 func set_2_players(enable: bool):
 	is_two_player_mode = enable
@@ -34,7 +34,6 @@ func _ready():
 	_set_parallax_speed()
 	start_enemy_spawning()
 
-	# Spawn first wave immediately
 	spawn_big_enemy6_wave()
 	wave1_spawned = true
 
@@ -44,45 +43,38 @@ func _process(delta):
 
 		$HUD/LevelProgressBar.max_value = TIME_LIMIT
 		$HUD/LevelProgressBar.value = level_time
-		
-		# 40% spawn second mini-wave (heavy enemies)
+
 		if not wave2_spawned and level_time >= (TIME_LIMIT * 0.4):
 			spawn_big_enemy5_wave()
 			wave2_spawned = true
-		
-		# 60% spawn boss (enemy 8)
+
 		if not boss_spawned and level_time >= (TIME_LIMIT * 0.6):
 			spawn_enemy8_boss()
 			boss_spawned = true
-		
+
 		if level_time >= TIME_LIMIT:
 			transitioned = true
 			_show_win_screen()
 
-	# Update Player 1 Health
+	# Update Player 1
 	var p1 = get_node_or_null("CharacterBodyP1")
 	if p1:
-		var p1_health = p1.p1_health
-		var p1_max = p1.p1_maxHealth
-		$HUD/Control/P1HealthBar.value = p1_health
-		$HUD/Control/P1PercentLabel.text = str(int((p1_health / p1_max) * 100)) + "%"
+		$HUD/Control/P1HealthBar.value = p1.p1_health
+		$HUD/Control/P1PercentLabel.text = str(int((p1.p1_health / p1.p1_maxHealth) * 100)) + "%"
 	else:
 		$HUD/Control.visible = false
 
-	# Update Player 2 Health
+	# Update Player 2
 	var p2 = get_node_or_null("CharacterBodyP2")
 	if is_two_player_mode and p2:
-		var p2_health = p2.p2_health
-		var p2_max = p2.p2_maxHealth
-		$HUD/Control2/P2HealthBar.value = p2_health
-		$HUD/Control2/P2PercentLabel.text = str(int((p2_health / p2_max) * 100)) + "%"
+		$HUD/Control2/P2HealthBar.value = p2.p2_health
+		$HUD/Control2/P2PercentLabel.text = str(int((p2.p2_health / p2.p2_maxHealth) * 100)) + "%"
 		$HUD/Control2.visible = true
 	else:
 		$HUD/Control2.visible = false
 
 func _setup_players():
 	if is_two_player_mode:
-		print(">> Enabling Player 2")
 		$CharacterBodyP2.visible = true
 		$CharacterBodyP2.set_process(true)
 		$CharacterBodyP2.set_physics_process(true)
@@ -90,7 +82,6 @@ func _setup_players():
 		$CharacterBodyP2.set_process_unhandled_input(true)
 		_set_collision_polygons_enabled($CharacterBodyP2, true)
 	else:
-		print(">> Disabling Player 2")
 		$CharacterBodyP2.visible = false
 		$CharacterBodyP2.set_process(false)
 		$CharacterBodyP2.set_physics_process(false)
@@ -135,38 +126,30 @@ func start_enemy_spawning():
 
 func _on_EnemySpawnTimer_timeout():
 	if wave1_spawned and not wave2_spawned:
-		spawn_random_enemy1_to_4()
+		if randi() % 100 < 70:
+			spawn_enemy1()
+		if randi() % 100 < 50:
+			spawn_enemy2()
+		if randi() % 100 < 30:
+			spawn_enemy3()
+		if randi() % 100 < 30:
+			spawn_enemy4()
 	elif wave2_spawned and not boss_spawned:
-		spawn_random_enemy1_to_6()
-	# After boss, slow down enemy spawns if you want
+		if randi() % 100 < 60:
+			spawn_enemy1()
+		if randi() % 100 < 50:
+			spawn_enemy2()
+		if randi() % 100 < 40:
+			spawn_enemy3()
+		if randi() % 100 < 40:
+			spawn_enemy4()
+		if randi() % 100 < 30:
+			spawn_enemy5()
+		if randi() % 100 < 30:
+			spawn_enemy6()
+
 	enemy_timer.wait_time = randf_range(2.0, 3.5)
 	enemy_timer.start()
-
-func spawn_random_enemy1_to_4():
-	var roll = randi() % 100
-	if roll < 30:
-		spawn_enemy1()
-	elif roll < 60:
-		spawn_enemy2()
-	elif roll < 80:
-		spawn_enemy3()
-	else:
-		spawn_enemy4()
-
-func spawn_random_enemy1_to_6():
-	var roll = randi() % 100
-	if roll < 20:
-		spawn_enemy1()
-	elif roll < 40:
-		spawn_enemy2()
-	elif roll < 60:
-		spawn_enemy3()
-	elif roll < 75:
-		spawn_enemy4()
-	elif roll < 90:
-		spawn_enemy5()
-	else:
-		spawn_enemy6()
 
 func spawn_enemy1():
 	var enemy = enemy1_scene.instantiate()
@@ -206,7 +189,6 @@ func spawn_enemy8_boss():
 func spawn_big_enemy6_wave():
 	var count := 8
 	var spacing: float = (screen_size.y - 150.0) / float(count - 1)
-
 	for i in range(count):
 		var enemy = enemy6_scene.instantiate()
 		var y_offset = 75 + (spacing * i)
@@ -217,7 +199,6 @@ func spawn_big_enemy6_wave():
 func spawn_big_enemy5_wave():
 	var count := 6
 	var spacing: float = (screen_size.y - 100.0) / float(count - 1)
-
 	for i in range(count):
 		var enemy = enemy5_scene.instantiate()
 		var y_offset = 50 + (spacing * i)
