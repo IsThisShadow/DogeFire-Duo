@@ -1,7 +1,7 @@
 extends Node2D
 
 var is_two_player_mode := false
-var current_level := 4  # Level 4
+var current_level := 4
 
 var level_time := 0.0
 const TIME_LIMIT := 50.0
@@ -9,6 +9,8 @@ var transitioned := false
 
 # Enemy Spawning
 @onready var screen_size = get_viewport_rect().size
+var enemy1_scene = preload("res://enemies/Enemy_1.tscn")
+var enemy4_scene = preload("res://enemies/Enemy_4.tscn")  # ✅ Added
 var enemy6_scene = preload("res://enemies/Enemy_6.tscn")
 var enemy7_scene = preload("res://enemies/Enemy_7.tscn")
 @onready var enemy_timer = $EnemySpawnTimer
@@ -29,7 +31,6 @@ func _ready():
 	_set_parallax_speed()
 	start_enemy_spawning()
 
-	# Spawn the first Enemy 6 wave immediately
 	spawn_big_enemy6_wave()
 	wave1_spawned = true
 
@@ -123,11 +124,18 @@ func start_enemy_spawning():
 	enemy_timer.start()
 
 func _on_enemy_spawn_timer_timeout():
-	# Later you can spawn enemy 4 here if you want!
-	pass
+	if wave1_spawned and not miniboss_spawned:
+		# Between wave1 and miniboss: spawn random enemy1
+		spawn_random_enemy1()
+	elif wave2_spawned:
+		# After second big wave: spawn either enemy1 OR enemy4 slowly
+		spawn_random_enemy1_or_enemy4()
+
+	enemy_timer.wait_time = randf_range(3.5, 5.0)
+	enemy_timer.start()
 
 func spawn_big_enemy6_wave():
-	var count := 8  # Number of enemies in the curve
+	var count := 8
 	var spacing: float = (screen_size.y - 150.0) / float(count - 1)
 
 	for i in range(count):
@@ -143,3 +151,22 @@ func spawn_enemy7_miniboss():
 	var y_pos = screen_size.y / 2
 	miniboss.position = Vector2(screen_size.x + 100, y_pos)
 	add_child(miniboss)
+
+func spawn_random_enemy1():
+	var enemy = enemy1_scene.instantiate()
+	var y_pos = randf_range(50, screen_size.y - 50)
+	enemy.position = Vector2(screen_size.x + 50, y_pos)
+	add_child(enemy)
+
+func spawn_random_enemy4():
+	var enemy = enemy4_scene.instantiate()
+	var y_pos = randf_range(50, screen_size.y - 50)
+	enemy.position = Vector2(screen_size.x + 50, y_pos)
+	add_child(enemy)
+
+func spawn_random_enemy1_or_enemy4():
+	var roll = randi() % 100
+	if roll < 50:
+		spawn_random_enemy1()
+	else:
+		spawn_random_enemy4()

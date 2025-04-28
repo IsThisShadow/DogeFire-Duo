@@ -7,6 +7,7 @@ extends CharacterBody2D
 
 var is_dead := false
 var current_health = max_health
+var has_stopped := false  # New flag!
 
 var bullet_scene = preload("res://enemies/Enemy_7_bullet.tscn")
 
@@ -14,21 +15,24 @@ func _ready():
 	current_health = max_health
 	$BulletTimer.wait_time = 3.5
 	$BulletTimer.start()
-	rotation_degrees = 180  # 💥 Make it face LEFT initially!
+	rotation_degrees = 180  # Face LEFT
 
 func _physics_process(delta):
-	# Always moving left
-	position.x -= speed * delta
+	# Only move until reaching halfway
+	if not has_stopped:
+		position.x -= speed * delta
 
-	# Smart tracking rotation
+		if position.x <= get_viewport_rect().size.x / 2:
+			has_stopped = true  # Stop moving once halfway
+
+	# Always aim even after stopping
 	var target_dir = get_target_direction()
 	var desired_angle = target_dir.angle()
-	# Rotate smoothly towards the target
 	rotation = lerp_angle(rotation, desired_angle, rotation_speed * delta)
 
 func get_target_direction() -> Vector2:
-	var p1 = get_node_or_null("/root/Main/Game/CharacterBodyP1")
-	var p2 = get_node_or_null("/root/Main/Game/CharacterBodyP2")
+	var p1 = get_node_or_null("/root/MainLvl_4/CharacterBodyP1")
+	var p2 = get_node_or_null("/root/MainLvl_4/CharacterBodyP2")
 	var closest = null
 
 	if p1 and not p1.is_queued_for_deletion():
@@ -73,7 +77,7 @@ func die(shooter_player := 1):
 func _on_bullet_timer_timeout():
 	var bullet = bullet_scene.instantiate()
 	bullet.global_position = global_position
-	bullet.rotation = rotation  # Match rotation!
+	bullet.rotation = rotation
 	bullet.damage = bullet_damage
 	get_tree().current_scene.add_child(bullet)
 

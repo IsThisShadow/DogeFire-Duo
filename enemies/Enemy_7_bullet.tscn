@@ -50,6 +50,7 @@ script = ExtResource("1_ujfls")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+rotation = 1.5708
 texture = ExtResource("1_2ulyd")
 hframes = 6
 

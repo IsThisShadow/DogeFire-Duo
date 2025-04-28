@@ -1,13 +1,14 @@
 extends Area2D
 
-@export var speed := 500
+@export var speed := 275
 @export var damage := 50
-
-func _ready():
-	rotation_degrees += 180  # 💥 Correct starting rotation if needed
 
 func _physics_process(delta):
 	position += Vector2.RIGHT.rotated(rotation) * speed * delta
+
+func _ready():
+	# Bullet doesn't need rotation correction now
+	pass
 
 func _on_body_entered(body):
 	if body.name == "CharacterBodyP1" or body.name == "CharacterBodyP2":
