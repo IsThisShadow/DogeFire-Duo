@@ -18,7 +18,6 @@ var enemy6_scene = preload("res://enemies/Enemy_6.tscn")
 var enemy8_scene = preload("res://enemies/Enemy_8.tscn")
 @onready var enemy_timer = $EnemySpawnTimer
 
-var wave1_spawned := false
 var wave2_spawned := false
 var boss_spawned := false
 
@@ -34,9 +33,6 @@ func _ready():
 	_set_parallax_speed()
 	start_enemy_spawning()
 
-	spawn_big_enemy6_wave()
-	wave1_spawned = true
-
 func _process(delta):
 	if not get_tree().paused and not transitioned:
 		level_time += delta
@@ -45,7 +41,6 @@ func _process(delta):
 		$HUD/LevelProgressBar.value = level_time
 
 		if not wave2_spawned and level_time >= (TIME_LIMIT * 0.4):
-			spawn_big_enemy5_wave()
 			wave2_spawned = true
 
 		if not boss_spawned and level_time >= (TIME_LIMIT * 0.6):
@@ -56,7 +51,9 @@ func _process(delta):
 			transitioned = true
 			_show_win_screen()
 
-	# Update Player 1
+	_update_player_hud()
+
+func _update_player_hud():
 	var p1 = get_node_or_null("CharacterBodyP1")
 	if p1:
 		$HUD/Control/P1HealthBar.value = p1.p1_health
@@ -64,7 +61,6 @@ func _process(delta):
 	else:
 		$HUD/Control.visible = false
 
-	# Update Player 2
 	var p2 = get_node_or_null("CharacterBodyP2")
 	if is_two_player_mode and p2:
 		$HUD/Control2/P2HealthBar.value = p2.p2_health
@@ -76,17 +72,13 @@ func _process(delta):
 func _setup_players():
 	if is_two_player_mode:
 		$CharacterBodyP2.visible = true
-		$CharacterBodyP2.set_process(true)
 		$CharacterBodyP2.set_physics_process(true)
-		$CharacterBodyP2.set_process_input(true)
-		$CharacterBodyP2.set_process_unhandled_input(true)
+		$CharacterBodyP2.set_process(true)
 		_set_collision_polygons_enabled($CharacterBodyP2, true)
 	else:
 		$CharacterBodyP2.visible = false
-		$CharacterBodyP2.set_process(false)
 		$CharacterBodyP2.set_physics_process(false)
-		$CharacterBodyP2.set_process_input(false)
-		$CharacterBodyP2.set_process_unhandled_input(false)
+		$CharacterBodyP2.set_process(false)
 		_set_collision_polygons_enabled($CharacterBodyP2, false)
 
 func _setup_health_bars():
@@ -122,6 +114,21 @@ func _show_win_screen():
 # --- Enemy Spawning System ---
 
 func start_enemy_spawning():
+	enemy_timer.start()
+
+func _on_enemy_spawn_timer_timeout() -> void:
+	var enemy_count = 0
+	for child in get_children():
+		if child.name.begins_with("Enemy"):
+			enemy_count += 1
+
+	if enemy_count < 8:
+		if not wave2_spawned:
+			spawn_random_enemy1_to_4()
+		else:
+			spawn_random_enemy1_to_6()
+
+	enemy_timer.wait_time = randf_range(2.5, 4.0)
 	enemy_timer.start()
 
 func spawn_random_enemy1_to_4():
@@ -172,7 +179,7 @@ func spawn_enemy4():
 
 func spawn_enemy5():
 	var enemy = enemy5_scene.instantiate()
-	enemy.position = Vector2(screen_size.x - randf_range(180, 220), randf_range(50, screen_size.y - 50))
+	enemy.position = Vector2(screen_size.x - randf_range(350, 400), randf_range(50, screen_size.y - 50))
 	add_child(enemy)
 
 func spawn_enemy6():
@@ -184,60 +191,3 @@ func spawn_enemy8_boss():
 	var boss = enemy8_scene.instantiate()
 	boss.position = Vector2(screen_size.x + 200, screen_size.y / 2)
 	add_child(boss)
-
-func spawn_big_enemy6_wave():
-	var count := 8
-	var spacing: float = (screen_size.y - 150.0) / float(count - 1)
-	for i in range(count):
-		var enemy = enemy6_scene.instantiate()
-		var y_offset = 75 + (spacing * i)
-		var curve_amount = sin(float(i) / count * PI) * 100
-		enemy.position = Vector2(screen_size.x + 50 + curve_amount, y_offset)
-		add_child(enemy)
-
-func spawn_big_enemy5_wave():
-	var count := 6
-	var spacing: float = (screen_size.y - 100.0) / float(count - 1)
-	for i in range(count):
-		var enemy = enemy5_scene.instantiate()
-		var y_offset = 50 + (spacing * i)
-		var curve_amount = cos(float(i) / count * PI) * 80
-		enemy.position = Vector2(screen_size.x + 50 + curve_amount, y_offset)
-		add_child(enemy)
-
-
-func _on_enemy_spawn_timer_timeout() -> void:
-	var enemy_count = 0
-	for child in get_children():
-		if child.name.begins_with("Enemy"):
-			enemy_count += 1
-
-	# Only spawn if fewer than 8 enemies alive
-	if enemy_count < 8:
-		if wave1_spawned and not wave2_spawned:
-			# Roll multiple chances separately
-			if randi() % 100 < 70:
-				spawn_enemy1()
-			if randi() % 100 < 50:
-				spawn_enemy2()
-			if randi() % 100 < 40:
-				spawn_enemy3()
-			if randi() % 100 < 40:
-				spawn_enemy4()
-		elif wave2_spawned and not boss_spawned:
-			# Roll multiple chances separately
-			if randi() % 100 < 60:
-				spawn_enemy1()
-			if randi() % 100 < 50:
-				spawn_enemy2()
-			if randi() % 100 < 40:
-				spawn_enemy3()
-			if randi() % 100 < 40:
-				spawn_enemy4()
-			if randi() % 100 < 30:
-				spawn_enemy5()
-			if randi() % 100 < 30:
-				spawn_enemy6()
-
-	enemy_timer.wait_time = randf_range(2.5, 4.0)
-	enemy_timer.start()
