@@ -10,7 +10,8 @@ var transitioned := false
 # Enemy Spawning
 @onready var screen_size = get_viewport_rect().size
 var enemy1_scene = preload("res://enemies/Enemy_1.tscn")
-var enemy4_scene = preload("res://enemies/Enemy_4.tscn")  # ✅ Added
+var enemy3_scene = preload("res://enemies/Enemy_3.tscn")
+var enemy4_scene = preload("res://enemies/Enemy_4.tscn")
 var enemy6_scene = preload("res://enemies/Enemy_6.tscn")
 var enemy7_scene = preload("res://enemies/Enemy_7.tscn")
 @onready var enemy_timer = $EnemySpawnTimer
