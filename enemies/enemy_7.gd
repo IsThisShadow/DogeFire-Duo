@@ -2,9 +2,12 @@ extends CharacterBody2D
 
 @export var speed := 20  # Slow move speed to the left
 @export var rotation_speed := 2.0  # How quickly it rotates towards players
-@export var max_health := 300
+@export var max_health := 100
 @export var bullet_damage := 70
 
+@onready var health_bar: ProgressBar = $HealthBar
+
+var can_take_damage: bool = false
 var is_dead := false
 var current_health = max_health
 var has_stopped := false  # New flag!
@@ -12,10 +15,14 @@ var has_stopped := false  # New flag!
 var bullet_scene = preload("res://enemies/Enemy_7_bullet.tscn")
 
 func _ready():
+	health_bar.max_value = max_health
+	health_bar.value = max_health
 	current_health = max_health
 	$BulletTimer.wait_time = 3.5
 	$BulletTimer.start()
 	rotation_degrees = 180  # Face LEFT
+	await get_tree().create_timer(3.0).timeout
+	can_take_damage = true
 
 func _physics_process(delta):
 	# Only move until reaching halfway
@@ -47,20 +54,23 @@ func get_target_direction() -> Vector2:
 		return Vector2.LEFT
 
 func take_damage(amount: int, shooter_player := 1):
-	if is_dead:
-		return
+	if is_dead or not can_take_damage:
+		return  # Can't be hurt yet!
 
 	current_health -= amount
+	health_bar.value = current_health
+
 	spawn_damage_number(amount)
 
 	if current_health <= 0:
 		die(shooter_player)
 
+
 func die(shooter_player := 1):
 	is_dead = true
-
-	if $enemy_7_Boss:
-		$enemy_7_Boss.visible = false
+	health_bar.visible = false 
+	if $enemy_7_Battlecruiser:
+		$enemy_7_Battlecruiser.visible = false
 	if $DeathSprite_EN_7:
 		$DeathSprite_EN_7.visible = true
 	if $AnimationPlayer_EN_7:
