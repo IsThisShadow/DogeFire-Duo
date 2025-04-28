@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmu01vrirycxj"]
+
+[ext_resource type="Texture2D" uid="uid://waina2gl84ks" path="res://Assets/Foozle_2DS0012_Void_EnemyFleet_1/Kla'ed/Base/PNGs/Kla'ed - Dreadnought - Base.png" id="1_1e4ud"]
+[ext_resource type="Script" uid="uid://cg20txpibvn5u" path="res://enemies/enemy_8.gd" id="1_cc2vb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cc2vb"]
+radius = 34.0
+height = 99.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t5ys4"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mt1wq"]
+bg_color = Color(0.838518, 0, 0.149216, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="CharacterBody_enemy_8" type="CharacterBody2D"]
+script = ExtResource("1_cc2vb")
+
+[node name="enemy_8_Dreadnought" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 4.71239
+texture = ExtResource("1_1e4ud")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_cc2vb")
+
+[node name="BulletTimer" type="Timer" parent="."]
+
+[node name="DeathSprite_EN_8" type="Sprite2D" parent="."]
+
+[node name="AnimationPlayer_EN_8" type="AnimationPlayer" parent="."]
+
+[node name="DamageLabel" type="Label" parent="."]
+offset_left = 2.0
+offset_top = 36.0
+offset_right = 42.0
+offset_bottom = 59.0
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -42.0
+offset_top = -47.0
+offset_right = -35.0
+offset_bottom = 38.0
+rotation = 4.71239
+theme_override_styles/background = SubResource("StyleBoxFlat_t5ys4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mt1wq")
+fill_mode = 3
+show_percentage = false

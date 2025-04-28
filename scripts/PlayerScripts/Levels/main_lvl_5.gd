@@ -30,11 +30,15 @@ func _process(delta):
 			transitioned = true
 			_show_win_screen()
 
-	# Update Player 1 Health
-	var p1_health = $CharacterBodyP1.p1_health
-	var p1_max = $CharacterBodyP1.p1_maxHealth
-	$HUD/Control/P1HealthBar.value = p1_health
-	$HUD/Control/P1PercentLabel.text = str(int((p1_health / p1_max) * 100)) + "%"
+	# Safely check if Player 1 exists
+	var p1 = get_node_or_null("CharacterBodyP1")
+	if p1:
+		var p1_health = p1.p1_health
+		var p1_max = p1.p1_maxHealth
+		$HUD/Control/P1HealthBar.value = p1_health
+		$HUD/Control/P1PercentLabel.text = str(int((p1_health / p1_max) * 100)) + "%"
+	else:
+		$HUD/Control.visible = false
 
 	# Safely check if Player 2 exists
 	var p2 = get_node_or_null("CharacterBodyP2")
@@ -46,6 +50,7 @@ func _process(delta):
 		$HUD/Control2.visible = true
 	else:
 		$HUD/Control2.visible = false
+
 
 
 func _setup_players():
