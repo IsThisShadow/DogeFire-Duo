@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://b41y3qaub0rna"]
+[gd_scene load_steps=14 format=3 uid="uid://b41y3qaub0rna"]
 
 [ext_resource type="Script" uid="uid://blfx22055wjwc" path="res://scripts/PlayerScripts/Levels/main_lvl_4.gd" id="1_tm4t6"]
-[ext_resource type="PackedScene" uid="uid://wosei8oo5blp" path="res://EnemyTest.tscn" id="2_k2cak"]
 [ext_resource type="Texture2D" uid="uid://bfgjf0iyokkp4" path="res://Assets/Pixel Health Bar/Bar/no health bar.png" id="3_k2cak"]
 [ext_resource type="PackedScene" uid="uid://b44ebn5xhv34r" path="res://characterBodyP1.tscn" id="3_tm4t6"]
 [ext_resource type="Script" uid="uid://dtdcfjsj4r8i0" path="res://scripts/PlayerScripts/Levels/parallax_background_lvl4.gd" id="4_jimy6"]
@@ -154,9 +153,6 @@ theme_override_fonts/font = ExtResource("6_vi2yg")
 theme_override_font_sizes/font_size = 70
 text = "Score: 0"
 
-[node name="EnemyTest" parent="." instance=ExtResource("2_k2cak")]
-position = Vector2(548, 174)
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource("4_jimy6")
 
@@ -198,3 +194,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "Player 1 has died!
 "
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

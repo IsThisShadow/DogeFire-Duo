@@ -1,11 +1,19 @@
 extends Node2D
 
 var is_two_player_mode := false
-var current_level := 4  # Set this to 1, 2, 3, 4, or 5 depending on the scene
+var current_level := 4  # Level 4
 
 var level_time := 0.0
-const TIME_LIMIT := 10.0
+const TIME_LIMIT := 50.0
 var transitioned := false
+
+# Enemy Spawning
+@onready var screen_size = get_viewport_rect().size
+var enemy6_scene = preload("res://enemies/Enemy_6.tscn")
+@onready var enemy_timer = $EnemySpawnTimer
+
+var wave1_spawned := false
+var wave2_spawned := false
 
 func set_2_players(enable: bool):
 	is_two_player_mode = enable
@@ -17,16 +25,23 @@ func _ready():
 	print(">> Scene loaded, 2P mode is:", is_two_player_mode)
 	_setup_health_bars()
 	_set_parallax_speed()
+	start_enemy_spawning()
+
+	# Spawn the first Enemy 6 wave immediately
+	spawn_big_enemy6_wave()
+	wave1_spawned = true
 
 func _process(delta):
-	# Only accumulate gameplay time while not paused
 	if not get_tree().paused and current_level < 5 and not transitioned:
 		level_time += delta
-
-		# Update level progress bar dynamically
 		$HUD/LevelProgressBar.max_value = TIME_LIMIT
 		$HUD/LevelProgressBar.value = level_time
-		  
+
+		# Mid-level second wave
+		if not wave2_spawned and level_time >= (TIME_LIMIT / 2):
+			spawn_big_enemy6_wave()
+			wave2_spawned = true
+
 		if level_time >= TIME_LIMIT:
 			transitioned = true
 			_show_weapon_unlock_screen(current_level + 1)
@@ -94,3 +109,24 @@ func _show_weapon_unlock_screen(next_level: int):
 	get_tree().get_root().add_child(unlock_scene)
 	get_tree().current_scene.queue_free()
 	get_tree().current_scene = unlock_scene
+
+# --- Enemy Spawning System ---
+
+func start_enemy_spawning():
+	enemy_timer.start()
+
+func _on_enemy_spawn_timer_timeout():
+	# Here later we will add random enemy4 / enemy7 spawning
+	pass
+
+func spawn_big_enemy6_wave():
+	var count := 8  # Number of enemies in the curve
+	var spacing: float = (screen_size.y - 150.0) / float(count - 1)
+
+	for i in range(count):
+		var enemy = enemy6_scene.instantiate()
+		var y_offset = 75 + (spacing * i)  # keep margin at top/bottom
+		var curve_amount = sin(float(i) / count * PI) * 100  # create soft curve shape
+
+		enemy.position = Vector2(screen_size.x + 50 + curve_amount, y_offset)
+		add_child(enemy)
