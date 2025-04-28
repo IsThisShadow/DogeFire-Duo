@@ -23,7 +23,7 @@ func _ready():
 	base_y = position.y
 	$BulletTimer.wait_time = 2.8
 	$BulletTimer.start()
-
+	$VisibleOnScreenNotifier2D.connect("screen_exited", Callable(self, "_on_screen_exited"))
 func _physics_process(delta):
 	if moving_left:
 		position.x -= speed * delta

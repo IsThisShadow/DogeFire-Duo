@@ -124,23 +124,6 @@ func _show_win_screen():
 func start_enemy_spawning():
 	enemy_timer.start()
 
-func _on_EnemySpawnTimer_timeout():
-	# Count current alive enemies
-	var enemy_count = 0
-	for child in get_children():
-		if child.name.begins_with("Enemy"):
-			enemy_count += 1
-
-	# Only spawn if fewer than 8 enemies alive
-	if enemy_count < 8:
-		if wave1_spawned and not wave2_spawned:
-			spawn_random_enemy1_to_4()
-		elif wave2_spawned and not boss_spawned:
-			spawn_random_enemy1_to_6()
-
-	enemy_timer.wait_time = randf_range(2.0, 3.5)
-	enemy_timer.start()
-
 func spawn_random_enemy1_to_4():
 	var roll = randi() % 100
 	if roll < 30:
@@ -189,12 +172,12 @@ func spawn_enemy4():
 
 func spawn_enemy5():
 	var enemy = enemy5_scene.instantiate()
-	enemy.position = Vector2(screen_size.x + 50, randf_range(50, screen_size.y - 50))
+	enemy.position = Vector2(screen_size.x - randf_range(180, 220), randf_range(50, screen_size.y - 50))
 	add_child(enemy)
 
 func spawn_enemy6():
 	var enemy = enemy6_scene.instantiate()
-	enemy.position = Vector2(screen_size.x + 50, randf_range(50, screen_size.y - 50))
+	enemy.position = Vector2(screen_size.x - 100, randf_range(50, screen_size.y - 50))
 	add_child(enemy)
 
 func spawn_enemy8_boss():
@@ -256,5 +239,5 @@ func _on_enemy_spawn_timer_timeout() -> void:
 			if randi() % 100 < 30:
 				spawn_enemy6()
 
-	enemy_timer.wait_time = randf_range(2.0, 3.5)
+	enemy_timer.wait_time = randf_range(2.5, 4.0)
 	enemy_timer.start()
