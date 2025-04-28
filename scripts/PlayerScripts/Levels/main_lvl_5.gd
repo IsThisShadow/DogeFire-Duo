@@ -125,31 +125,47 @@ func start_enemy_spawning():
 	enemy_timer.start()
 
 func _on_EnemySpawnTimer_timeout():
-	if wave1_spawned and not wave2_spawned:
-		if randi() % 100 < 70:
-			spawn_enemy1()
-		if randi() % 100 < 50:
-			spawn_enemy2()
-		if randi() % 100 < 30:
-			spawn_enemy3()
-		if randi() % 100 < 30:
-			spawn_enemy4()
-	elif wave2_spawned and not boss_spawned:
-		if randi() % 100 < 60:
-			spawn_enemy1()
-		if randi() % 100 < 50:
-			spawn_enemy2()
-		if randi() % 100 < 40:
-			spawn_enemy3()
-		if randi() % 100 < 40:
-			spawn_enemy4()
-		if randi() % 100 < 30:
-			spawn_enemy5()
-		if randi() % 100 < 30:
-			spawn_enemy6()
+	# Count current alive enemies
+	var enemy_count = 0
+	for child in get_children():
+		if child.name.begins_with("Enemy"):
+			enemy_count += 1
+
+	# Only spawn if fewer than 8 enemies alive
+	if enemy_count < 8:
+		if wave1_spawned and not wave2_spawned:
+			spawn_random_enemy1_to_4()
+		elif wave2_spawned and not boss_spawned:
+			spawn_random_enemy1_to_6()
 
 	enemy_timer.wait_time = randf_range(2.0, 3.5)
 	enemy_timer.start()
+
+func spawn_random_enemy1_to_4():
+	var roll = randi() % 100
+	if roll < 30:
+		spawn_enemy1()
+	elif roll < 60:
+		spawn_enemy2()
+	elif roll < 80:
+		spawn_enemy3()
+	else:
+		spawn_enemy4()
+
+func spawn_random_enemy1_to_6():
+	var roll = randi() % 100
+	if roll < 20:
+		spawn_enemy1()
+	elif roll < 40:
+		spawn_enemy2()
+	elif roll < 60:
+		spawn_enemy3()
+	elif roll < 75:
+		spawn_enemy4()
+	elif roll < 90:
+		spawn_enemy5()
+	else:
+		spawn_enemy6()
 
 func spawn_enemy1():
 	var enemy = enemy1_scene.instantiate()
@@ -205,3 +221,40 @@ func spawn_big_enemy5_wave():
 		var curve_amount = cos(float(i) / count * PI) * 80
 		enemy.position = Vector2(screen_size.x + 50 + curve_amount, y_offset)
 		add_child(enemy)
+
+
+func _on_enemy_spawn_timer_timeout() -> void:
+	var enemy_count = 0
+	for child in get_children():
+		if child.name.begins_with("Enemy"):
+			enemy_count += 1
+
+	# Only spawn if fewer than 8 enemies alive
+	if enemy_count < 8:
+		if wave1_spawned and not wave2_spawned:
+			# Roll multiple chances separately
+			if randi() % 100 < 70:
+				spawn_enemy1()
+			if randi() % 100 < 50:
+				spawn_enemy2()
+			if randi() % 100 < 40:
+				spawn_enemy3()
+			if randi() % 100 < 40:
+				spawn_enemy4()
+		elif wave2_spawned and not boss_spawned:
+			# Roll multiple chances separately
+			if randi() % 100 < 60:
+				spawn_enemy1()
+			if randi() % 100 < 50:
+				spawn_enemy2()
+			if randi() % 100 < 40:
+				spawn_enemy3()
+			if randi() % 100 < 40:
+				spawn_enemy4()
+			if randi() % 100 < 30:
+				spawn_enemy5()
+			if randi() % 100 < 30:
+				spawn_enemy6()
+
+	enemy_timer.wait_time = randf_range(2.0, 3.5)
+	enemy_timer.start()
