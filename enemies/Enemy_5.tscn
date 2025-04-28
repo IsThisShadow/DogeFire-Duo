@@ -79,6 +79,5 @@ offset_right = 40.0
 offset_bottom = 23.0
 rotation = 1.5708
 theme_override_fonts/font = ExtResource("4_83wx8")
-text = "fefesfesf"
 
 [connection signal="timeout" from="BulletTimer" to="." method="_on_bullet_timer_timeout"]
