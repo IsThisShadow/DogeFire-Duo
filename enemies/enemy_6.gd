@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var bullet_damage := 10  # Same as Enemy 1
 var is_dead = false
 var current_health = max_health
-
+@onready var visibility_notifier = $VisibleOnScreenNotifier2D
 var bullet_scene = preload("res://enemies/Enemy_1_bullet.tscn")  # Use enemy 1 bullet
 
 var time_passed := 0.0  # For wave movement
@@ -16,6 +16,7 @@ func _ready():
 	current_health = max_health
 	$BulletTimer.wait_time = 2.8
 	$BulletTimer.start()
+	visibility_notifier.connect("screen_exited", Callable(self, "_on_visibility_screen_exited"))
 
 func _physics_process(delta):
 	if is_dead:
@@ -74,3 +75,8 @@ func spawn_damage_number(amount: int):
 	label.visible = false
 	label.modulate.a = 1.0
 	label.position = Vector2(0, -20)
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	Global.player1_score -= 50  # Subtract 50 points when escaping
+	queue_free()

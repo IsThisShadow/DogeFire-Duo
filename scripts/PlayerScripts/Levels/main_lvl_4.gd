@@ -55,17 +55,25 @@ func _process(delta):
 			transitioned = true
 			_show_weapon_unlock_screen(current_level + 1)
 
-	# Update health bars
+	# Update Player 1 Health
 	var p1_health = $CharacterBodyP1.p1_health
 	var p1_max = $CharacterBodyP1.p1_maxHealth
 	$HUD/Control/P1HealthBar.value = p1_health
 	$HUD/Control/P1PercentLabel.text = str(int((p1_health / p1_max) * 100)) + "%"
 
+	# Update Player 1 Score
+	$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
+
 	if is_two_player_mode:
+		# Update Player 2 Health
 		var p2_health = $CharacterBodyP2.p2_health
 		var p2_max = $CharacterBodyP2.p2_maxHealth
 		$HUD/Control2/P2HealthBar.value = p2_health
 		$HUD/Control2/P2PercentLabel.text = str(int((p2_health / p2_max) * 100)) + "%"
+
+		# Update Player 2 Score
+		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
+
 		$HUD/Control2.visible = true
 	else:
 		$HUD/Control2.visible = false
@@ -126,13 +134,19 @@ func start_enemy_spawning():
 
 func _on_enemy_spawn_timer_timeout():
 	if wave1_spawned and not miniboss_spawned:
-		# Between wave1 and miniboss: spawn random enemy1
-		spawn_random_enemy1()
+		# Between wave1 and miniboss: spawn more enemies
+		if randi() % 100 < 70:
+			spawn_random_enemy1()
+		if randi() % 100 < 50:
+			spawn_random_enemy4()
 	elif wave2_spawned:
-		# After second big wave: spawn either enemy1 OR enemy4 slowly
-		spawn_random_enemy1_or_enemy4()
+		# After second big wave: spawn both enemy1 and enemy4 more often
+		if randi() % 100 < 80:
+			spawn_random_enemy1()
+		if randi() % 100 < 80:
+			spawn_random_enemy4()
 
-	enemy_timer.wait_time = randf_range(3.5, 5.0)
+	enemy_timer.wait_time = randf_range(2.0, 3.5) # Faster spawning
 	enemy_timer.start()
 
 func spawn_big_enemy6_wave():
