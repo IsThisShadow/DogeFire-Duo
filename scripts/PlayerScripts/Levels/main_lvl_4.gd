@@ -10,9 +10,11 @@ var transitioned := false
 # Enemy Spawning
 @onready var screen_size = get_viewport_rect().size
 var enemy6_scene = preload("res://enemies/Enemy_6.tscn")
+var enemy7_scene = preload("res://enemies/Enemy_7.tscn")
 @onready var enemy_timer = $EnemySpawnTimer
 
 var wave1_spawned := false
+var miniboss_spawned := false
 var wave2_spawned := false
 
 func set_2_players(enable: bool):
@@ -37,8 +39,13 @@ func _process(delta):
 		$HUD/LevelProgressBar.max_value = TIME_LIMIT
 		$HUD/LevelProgressBar.value = level_time
 
-		# Mid-level second wave
-		if not wave2_spawned and level_time >= (TIME_LIMIT / 2):
+		# 40% spawn miniboss (Enemy 7)
+		if not miniboss_spawned and level_time >= (TIME_LIMIT * 0.4):
+			spawn_enemy7_miniboss()
+			miniboss_spawned = true
+
+		# 50% second big wave
+		if not wave2_spawned and level_time >= (TIME_LIMIT * 0.5):
 			spawn_big_enemy6_wave()
 			wave2_spawned = true
 
@@ -116,7 +123,7 @@ func start_enemy_spawning():
 	enemy_timer.start()
 
 func _on_enemy_spawn_timer_timeout():
-	# Here later we will add random enemy4 / enemy7 spawning
+	# Later you can spawn enemy 4 here if you want!
 	pass
 
 func spawn_big_enemy6_wave():
@@ -125,8 +132,14 @@ func spawn_big_enemy6_wave():
 
 	for i in range(count):
 		var enemy = enemy6_scene.instantiate()
-		var y_offset = 75 + (spacing * i)  # keep margin at top/bottom
-		var curve_amount = sin(float(i) / count * PI) * 100  # create soft curve shape
+		var y_offset = 75 + (spacing * i)
+		var curve_amount = sin(float(i) / count * PI) * 100
 
 		enemy.position = Vector2(screen_size.x + 50 + curve_amount, y_offset)
 		add_child(enemy)
+
+func spawn_enemy7_miniboss():
+	var miniboss = enemy7_scene.instantiate()
+	var y_pos = screen_size.y / 2
+	miniboss.position = Vector2(screen_size.x + 100, y_pos)
+	add_child(miniboss)
