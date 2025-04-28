@@ -59,7 +59,7 @@ texture = ExtResource("2_j2nv1")
 position = Vector2(-3, -1)
 shape = SubResource("RectangleShape2D_uwsmo")
 
-[node name="BulletTimer" type="Timer" parent="." groups=["enemies"]]
+[node name="BulletTimer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
 
