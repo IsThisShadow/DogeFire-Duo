@@ -50,6 +50,7 @@ script = ExtResource("1_bdfg7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+rotation = -1.5708
 texture = ExtResource("1_r66ao")
 hframes = 4
 
@@ -60,6 +61,7 @@ libraries = {
 autoplay = "Enemy8_bullet"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -1.5708
 shape = SubResource("RectangleShape2D_r66ao")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

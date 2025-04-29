@@ -1,18 +1,20 @@
 extends Area2D
 
-@export var speed := 150
+@export var speed := 300
 @export var damage := 20
 
 var velocity := Vector2.ZERO
 
 func _ready():
 	$AnimationPlayer.play("Enemy8_bullet")
-	rotation += PI  # Make sprite visually face left
+	call_deferred("_calculate_velocity")
+
+func _calculate_velocity():
 	velocity = Vector2.LEFT.rotated(rotation) * speed
+	print("Deferred Rotation:", rotation, " Velocity:", velocity)
 
 func _physics_process(delta):
 	position += velocity * delta
-
 	if position.x < -100 or position.x > get_viewport_rect().size.x + 100 \
 	or position.y < -100 or position.y > get_viewport_rect().size.y + 100:
 		queue_free()

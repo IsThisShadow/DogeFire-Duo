@@ -38,8 +38,9 @@ func _update_tilt_toward_player(delta):
 	var player = get_nearest_player()
 	if player:
 		var direction = (player.global_position - global_position).normalized()
-		var target_angle = rad_to_deg(atan2(direction.y, direction.x))
-		rotation_degrees = lerp_angle(rotation_degrees, target_angle, tilt_speed * delta)
+		var target_angle = direction.angle() + PI  # Add 180 degrees in radians
+		rotation = lerp_angle(rotation, target_angle, tilt_speed * delta)
+
 
 func get_nearest_player():
 	var p1 = get_node_or_null("/root/MainLvl_5/CharacterBodyP1")
@@ -68,13 +69,13 @@ func fire_laser_burst():
 	for i in range(3):
 		await get_tree().create_timer(0.1 * i).timeout
 		var bullet = bullet_scene.instantiate()
-
-		# Offset spawn position to front of the enemy (adjust as needed)
-		var front_offset := Vector2(-80, 0).rotated(rotation)
-		bullet.position = position + front_offset
+		# Offset to spawn bullet from the front of Enemy 8
+		var offset = Vector2(-50, 0).rotated(rotation)
+		bullet.global_position = global_position + offset
 		bullet.rotation = rotation
 		bullet.damage = bullet_damage
 		get_tree().current_scene.add_child(bullet)
+
 
 func _on_BulletTimer_timeout():
 	if is_dead:
