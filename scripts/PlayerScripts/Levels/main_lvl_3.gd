@@ -1,11 +1,18 @@
 extends Node2D
 
 var is_two_player_mode := false
-var current_level := 3  # Set this to 1, 2, 3, 4, or 5 depending on the scene
+var current_level := 3
 
 var level_time := 0.0
-const TIME_LIMIT := 10.0
+const TIME_LIMIT := 75.0
 var transitioned := false
+
+# Enemy Spawning
+@onready var screen_size = get_viewport_rect().size
+var enemy3_scene = preload("res://enemies/Enemy_3.tscn")
+var enemy4_scene = preload("res://enemies/Enemy_4.tscn")
+var enemy5_scene = preload("res://enemies/Enemy_5.tscn")
+@onready var enemy_timer = $EnemySpawnTimer
 
 func set_2_players(enable: bool):
 	is_two_player_mode = enable
@@ -17,31 +24,38 @@ func _ready():
 	print(">> Scene loaded, 2P mode is:", is_two_player_mode)
 	_setup_health_bars()
 	_set_parallax_speed()
+	start_enemy_spawning()
 
 func _process(delta):
-	# ⏳ Only accumulate gameplay time while not paused
 	if not get_tree().paused and current_level < 5 and not transitioned:
 		level_time += delta
-		
-		# Update level progress bar dynamically
 		$HUD/LevelProgressBar.max_value = TIME_LIMIT
 		$HUD/LevelProgressBar.value = level_time
-		
+
 		if level_time >= TIME_LIMIT:
 			transitioned = true
 			_show_weapon_unlock_screen(current_level + 1)
 
-	# Update health bars
-	var p1_health = $CharacterBodyP1.p1_health
-	var p1_max = $CharacterBodyP1.p1_maxHealth
-	$HUD/Control/P1HealthBar.value = p1_health
-	$HUD/Control/P1PercentLabel.text = str(int((p1_health / p1_max) * 100)) + "%"
+	# Safely check if Player 1 exists
+	var p1 = get_node_or_null("CharacterBodyP1")
+	if p1:
+		var p1_health = p1.p1_health
+		var p1_max = p1.p1_maxHealth
+		$HUD/Control/P1HealthBar.value = p1_health
+		$HUD/Control/P1PercentLabel.text = str(int((p1_health / p1_max) * 100)) + "%"
+		$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
+	else:
+		# Hide Player 1 HUD if missing
+		$HUD/Control.visible = false
 
-	if is_two_player_mode:
-		var p2_health = $CharacterBodyP2.p2_health
-		var p2_max = $CharacterBodyP2.p2_maxHealth
+	# Safely check if Player 2 exists
+	var p2 = get_node_or_null("CharacterBodyP2")
+	if is_two_player_mode and p2:
+		var p2_health = p2.p2_health
+		var p2_max = p2.p2_maxHealth
 		$HUD/Control2/P2HealthBar.value = p2_health
 		$HUD/Control2/P2PercentLabel.text = str(int((p2_health / p2_max) * 100)) + "%"
+		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
 		$HUD/Control2.visible = true
 	else:
 		$HUD/Control2.visible = false
@@ -94,3 +108,50 @@ func _show_weapon_unlock_screen(next_level: int):
 	get_tree().get_root().add_child(unlock_scene)
 	get_tree().current_scene.queue_free()
 	get_tree().current_scene = unlock_scene
+
+# --- Enemy Spawning System ---
+func start_enemy_spawning():
+	enemy_timer.start()
+
+func _on_enemy_spawn_timer_timeout() -> void:
+	var enemy_count = 0
+	for child in get_children():
+		if child.name.begins_with("Enemy"):
+			enemy_count += 1
+
+	if enemy_count < 7:
+		spawn_enemy_level3()
+
+	enemy_timer.wait_time = randf_range(3.5, 5.0)
+	enemy_timer.start()
+
+func spawn_enemy_level3():
+	var roll = randi() % 100
+
+	if roll < 40:
+		spawn_arrow_formation()
+	elif roll < 75:
+		var enemy = enemy4_scene.instantiate()
+		var y_pos = randf_range(50, screen_size.y - 50)
+		enemy.position = Vector2(screen_size.x + 50, y_pos)
+		add_child(enemy)
+	else:
+		var enemy = enemy5_scene.instantiate()
+		var y_pos = randf_range(100, screen_size.y - 100)
+		enemy.position = Vector2(screen_size.x - 150, y_pos)  # Stay near right side
+		add_child(enemy)
+
+func spawn_arrow_formation():
+	var base_y = randf_range(100, screen_size.y - 100)
+
+	var enemy_mid = enemy3_scene.instantiate()
+	enemy_mid.position = Vector2(screen_size.x + 50, base_y)
+	add_child(enemy_mid)
+
+	var enemy_top = enemy3_scene.instantiate()
+	enemy_top.position = Vector2(screen_size.x + 30, base_y - 25)
+	add_child(enemy_top)
+
+	var enemy_bot = enemy3_scene.instantiate()
+	enemy_bot.position = Vector2(screen_size.x + 30, base_y + 25)
+	add_child(enemy_bot)

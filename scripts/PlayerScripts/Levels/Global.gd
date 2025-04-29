@@ -7,6 +7,7 @@ var player1_revives := 0
 var player1_max_revives := 3
 var player1_permadead = false
 var player1_hearts := 3
+var player1_score := 0
 
 # === Player 2 Stats ===
 var player2_health := 100
@@ -14,7 +15,7 @@ var player2_max_health := 100
 var player2_revives := 0
 var player2_max_revives := 3
 var player2_permadead = false
-
+var player2_score := 0
 # === Pause & Scene Info ===
 var is_two_player_mode := false
 var current_scene_name := ""
@@ -77,11 +78,13 @@ func reset_stats():
 	player1_health = player1_max_health
 	player1_revives = 0
 	player1_permadead = false
-
+	player1_score = 0 
+	
+	
 	player2_health = player2_max_health
 	player2_revives = 0
 	player2_permadead = false
-
+	player2_score = 0 
 # === Check for total game over ===
 func check_for_game_over():
 	var p1_dead = player1_health <= 0
