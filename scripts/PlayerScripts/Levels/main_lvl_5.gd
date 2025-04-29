@@ -20,15 +20,14 @@ var enemy8_scene = preload("res://enemies/Enemy_8.tscn")
 
 var wave2_spawned := false
 var boss_spawned := false
+var big_enemy6_wave_count := 0
 
 func set_2_players(enable: bool):
 	is_two_player_mode = enable
-	print(">> Player mode set to:", is_two_player_mode)
 	_setup_players()
 
 func _ready():
 	Global.current_scene_name = "mainLvl_5"
-	print(">> Scene loaded, 2P mode is:", is_two_player_mode)
 	_setup_health_bars()
 	_set_parallax_speed()
 	start_enemy_spawning()
@@ -36,7 +35,6 @@ func _ready():
 func _process(delta):
 	if not get_tree().paused and not transitioned:
 		level_time += delta
-
 		$HUD/LevelProgressBar.max_value = TIME_LIMIT
 		$HUD/LevelProgressBar.value = level_time
 
@@ -128,6 +126,11 @@ func _on_enemy_spawn_timer_timeout() -> void:
 		else:
 			spawn_random_enemy1_to_6()
 
+	# Randomly spawn big enemy6 waves a few times
+	if big_enemy6_wave_count < 3 and randi() % 100 < 20:
+		spawn_big_enemy6_wave()
+		big_enemy6_wave_count += 1
+
 	enemy_timer.wait_time = randf_range(2.5, 4.0)
 	enemy_timer.start()
 
@@ -138,7 +141,7 @@ func spawn_random_enemy1_to_4():
 	elif roll < 60:
 		spawn_enemy2()
 	elif roll < 80:
-		spawn_enemy3()
+		spawn_arrow_formation()
 	else:
 		spawn_enemy4()
 
@@ -149,7 +152,7 @@ func spawn_random_enemy1_to_6():
 	elif roll < 40:
 		spawn_enemy2()
 	elif roll < 60:
-		spawn_enemy3()
+		spawn_arrow_formation()
 	elif roll < 75:
 		spawn_enemy4()
 	elif roll < 90:
@@ -167,10 +170,20 @@ func spawn_enemy2():
 	enemy.position = Vector2(screen_size.x + 50, randf_range(50, screen_size.y - 50))
 	add_child(enemy)
 
-func spawn_enemy3():
-	var enemy = enemy3_scene.instantiate()
-	enemy.position = Vector2(screen_size.x + 50, randf_range(50, screen_size.y - 50))
-	add_child(enemy)
+func spawn_arrow_formation():
+	var base_y = randf_range(100, screen_size.y - 100)
+
+	var enemy_mid = enemy3_scene.instantiate()
+	enemy_mid.position = Vector2(screen_size.x + 50, base_y)
+	add_child(enemy_mid)
+
+	var enemy_top = enemy3_scene.instantiate()
+	enemy_top.position = Vector2(screen_size.x + 30, base_y - 25)
+	add_child(enemy_top)
+
+	var enemy_bot = enemy3_scene.instantiate()
+	enemy_bot.position = Vector2(screen_size.x + 30, base_y + 25)
+	add_child(enemy_bot)
 
 func spawn_enemy4():
 	var enemy = enemy4_scene.instantiate()
@@ -179,15 +192,25 @@ func spawn_enemy4():
 
 func spawn_enemy5():
 	var enemy = enemy5_scene.instantiate()
-	enemy.position = Vector2(screen_size.x - randf_range(350, 400), randf_range(50, screen_size.y - 50))
+	enemy.position = Vector2(screen_size.x - randf_range(200, 250), randf_range(50, screen_size.y - 50))
 	add_child(enemy)
 
 func spawn_enemy6():
 	var enemy = enemy6_scene.instantiate()
-	enemy.position = Vector2(screen_size.x - 100, randf_range(50, screen_size.y - 50))
+	enemy.position = Vector2(screen_size.x + 50, randf_range(50, screen_size.y - 50))
 	add_child(enemy)
 
 func spawn_enemy8_boss():
 	var boss = enemy8_scene.instantiate()
 	boss.position = Vector2(screen_size.x + 200, screen_size.y / 2)
 	add_child(boss)
+
+func spawn_big_enemy6_wave():
+	var count := 8
+	var spacing: float = (screen_size.y - 150.0) / float(count - 1)
+	for i in range(count):
+		var enemy = enemy6_scene.instantiate()
+		var y_offset = 75 + (spacing * i)
+		var curve_amount = sin(float(i) / count * PI) * 100
+		enemy.position = Vector2(screen_size.x + 50 + curve_amount, y_offset)
+		add_child(enemy)

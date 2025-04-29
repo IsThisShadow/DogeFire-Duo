@@ -1,43 +1,92 @@
 extends CharacterBody2D
 
-@export var speed := 100
+@export var move_speed := 200
+@export var stop_x_ratio := 0.75
 @export var max_health := 400
+@export var tilt_speed := 20.0  # How fast it tilts toward player
 @export var bullet_damage := 20
+@export var fire_rate := 2.0  # Seconds between bursts
 
-var is_dead = false
 var current_health = max_health
-@onready var visibility_notifier = $VisibleOnScreenNotifier2D
+var is_dead = false
+var moving_in = true
+var stop_x = 0.0
 var bullet_scene = preload("res://enemies/Enemy_8_bullet.tscn")
+var time_since_last_shot := 0.0
 
 func _ready():
 	current_health = max_health
-	$BulletTimer.wait_time = 2.5
+	stop_x = get_viewport_rect().size.x * stop_x_ratio
+	$BulletTimer.wait_time = fire_rate
+	$BulletTimer.timeout.connect(_on_BulletTimer_timeout)
 	$BulletTimer.start()
-	visibility_notifier.connect("screen_exited", Callable(self, "_on_visibility_screen_exited"))
+	$HealthBar.max_value = max_health
+	$HealthBar.value = current_health
 
 func _physics_process(delta):
 	if is_dead:
 		return
 
-	# Smooth left movement + slight vertical tilt
-	position.x -= speed * delta
-	position.y += sin(position.x / 40.0) * 2.0
+	if moving_in:
+		position.x -= move_speed * delta
+		if position.x <= stop_x:
+			moving_in = false
+	else:
+		_update_tilt_toward_player(delta)
 
-	# Health bar update
-	$HealthBar.max_value = max_health
-	$HealthBar.value = current_health
+func _update_tilt_toward_player(delta):
+	var player = get_nearest_player()
+	if player:
+		var direction = (player.global_position - global_position).normalized()
+		var target_angle = rad_to_deg(atan2(direction.y, direction.x))
+		rotation_degrees = lerp_angle(rotation_degrees, target_angle, tilt_speed * delta)
 
-func _on_bullet_timer_timeout():
-	var bullet = bullet_scene.instantiate()
-	bullet.position = position
-	bullet.damage = bullet_damage
-	get_tree().current_scene.add_child(bullet)
+func get_nearest_player():
+	var p1 = get_node_or_null("/root/MainLvl_5/CharacterBodyP1")
+	var p2 = get_node_or_null("/root/MainLvl_5/CharacterBodyP2")
+	var players = []
+	if p1:
+		players.append(p1)
+	if p2:
+		players.append(p2)
+
+	if players.is_empty():
+		return null
+
+	var nearest = players[0]
+	var nearest_dist = position.distance_to(nearest.position)
+
+	for player in players:
+		var dist = position.distance_to(player.position)
+		if dist < nearest_dist:
+			nearest = player
+			nearest_dist = dist
+
+	return nearest
+
+func fire_laser_burst():
+	for i in range(3):
+		await get_tree().create_timer(0.1 * i).timeout
+		var bullet = bullet_scene.instantiate()
+
+		# Offset spawn position to front of the enemy (adjust as needed)
+		var front_offset := Vector2(-80, 0).rotated(rotation)
+		bullet.position = position + front_offset
+		bullet.rotation = rotation
+		bullet.damage = bullet_damage
+		get_tree().current_scene.add_child(bullet)
+
+func _on_BulletTimer_timeout():
+	if is_dead:
+		return
+	fire_laser_burst()
 
 func take_damage(amount: int, shooter_player := 1):
 	if is_dead:
 		return
 
 	current_health -= amount
+	$HealthBar.value = current_health
 	spawn_damage_number(amount)
 
 	if current_health <= 0:
@@ -45,18 +94,17 @@ func take_damage(amount: int, shooter_player := 1):
 
 func die(shooter_player := 1):
 	is_dead = true
+	$BulletTimer.stop()
 
-	if $enemy_8_Dreadnought:
-		$enemy_8_Dreadnought.visible = false
 	if $DeathSprite_EN_8:
 		$DeathSprite_EN_8.visible = true
 	if $AnimationPlayer_EN_8:
 		$AnimationPlayer_EN_8.play("death_enemy_8")
 
 	if shooter_player == 1:
-		Global.player1_score += 100
+		Global.player1_score += 500
 	elif shooter_player == 2:
-		Global.player2_score += 100
+		Global.player2_score += 500
 
 	await $AnimationPlayer_EN_8.animation_finished
 	queue_free()
@@ -77,6 +125,5 @@ func spawn_damage_number(amount: int):
 	label.modulate.a = 1.0
 	label.position = Vector2(0, -20)
 
-
-func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
