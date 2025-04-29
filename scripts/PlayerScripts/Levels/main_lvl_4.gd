@@ -4,7 +4,7 @@ var is_two_player_mode := false
 var current_level := 4
 
 var level_time := 0.0
-const TIME_LIMIT := 30.0
+const TIME_LIMIT := 100.0
 var transitioned := false
 
 # Enemy Spawning
