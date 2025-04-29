@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var speed := 20  # Slow move speed to the left
 @export var rotation_speed := 2.0  # How quickly it rotates towards players
-@export var max_health := 100
+@export var max_health := 350
 @export var bullet_damage := 70
 
 @onready var health_bar: ProgressBar = $HealthBar
