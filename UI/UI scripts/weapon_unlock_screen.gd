@@ -70,7 +70,7 @@ func load_next_level():
 	Global.current_scene_name = "mainLvl_%d" % next_level_index
 	Global.is_two_player_mode = is_two_player_mode
 
-	var next_scene_path = "res://scripts/PlayerScripts/Levels/mainLvl_%d.tscn" % next_level_index
+	var next_scene_path = "res://Levels/mainLvl_%d.tscn" % next_level_index
 	var next_scene = load(next_scene_path).instantiate()
 	next_scene.set_2_players(is_two_player_mode)
 

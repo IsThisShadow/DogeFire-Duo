@@ -20,7 +20,7 @@ func _on_return_main_menu_button_pressed() -> void:
 	call_deferred("go_to_main_menu")
 
 func go_to_main_menu():
-	get_tree().change_scene_to_file("res://MainMenu.tscn")
+	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
 
 
 func _on_quit_game_button_pressed() -> void:

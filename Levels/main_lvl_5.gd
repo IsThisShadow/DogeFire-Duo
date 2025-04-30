@@ -9,13 +9,13 @@ var transitioned := false
 
 # Enemy Spawning
 @onready var screen_size = get_viewport_rect().size
-var enemy1_scene = preload("res://enemies/Enemy_1.tscn")
-var enemy2_scene = preload("res://enemies/Enemy_2.tscn")
-var enemy3_scene = preload("res://enemies/Enemy_3.tscn")
-var enemy4_scene = preload("res://enemies/Enemy_4.tscn")
-var enemy5_scene = preload("res://enemies/Enemy_5.tscn")
-var enemy6_scene = preload("res://enemies/Enemy_6.tscn")
-var enemy8_scene = preload("res://enemies/Enemy_8.tscn")
+var enemy1_scene = preload("res://enemies/enemy scenes/Enemy_1.tscn")
+var enemy2_scene = preload("res://enemies/enemy scenes/Enemy_2.tscn")
+var enemy3_scene = preload("res://enemies/enemy scenes/Enemy_3.tscn")
+var enemy4_scene = preload("res://enemies/enemy scenes/Enemy_4.tscn")
+var enemy5_scene = preload("res://enemies/enemy scenes/Enemy_5.tscn")
+var enemy6_scene = preload("res://enemies/enemy scenes/Enemy_6.tscn")
+var enemy8_scene = preload("res://enemies/enemy scenes/Enemy_8.tscn")
 @onready var enemy_timer = $EnemySpawnTimer
 
 var wave2_spawned := false
@@ -105,7 +105,7 @@ func _set_collision_polygons_enabled(node: Node, enabled: bool):
 
 func _show_win_screen():
 	await get_tree().create_timer(1.0).timeout
-	var win_scene = preload("res://WinScreen.tscn").instantiate()
+	var win_scene = preload("res://UI/UI scenes/WinScreen.tscn").instantiate()
 	get_tree().get_root().add_child(win_scene)
 	get_tree().current_scene.queue_free()
 	get_tree().current_scene = win_scene

@@ -14,7 +14,7 @@ func _on_two_player():
 	_load_ready_screen(true)
 
 func _load_ready_screen(is_two_player: bool):
-	var menu2_scene = preload("res://mainMenu_2.tscn").instantiate()
+	var menu2_scene = preload("res://UI/UI scenes/mainMenu_2.tscn").instantiate()
 	Global.is_two_player_mode = is_two_player
 
 	var current = get_tree().current_scene

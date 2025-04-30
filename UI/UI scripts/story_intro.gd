@@ -60,7 +60,7 @@ func type_story():
 		load_main_level()
 
 func load_main_level():
-	var next_scene = preload("res://scripts/PlayerScripts/Levels/mainLvl_1.tscn").instantiate()
+	var next_scene = preload("res://Levels/mainLvl_1.tscn").instantiate()
 	next_scene.set_2_players(is_two_player_mode)  # will pass true if set from Global
 	get_tree().get_root().add_child(next_scene)
 	get_tree().current_scene.queue_free()

@@ -1,6 +1,6 @@
 extends Node2D
 
-var bullet_scene = preload("res://Scenes/Bullet1.tscn")
+var bullet_scene = preload("res://Players/Player_Weapon_Scenes/Bullet1.tscn")
 
 @onready var shoot_point = $ShootPoint
 @onready var player_id := 1

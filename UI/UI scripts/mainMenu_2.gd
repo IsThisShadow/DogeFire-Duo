@@ -74,7 +74,7 @@ func start_story_scene():
 	# Set scene info globally
 	Global.current_scene_name = "StoryIntro"
 
-	var story_scene = preload("res://StoryIntro.tscn").instantiate()
+	var story_scene = preload("res://UI/UI scenes/StoryIntro.tscn").instantiate()
 
 	var current = get_tree().current_scene
 	if current:
@@ -88,4 +88,4 @@ func _on_quit_button_pressed() -> void:
 	
 	
 func _on_back_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://MainMenu.tscn")
+	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")

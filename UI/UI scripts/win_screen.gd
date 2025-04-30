@@ -28,7 +28,7 @@ func _on_play_again_pressed():
 	Global.pause_menu = null
 
 	#  Go back to main menu
-	get_tree().change_scene_to_file("res://MainMenu.tscn")
+	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
 
 
 func _on_quit_game_pressed():

@@ -10,8 +10,8 @@ var transitioned := false
 
 # Enemy spawning setup
 @onready var screen_size = get_viewport_rect().size
-var enemy1_scene = preload("res://enemies/Enemy_1.tscn")
-var enemy2_scene = preload("res://enemies/Enemy_2.tscn")
+var enemy1_scene = preload("res://enemies/enemy scenes/Enemy_1.tscn")
+var enemy2_scene = preload("res://enemies/enemy scenes/Enemy_2.tscn")
 @onready var enemy_timer = $Enemy1SpawnTimer
 
 func set_2_players(enable: bool):
@@ -103,7 +103,7 @@ func _set_collision_polygons_enabled(node: Node, enabled: bool):
 			_set_collision_polygons_enabled(child, enabled)
 
 func _show_weapon_unlock_screen(next_level: int):
-	var unlock_scene = preload("res://Scenes/weapon_unlock_screen.tscn").instantiate()
+	var unlock_scene = preload("res://UI/UI scenes/weapon_unlock_screen.tscn").instantiate()
 	unlock_scene.next_level_index = next_level
 	unlock_scene.is_two_player_mode = is_two_player_mode
 	get_tree().get_root().add_child(unlock_scene)
