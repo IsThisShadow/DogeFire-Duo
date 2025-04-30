@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://cmue7o4meppar" path="res://Assets/Player Sprites/Ship-Nebula - Sprite Sheet.png" id="1_f50pn"]
 [ext_resource type="Script" uid="uid://bakimcqipy2cr" path="res://characterBody_P1.gd" id="1_ij6vw"]
-[ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur/static/Tektur-Bold.ttf" id="3_h3jpu"]
-[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="4_5wo50"]
-[ext_resource type="Texture2D" uid="uid://b1tua5vfgxcrt" path="res://UI Sprites/Hearts.png" id="5_4lx6x"]
+[ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur_MainFont/static/Tektur-Bold.ttf" id="3_h3jpu"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="4_5wo50"]
+[ext_resource type="Texture2D" uid="uid://b1tua5vfgxcrt" path="res://Assets/Hearts.png" id="5_4lx6x"]
 
 [sub_resource type="Animation" id="Animation_44cfe"]
 resource_name = "testing"

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://byf6nhcn4vauj" path="res://story_intro.gd" id="1_5g8uu"]
 [ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://2D Space Parallax Backgrounds/layers/complete.png" id="2_0qx3q"]
-[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="2_nh5m7"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_nh5m7"]
 
 [node name="StoryIntro" type="Control"]
 layout_mode = 3

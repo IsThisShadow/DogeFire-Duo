@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b7fcqsn5jatcy"]
 
 [ext_resource type="Script" uid="uid://chenxecmtkix7" path="res://pause_menu_2p.gd" id="1_tf24n"]
-[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="2_oaebk"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_oaebk"]
 [ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://2D Space Parallax Backgrounds/layers/complete.png" id="2_uwo0j"]
 [ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="4_oh65t"]
 

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ckmiuk6k2658l" path="res://characterBodyP2.tscn" id="4_f1hde"]
 [ext_resource type="Script" uid="uid://c26mwf8iuyxsg" path="res://scripts/PlayerScripts/Levels/parallax_background.gd" id="5_64ibx"]
 [ext_resource type="Texture2D" uid="uid://ctysprhh2qur0" path="res://Assets/Pixel Health Bar/Bar/health bar.png" id="5_f1hde"]
-[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="6_f1hde"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="6_f1hde"]
 [ext_resource type="Texture2D" uid="uid://bvccngnd3tt2b" path="res://2D Space Parallax Backgrounds/layers/black_bg.png" id="6_ghm68"]
 [ext_resource type="Texture2D" uid="uid://b71b1etq41ye2" path="res://2D Space Parallax Backgrounds/layers/nebula.png" id="7_dcip6"]
 [ext_resource type="Texture2D" uid="uid://60hvkelfx71c" path="res://2D Space Parallax Backgrounds/layers/small_stars.png" id="8_pk2n4"]

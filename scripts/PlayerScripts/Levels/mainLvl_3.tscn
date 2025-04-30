@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b44ebn5xhv34r" path="res://characterBodyP1.tscn" id="3_n2xxi"]
 [ext_resource type="Script" uid="uid://ckgykuop7a8bv" path="res://scripts/PlayerScripts/Levels/parallax_background_lvl3.gd" id="4_11cb0"]
 [ext_resource type="PackedScene" uid="uid://ckmiuk6k2658l" path="res://characterBodyP2.tscn" id="4_27y8f"]
-[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="4_hiydk"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="4_hiydk"]
 [ext_resource type="Texture2D" uid="uid://bfgjf0iyokkp4" path="res://Assets/Pixel Health Bar/Bar/no health bar.png" id="4_hvelj"]
 [ext_resource type="Texture2D" uid="uid://ctysprhh2qur0" path="res://Assets/Pixel Health Bar/Bar/health bar.png" id="5_hiydk"]
 [ext_resource type="Texture2D" uid="uid://bvccngnd3tt2b" path="res://2D Space Parallax Backgrounds/layers/black_bg.png" id="6_hiydk"]

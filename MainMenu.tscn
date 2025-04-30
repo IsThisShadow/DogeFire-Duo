@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ta5xejup4ed4" path="res://main_menu.gd" id="1_i26rj"]
 [ext_resource type="Texture2D" uid="uid://dxn4l4heoaqpa" path="res://Assets/1. Free Hologram Interface Wenrexa/Card X3/Card X5.png" id="2_eiy7p"]
-[ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur/static/Tektur-Bold.ttf" id="3_h7a2f"]
+[ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur_MainFont/static/Tektur-Bold.ttf" id="3_h7a2f"]
 [ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="4_qoqlk"]
 
 [node name="Control" type="Control"]

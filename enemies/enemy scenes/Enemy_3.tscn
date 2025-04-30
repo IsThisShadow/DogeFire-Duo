@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c5j7m8g8dd5mh" path="res://Assets/Foozle_2DS0012_Void_EnemyFleet_1/Kla'ed/Base/PNGs/Kla'ed - Fighter - Base.png" id="1_bkt4m"]
 [ext_resource type="Script" uid="uid://ck60hgk6thmvq" path="res://enemies/enemyScripts/enemy_3.gd" id="1_oi8fn"]
 [ext_resource type="Texture2D" uid="uid://78vvf26mnjd7" path="res://Assets/Foozle_2DS0012_Void_EnemyFleet_1/Kla'ed/Destruction/PNGs/Kla'ed - Fighter - Destruction.png" id="2_um3fh"]
-[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="4_mw5qm"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="4_mw5qm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_um3fh"]
 size = Vector2(24, 24)
