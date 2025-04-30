@@ -12,7 +12,7 @@ var is_dead := false
 var current_health = max_health
 var has_stopped := false  # New flag!
 
-var bullet_scene = preload("res://enemies/Enemy_7_bullet.tscn")
+var bullet_scene = preload("res://enemies/enemy scenes/Enemy_7_bullet.tscn")
 
 func _ready():
 	health_bar.max_value = max_health

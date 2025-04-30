@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://ef4cgjme04h7"]
 
-[ext_resource type="Script" uid="uid://kujexnxtbrwd" path="res://enemies/enemy_7.gd" id="1_t1m82"]
+[ext_resource type="Script" uid="uid://kujexnxtbrwd" path="res://enemies/enemyScripts/enemy_7.gd" id="1_t1m82"]
 [ext_resource type="Texture2D" uid="uid://dk2h43yd443bp" path="res://Assets/Foozle_2DS0012_Void_EnemyFleet_1/Kla'ed/Base/PNGs/Kla'ed - Battlecruiser - Base.png" id="2_25rae"]
 [ext_resource type="Texture2D" uid="uid://fjjnv3id7gfj" path="res://Assets/Foozle_2DS0012_Void_EnemyFleet_1/Kla'ed/Destruction/PNGs/Kla'ed - Battlecruiser - Destruction.png" id="3_25rae"]
 

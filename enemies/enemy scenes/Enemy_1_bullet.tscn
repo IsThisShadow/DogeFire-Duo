@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c1k4i8b0h2wia"]
 
-[ext_resource type="Texture2D" uid="uid://cmgwcumoraap8" path="res://Assets/Foozle_2DS0012_Void_EnemyFleet_1/Kla'ed/Projectiles/PNGs/Kla'ed - Bullet.png" id="1_80u0n"]
-[ext_resource type="Script" uid="uid://dyepxus30gakk" path="res://enemies/enemy1_bullet.gd" id="1_jxfjr"]
+[ext_resource type="Script" uid="uid://dyepxus30gakk" path="res://enemies/enemyScripts/enemy1_bullet.gd" id="1_ifj4b"]
+[ext_resource type="Texture2D" uid="uid://cmgwcumoraap8" path="res://Assets/Foozle_2DS0012_Void_EnemyFleet_1/Kla'ed/Projectiles/PNGs/Kla'ed - Bullet.png" id="2_idcoc"]
 
 [sub_resource type="Animation" id="Animation_jxfjr"]
 resource_name = "Enemy1_bullet"
@@ -46,11 +46,11 @@ _data = {
 size = Vector2(2, 11)
 
 [node name="Area2D" type="Area2D"]
-script = ExtResource("1_jxfjr")
+script = ExtResource("1_ifj4b")
 
 [node name="Enemy1_bullet" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("1_80u0n")
+texture = ExtResource("2_idcoc")
 hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

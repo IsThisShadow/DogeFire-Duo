@@ -16,7 +16,7 @@ var moving_up = true
 var top_margin := 80  # <-- Stay at least 80px from top
 var bottom_margin := 80  # <-- Stay at least 80px from bottom
 
-var bullet_scene = preload("res://enemies/Enemy_5_bullet.tscn")
+var bullet_scene = preload("res://enemies/enemy scenes/Enemy_5_bullet.tscn")
 
 func _ready():
 	current_health = max_health

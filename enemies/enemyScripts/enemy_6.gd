@@ -8,7 +8,7 @@ extends CharacterBody2D
 var is_dead = false
 var current_health = max_health
 @onready var visibility_notifier = $VisibleOnScreenNotifier2D
-var bullet_scene = preload("res://enemies/Enemy_1_bullet.tscn")  # Use enemy 1 bullet
+var bullet_scene = preload("res://enemies/enemy scenes/Enemy_1_bullet.tscn")  # Use enemy 1 bullet
 
 var time_passed := 0.0  # For wave movement
 

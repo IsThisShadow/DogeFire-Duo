@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://effsfnvnvku3"]
 
-[ext_resource type="Script" uid="uid://c8bso6lvqfx34" path="res://enemies/enemy_4.gd" id="1_cfs84"]
+[ext_resource type="Script" uid="uid://c8bso6lvqfx34" path="res://enemies/enemyScripts/enemy_4.gd" id="1_cfs84"]
 [ext_resource type="Texture2D" uid="uid://bsxugxh8ywo1u" path="res://Assets/Foozle_2DS0012_Void_EnemyFleet_1/Kla'ed/Base/PNGs/Kla'ed - Bomber - Base.png" id="1_rq3kx"]
 [ext_resource type="Texture2D" uid="uid://cd2247n6wvoa7" path="res://Assets/Foozle_2DS0012_Void_EnemyFleet_1/Kla'ed/Destruction/PNGs/Kla'ed - Bomber - Destruction.png" id="2_cfs84"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="4_xmeel"]

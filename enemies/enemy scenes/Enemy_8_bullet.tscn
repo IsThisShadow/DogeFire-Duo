@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://fu2ecbo5qido"]
 
-[ext_resource type="Script" uid="uid://dbciwnqqcg8i0" path="res://enemies/enemy8_bullet.gd" id="1_bdfg7"]
+[ext_resource type="Script" uid="uid://dbciwnqqcg8i0" path="res://enemies/enemyScripts/enemy8_bullet.gd" id="1_bdfg7"]
 [ext_resource type="Texture2D" uid="uid://c3ttb5keylu7g" path="res://Assets/Foozle_2DS0012_Void_EnemyFleet_1/Kla'ed/Projectiles/PNGs/Kla'ed - Ray.png" id="1_r66ao"]
 
 [sub_resource type="Animation" id="Animation_r66ao"]

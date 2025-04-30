@@ -11,7 +11,7 @@ var current_health = max_health
 var is_dead = false
 var moving_in = true
 var stop_x = 0.0
-var bullet_scene = preload("res://enemies/Enemy_8_bullet.tscn")
+var bullet_scene = preload("res://enemies/enemy scenes/Enemy_8_bullet.tscn")
 var time_since_last_shot := 0.0
 
 func _ready():

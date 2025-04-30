@@ -5,7 +5,7 @@ extends CharacterBody2D
 var current_health := max_health
 var is_dead := false
 
-var bullet_scene = preload("res://enemies/Enemy_1_bullet.tscn")  # Make sure this path is correct!
+var bullet_scene = preload("res://enemies/enemy scenes/Enemy_1_bullet.tscn")
 
 func _ready():
 	current_health = max_health
