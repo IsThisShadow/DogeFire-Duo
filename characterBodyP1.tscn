@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://b44ebn5xhv34r"]
 
 [ext_resource type="Texture2D" uid="uid://cmue7o4meppar" path="res://Assets/Player Sprites/Ship-Nebula - Sprite Sheet.png" id="1_f50pn"]
-[ext_resource type="Script" uid="uid://bakimcqipy2cr" path="res://characterBody_P1.gd" id="1_ij6vw"]
+[ext_resource type="Script" path="res://characterBody_P1.gd" id="1_ij6vw"]
 [ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur/static/Tektur-Bold.ttf" id="3_h3jpu"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur/Tektur-VariableFont_wdth,wght.ttf" id="4_5wo50"]
 [ext_resource type="Texture2D" uid="uid://b1tua5vfgxcrt" path="res://UI Sprites/Hearts.png" id="5_4lx6x"]
@@ -104,11 +104,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dd465"]
 _data = {
-&"Death_p1": SubResource("Animation_44cfe"),
-&"Idle_p1": SubResource("Animation_ij6vw"),
-&"PermaDeath": SubResource("Animation_h3jpu"),
-&"RESET": SubResource("Animation_ghijl"),
-&"reviveNeed_p1": SubResource("Animation_4epen")
+"Death_p1": SubResource("Animation_44cfe"),
+"Idle_p1": SubResource("Animation_ij6vw"),
+"PermaDeath": SubResource("Animation_h3jpu"),
+"RESET": SubResource("Animation_ghijl"),
+"reviveNeed_p1": SubResource("Animation_4epen")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4epen"]
@@ -133,7 +133,7 @@ vframes = 5
 
 [node name="AnimationPlayer_p1" type="AnimationPlayer" parent="Sprite_p1"]
 libraries = {
-&"": SubResource("AnimationLibrary_dd465")
+"": SubResource("AnimationLibrary_dd465")
 }
 
 [node name="CollisionShape2D_p1" type="CollisionPolygon2D" parent="."]

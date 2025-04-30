@@ -16,7 +16,7 @@ func _on_body_entered(body):
 		var anim_player = $Sprite2D/AnimationPlayer
 		anim_player.play("explode")  # Make sure this matches your animation name exactly
 		$CollisionShape2D.disabled = true  # Disable collisions while animating
-
+		#need to use call deffered, gives error when trying ot turn of the collision. 
 		await anim_player.animation_finished
 		queue_free()
 
