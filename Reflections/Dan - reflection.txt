@@ -1,0 +1,17 @@
+For this project I was mainly tasked with making the map for the game and making the UI. 
+I started by using parallax layers to make the map look as if it had depth as the player moves through the world.
+A small issue that I ran into was making a character capable of testing my parallax background. 
+I ended up making a "test guy" with the bare minimum code and properties needed to move around the map for testing.
+The big challenge here was getting the hang of using brand new nodes, and finding the right assets for the map. 
+I knew that how our map looked would be a big part of our game, so I wanted it to fit the theme/aesthetic of the game. 
+Our game is designed as a side-scroller, so the next step was to make the map scroll automatically, without the player 
+having to move around to achieve the parallax effect. 
+This was a struggle, but after getting it done the map was completed. 
+This was a big part of the project so I was glad to have it done. 
+Next I began to work on improving the UI of the game. 
+Gavy made the bare bones for the loading screens, title screens, pause screens, etc. 
+So my job was to go in and change images, fonts, arrangements, and anything else needed to make the screens fit the 
+aesthetic of the game, and provide the user with a good and intuitive experience.
+With each new screen, I focused on the C.R.A.P. acronym for good UI.
+The hardest screen to polish the UI for was the first one, but after I set precedents, making the others was much easier
+since the others were very similar to avoid user confusion.
