@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://1sjnnc75jxom"]
+
+[ext_resource type="Script" uid="uid://dbv18v0106q1j" path="res://Players/Player_Weapon_Script/Bullet1.gd" id="1_3rxl0"]
+[ext_resource type="Texture2D" uid="uid://b5tovi320v414" path="res://Assets/Bullet Sprites/Laser Sprites/01.png" id="2_3rxl0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3rxl0"]
+radius = 2.0
+height = 6.0
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_3rxl0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 4.71239
+shape = SubResource("CapsuleShape2D_3rxl0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_3rxl0")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+texture_filter = 1
+position = Vector2(-0.5, 2.38419e-07)
+scale = Vector2(0.25, 0.1)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

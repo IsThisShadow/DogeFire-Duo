@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://lcq7764k5tum"]
+
+[ext_resource type="Script" uid="uid://bg6mat88btmsc" path="res://Players/Player_Weapon_Script/weapon_2.gd" id="1_2ushk"]
+
+[node name="Weapon2" type="Node2D"]
+z_index = 2
+script = ExtResource("1_2ushk")
+
+[node name="ShootPoint" type="Marker2D" parent="."]
