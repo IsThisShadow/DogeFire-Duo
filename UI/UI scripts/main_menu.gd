@@ -1,6 +1,7 @@
 extends Control
 
 func _ready():
+	$VBoxContainer/ButtonOneWrapper/OnePlayerButton.grab_focus()
 	$VBoxContainer/ButtonOneWrapper/OnePlayerButton.text = "1 Player"
 	$VBoxContainer/ButtonTwoWrapper/TwoPlayerButton.text = "2 Players"
 
@@ -23,3 +24,9 @@ func _load_ready_screen(is_two_player: bool):
 
 	get_tree().get_root().add_child(menu2_scene)
 	get_tree().current_scene = menu2_scene
+
+func _unhandled_input(event):
+	if event.is_action_pressed("p1_a") or event.is_action_pressed("p2_a"):
+		var focused = get_viewport().gui_get_focus_owner()
+		if focused and focused is Button:
+			focused.emit_signal("pressed")
