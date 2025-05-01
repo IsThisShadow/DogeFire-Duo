@@ -17,6 +17,9 @@ func _ready():
 	$UIFadeGroup/VBoxContainer/CountdownWrapper/CountdownLabel.text = "Press Start"
 	$UIFadeGroup/VBoxContainer/CountdownWrapper/StartFlasher.play("FlashStart")
 
+	# Set initial button focus
+	$UIFadeGroup/VBoxContainer/ControlButton.grab_focus()
+
 func _process(delta):
 	if countdown_started:
 		return  # Don't allow new inputs once countdown starts
@@ -39,6 +42,29 @@ func _process(delta):
 	else:
 		if p1_ready:
 			start_countdown()
+
+func _unhandled_input(event):
+	if countdown_started:
+		return
+
+	if event.is_action_pressed("p1_up") or event.is_action_pressed("p2_up"):
+		var focused = get_viewport().gui_get_focus_owner()
+		var neighbor_path = focused.get_focus_neighbor(SIDE_TOP)
+		if neighbor_path:
+			var neighbor = focused.get_node(neighbor_path)
+			neighbor.grab_focus()
+
+	elif event.is_action_pressed("p1_down") or event.is_action_pressed("p2_down"):
+		var focused = get_viewport().gui_get_focus_owner()
+		var neighbor_path = focused.get_focus_neighbor(SIDE_BOTTOM)
+		if neighbor_path:
+			var neighbor = focused.get_node(neighbor_path)
+			neighbor.grab_focus()
+
+	if event.is_action_pressed("p1_a") or event.is_action_pressed("p2_a"):
+		var focused = get_viewport().gui_get_focus_owner()
+		if focused and focused is Button:
+			focused.emit_signal("pressed")
 
 func start_countdown():
 	countdown_started = true
@@ -71,9 +97,7 @@ func fade_out_ui():
 func start_story_scene():
 	print(">> Loading story scene...")
 
-	# Set scene info globally
 	Global.current_scene_name = "StoryIntro"
-
 	var story_scene = preload("res://UI/UI scenes/StoryIntro.tscn").instantiate()
 
 	var current = get_tree().current_scene
@@ -85,7 +109,6 @@ func start_story_scene():
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
-	
-	
+
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
