@@ -26,16 +26,20 @@ func _load_ready_screen(is_two_player: bool):
 	get_tree().current_scene = menu2_scene
 
 func _unhandled_input(event):
+	print("its working")
+
 	if event.is_action_pressed("p1_up") or event.is_action_pressed("p2_up"):
 		var focused = get_viewport().gui_get_focus_owner()
-		var neighbor = focused.get_focus_neighbor(0) # TOP
-		if neighbor:
+		var neighbor_path = focused.get_focus_neighbor(SIDE_TOP)
+		if neighbor_path:
+			var neighbor = focused.get_node(neighbor_path)
 			neighbor.grab_focus()
 
 	elif event.is_action_pressed("p1_down") or event.is_action_pressed("p2_down"):
 		var focused = get_viewport().gui_get_focus_owner()
-		var neighbor = focused.get_focus_neighbor(1) # BOTTOM
-		if neighbor:
+		var neighbor_path = focused.get_focus_neighbor(SIDE_BOTTOM)
+		if neighbor_path:
+			var neighbor = focused.get_node(neighbor_path)
 			neighbor.grab_focus()
 
 	if event.is_action_pressed("p1_a") or event.is_action_pressed("p2_a"):
