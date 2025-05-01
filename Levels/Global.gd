@@ -95,12 +95,17 @@ func check_for_game_over():
 	elif p1_dead and p2_dead:
 		show_you_died_screen()
 
-# === Show You Died UI ===
 func show_you_died_screen():
-	await get_tree().create_timer(.5).timeout  # Delay for polish
+	await get_tree().create_timer(0.5).timeout  # Delay for polish
 	var scene = load("res://UI/UI scenes/YouDiedScreen.tscn")
 	if scene:
 		var screen = scene.instantiate()
+
+		screen.pause_mode = 1  # PAUSE_MODE_PROCESS
+		screen.set_process_input(true)
+		screen.set_process_unhandled_input(true)
+		screen.set_process_focus(true)
+
 		get_tree().get_root().add_child(screen)
 		hide_gameplay()
 		get_tree().paused = true
