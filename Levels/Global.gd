@@ -45,16 +45,22 @@ func toggle_pause_menu():
 
 # === Pause the game ===
 func pause_game():
-	get_tree().paused = true
+	# Do NOT pause the whole tree
+	# get_tree().paused = true
 
 	if not pause_menu:
 		var scene_path = "res://UI/UI scenes/PauseMenu2P.tscn" if is_two_player_mode else "res://UI/UI scenes/PauseMenu1P.tscn"
 		pause_menu = load(scene_path).instantiate()
-		get_tree().get_root().add_child(pause_menu)
+
+		pause_menu.set_process_input(true)
+		pause_menu.set_process_unhandled_input(true)
 		pause_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+
+		get_tree().get_root().add_child(pause_menu)
 
 	pause_menu.visible = true
 	hide_gameplay()
+
 
 # === Resume the game ===
 func resume_game():
