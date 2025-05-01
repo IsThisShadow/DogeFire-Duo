@@ -42,27 +42,17 @@ uppercase = true
 [node name="ButtonOneWrapper" type="Node2D" parent="VBoxContainer"]
 scale = Vector2(1, 1.1)
 
-[node name="OnePlayerButton" type="Button" parent="VBoxContainer/ButtonOneWrapper"]
-offset_left = 420.0
-offset_top = 391.0
-offset_right = 542.0
-offset_bottom = 451.0
-scale = Vector2(5.167, 3.3)
-focus_neighbor_bottom = NodePath("../../ButtonTwoWrapper/TwoPlayerButton")
-icon = ExtResource("4_qoqlk")
-flat = true
-icon_alignment = 1
-
 [node name="ButtonTwoWrapper" type="Node2D" parent="VBoxContainer"]
 scale = Vector2(1, 1.1)
 
-[node name="TwoPlayerButton" type="Button" parent="VBoxContainer/ButtonTwoWrapper"]
-offset_left = 420.0
-offset_top = 550.0
-offset_right = 542.0
-offset_bottom = 608.0
-scale = Vector2(5.167, 3.3)
-focus_neighbor_top = NodePath("../../ButtonOneWrapper/OnePlayerButton")
+[node name="OnePlayerButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../TwoPlayerButton")
 icon = ExtResource("4_qoqlk")
-flat = true
+icon_alignment = 1
+
+[node name="TwoPlayerButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../OnePlayerButton")
+icon = ExtResource("4_qoqlk")
 icon_alignment = 1
