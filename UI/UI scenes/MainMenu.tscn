@@ -22,37 +22,40 @@ offset_right = 691.0
 offset_bottom = 374.0
 texture = ExtResource("2_eiy7p")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 174.0
-offset_top = 66.0
-offset_right = 1699.0
-offset_bottom = 741.0
-scale = Vector2(0.2, 0.2)
-alignment = 1
-
-[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="."]
 layout_mode = 2
+offset_left = 172.0
+offset_top = 49.0
+offset_right = 1697.0
+offset_bottom = 309.0
+scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("3_h7a2f")
 theme_override_font_sizes/font_size = 200
 text = "DodgeFire Duo"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="ButtonOneWrapper" type="Node2D" parent="VBoxContainer"]
-scale = Vector2(1, 1.1)
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_left = 254.0
+offset_top = 129.0
+offset_right = 376.0
+offset_bottom = 237.0
 
-[node name="ButtonTwoWrapper" type="Node2D" parent="VBoxContainer"]
-scale = Vector2(1, 1.1)
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
 
-[node name="OnePlayerButton" type="Button" parent="VBoxContainer"]
+[node name="OnePlayerButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../TwoPlayerButton")
 icon = ExtResource("4_qoqlk")
+flat = true
 icon_alignment = 1
 
-[node name="TwoPlayerButton" type="Button" parent="VBoxContainer"]
+[node name="TwoPlayerButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../OnePlayerButton")
 icon = ExtResource("4_qoqlk")
+flat = true
 icon_alignment = 1

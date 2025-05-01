@@ -1,12 +1,12 @@
 extends Control
 
 func _ready():
-	$VBoxContainer/OnePlayerButton.grab_focus()
-	$VBoxContainer/OnePlayerButton.text = "1 Player"
-	$VBoxContainer/TwoPlayerButton.text = "2 Players"
+	$CenterContainer/VBoxContainer/OnePlayerButton.grab_focus()
+	$CenterContainer/VBoxContainer/OnePlayerButton.text = "1 Player"
+	$CenterContainer/VBoxContainer/TwoPlayerButton.text = "2 Players"
 
-	$VBoxContainer/OnePlayerButton.pressed.connect(_on_one_player)
-	$VBoxContainer/TwoPlayerButton.pressed.connect(_on_two_player)
+	$CenterContainer/VBoxContainer/OnePlayerButton.pressed.connect(_on_one_player)
+	$CenterContainer/VBoxContainer/TwoPlayerButton.pressed.connect(_on_two_player)
 
 func _on_one_player():
 	_load_ready_screen(false)
