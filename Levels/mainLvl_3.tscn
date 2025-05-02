@@ -97,6 +97,7 @@ theme_override_font_sizes/font_size = 70
 text = "Score: 0"
 
 [node name="WeaponLabel_P1" type="Label" parent="HUD/Control"]
+layout_mode = 0
 offset_left = 12.0
 offset_top = 63.0
 offset_right = 508.0
@@ -164,10 +165,11 @@ theme_override_font_sizes/font_size = 70
 text = "Score: 0"
 
 [node name="WeaponLabel_P2" type="Label" parent="HUD/Control2"]
-offset_left = -71.0
-offset_top = 61.0
-offset_right = 425.0
-offset_bottom = 126.0
+layout_mode = 0
+offset_left = -92.0
+offset_top = 62.0
+offset_right = 404.0
+offset_bottom = 127.0
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("4_hiydk")
 theme_override_font_sizes/font_size = 50

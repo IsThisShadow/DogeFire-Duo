@@ -25,9 +25,9 @@ var weapon_scenes = {
 	5: preload("res://Players/Player_Weapon_Scenes/Weapon5.tscn")
 }
 var weapon_names = {
-	1: "Pluse Blaster",
-	2: "Laser storm",
-	3: "rail Gun",
+	1: "Pulse Blaster",
+	2: "Laser Storm",
+	3: "Rail Gun",
 	4: "Dual Shot",
 	5: "The Devastator",
 }
