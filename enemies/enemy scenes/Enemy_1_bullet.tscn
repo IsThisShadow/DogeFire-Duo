@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1k4i8b0h2wia"]
+
+[ext_resource type="Script" uid="uid://dyepxus30gakk" path="res://enemies/enemyScripts/enemy1_bullet.gd" id="1_ifj4b"]
+[ext_resource type="Texture2D" uid="uid://cmgwcumoraap8" path="res://Assets/Foozle_2DS0012_Void_EnemyFleet_1/Kla'ed/Projectiles/PNGs/Kla'ed - Bullet.png" id="2_idcoc"]
+
+[sub_resource type="Animation" id="Animation_jxfjr"]
+resource_name = "Enemy1_bullet"
+length = 0.5
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_mltvc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lsirq"]
+_data = {
+&"Enemy1_bullet": SubResource("Animation_jxfjr"),
+&"RESET": SubResource("Animation_mltvc")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mltvc"]
+size = Vector2(2, 11)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_ifj4b")
+
+[node name="Enemy1_bullet" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_idcoc")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Enemy1_bullet")
+libraries = {
+&"": SubResource("AnimationLibrary_lsirq")
+}
+autoplay = "Enemy1_bullet"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_mltvc")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

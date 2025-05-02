@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://c77fuy3p65uft"]
+
+[ext_resource type="Script" uid="uid://ta5xejup4ed4" path="res://UI/UI scripts/main_menu.gd" id="1_i26rj"]
+[ext_resource type="Texture2D" uid="uid://dxn4l4heoaqpa" path="res://Assets/1. Free Hologram Interface Wenrexa/Card X3/Card X5.png" id="2_eiy7p"]
+[ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur_MainFont/static/Tektur-Bold.ttf" id="3_h7a2f"]
+[ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="4_qoqlk"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i26rj")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -42.0
+offset_top = -15.0
+offset_right = 691.0
+offset_bottom = 374.0
+texture = ExtResource("2_eiy7p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 174.0
+offset_top = 66.0
+offset_right = 1699.0
+offset_bottom = 741.0
+scale = Vector2(0.2, 0.2)
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_h7a2f")
+theme_override_font_sizes/font_size = 200
+text = "DodgeFire Duo"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="ButtonOneWrapper" type="Node2D" parent="VBoxContainer"]
+scale = Vector2(1, 1.1)
+
+[node name="OnePlayerButton" type="Button" parent="VBoxContainer/ButtonOneWrapper"]
+offset_left = 420.0
+offset_top = 391.0
+offset_right = 542.0
+offset_bottom = 451.0
+scale = Vector2(5.167, 3.3)
+icon = ExtResource("4_qoqlk")
+flat = true
+icon_alignment = 1
+
+[node name="ButtonTwoWrapper" type="Node2D" parent="VBoxContainer"]
+scale = Vector2(1, 1.1)
+
+[node name="TwoPlayerButton" type="Button" parent="VBoxContainer/ButtonTwoWrapper"]
+offset_left = 420.0
+offset_top = 550.0
+offset_right = 542.0
+offset_bottom = 608.0
+scale = Vector2(5.167, 3.3)
+icon = ExtResource("4_qoqlk")
+flat = true
+icon_alignment = 1

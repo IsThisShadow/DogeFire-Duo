@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://p0tltojy2xgy"]
+
+[ext_resource type="Script" uid="uid://c451mjmafupl1" path="res://enemies/enemyScripts/enemy_1.gd" id="1_n5q43"]
+[ext_resource type="Texture2D" uid="uid://b6rtkg7in7ygv" path="res://Assets/Foozle_2DS0012_Void_EnemyFleet_1/Kla'ed/Base/PNGs/Kla'ed - Support ship - Base.png" id="2_j2nv1"]
+[ext_resource type="Texture2D" uid="uid://bk6wny1pynkmw" path="res://Assets/Foozle_2DS0012_Void_EnemyFleet_1/Kla'ed/Destruction/PNGs/Kla'ed - Support ship - Destruction.png" id="3_uwsmo"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="4_heqr1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uwsmo"]
+size = Vector2(22, 23)
+
+[sub_resource type="Animation" id="Animation_heqr1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_uwsmo"]
+resource_name = "death_enemy_!"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0cb6b"]
+_data = {
+&"RESET": SubResource("Animation_heqr1"),
+&"death_enemy_1": SubResource("Animation_uwsmo")
+}
+
+[node name="CharacterBody_enemy_1" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_n5q43")
+
+[node name="enemy_1_SupportShip" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 4.71239
+texture = ExtResource("2_j2nv1")
+
+[node name="CollisionShape_enemy_1" type="CollisionShape2D" parent="."]
+position = Vector2(-3, -1)
+shape = SubResource("RectangleShape2D_uwsmo")
+
+[node name="BulletTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="DeathSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 4.71239
+texture = ExtResource("3_uwsmo")
+hframes = 10
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_0cb6b")
+}
+
+[node name="DamageLabel" type="Label" parent="."]
+texture_filter = 1
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("4_heqr1")
+
+[connection signal="timeout" from="BulletTimer" to="." method="_on_bullet_timer_timeout"]

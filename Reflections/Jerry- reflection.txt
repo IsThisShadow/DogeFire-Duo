@@ -1,0 +1,5 @@
+I think this project is fairly difficult as it required attention to mutiple fields of development.
+When I was assigned to create the weapon system I was excited but also uncertain on how I will do.
+The assets were fairly alright but it would had to manage.
+Eventually though I managed to pull through and create the basic version of the weapon system, including the different weapon types and weapon switching.
+The weapon system I created would eventually be revamped and improved by Gavy who improved the sprites and system which I'm glad about.

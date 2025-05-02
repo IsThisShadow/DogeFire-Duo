@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://0nxf4hfbiiv0"]
+
+[ext_resource type="Script" uid="uid://bs4ni1yr3w0py" path="res://Players/Player_Weapon_Script/weapon_4.gd" id="1_o6t02"]
+
+[node name="Weapon4" type="Node2D"]
+script = ExtResource("1_o6t02")
+
+[node name="ShootLeft" type="Marker2D" parent="."]
+position = Vector2(-10, 0)
+
+[node name="ShootRight" type="Marker2D" parent="."]
+position = Vector2(10, 0)

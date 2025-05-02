@@ -1,0 +1,238 @@
+[gd_scene load_steps=13 format=3 uid="uid://b0pwgemgq86bc"]
+
+[ext_resource type="Script" uid="uid://cxyxbje4y883d" path="res://UI/UI scripts/weapon_unlock_screen.gd" id="1_tmbdm"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_5w55y"]
+[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://2D Space Parallax Backgrounds/layers/complete.png" id="2_n816y"]
+
+[sub_resource type="Animation" id="Animation_n816y"]
+resource_name = "FlashStart"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nr7r4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mlgad"]
+_data = {
+&"FlashStart": SubResource("Animation_n816y"),
+&"RESET": SubResource("Animation_nr7r4")
+}
+
+[sub_resource type="Animation" id="Animation_d7nl4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player1ReadyLabel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mlgad"]
+resource_name = "ZoomIn"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player1ReadyLabel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3i5jp"]
+_data = {
+&"RESET": SubResource("Animation_d7nl4"),
+&"ZoomIn": SubResource("Animation_mlgad")
+}
+
+[sub_resource type="Animation" id="Animation_k8mr0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player2ReadyLabel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3i5jp"]
+resource_name = "ZoomIn"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player2ReadyLabel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oakcq"]
+_data = {
+&"RESET": SubResource("Animation_k8mr0"),
+&"ZoomIn": SubResource("Animation_3i5jp")
+}
+
+[node name="WeaponUnlockScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tmbdm")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("2_n816y")
+expand_mode = 2
+
+[node name="UIBox" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 235.0
+offset_top = 69.0
+offset_right = 427.0
+offset_bottom = 206.0
+alignment = 1
+
+[node name="WeaponIcon" type="TextureRect" parent="UIBox"]
+layout_mode = 2
+stretch_mode = 5
+
+[node name="wrapperWeapon" type="Node2D" parent="UIBox"]
+position = Vector2(-37, -32)
+
+[node name="weaponNameLabel" type="Label" parent="UIBox/wrapperWeapon"]
+offset_left = 44.0
+offset_top = 2.0
+offset_right = 593.0
+offset_bottom = 106.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_5w55y")
+theme_override_font_sizes/font_size = 80
+text = "weapon name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="wrapperContinue" type="Node2D" parent="UIBox"]
+position = Vector2(2, 207)
+scale = Vector2(1.1, 1)
+
+[node name="CountdownLabel" type="Label" parent="UIBox/wrapperContinue"]
+offset_left = 1.81818
+offset_top = 42.0
+offset_right = 949.818
+offset_bottom = 154.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_5w55y")
+theme_override_font_sizes/font_size = 80
+text = "Press Start"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UIBox/wrapperContinue"]
+root_node = NodePath("../CountdownLabel")
+libraries = {
+&"": SubResource("AnimationLibrary_mlgad")
+}
+
+[node name="wrapperNextLevel" type="Node2D" parent="UIBox"]
+position = Vector2(-18, 55)
+
+[node name="nextLevelLabel" type="Label" parent="UIBox/wrapperNextLevel"]
+offset_left = 34.0
+offset_top = 158.0
+offset_right = 434.0
+offset_bottom = 269.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_5w55y")
+theme_override_font_sizes/font_size = 85
+text = "next level"
+horizontal_alignment = 1
+
+[node name="wrapperEquip" type="Node2D" parent="UIBox"]
+position = Vector2(5, 70)
+
+[node name="equipInfoLabel" type="Label" parent="UIBox/wrapperEquip"]
+offset_left = 2.0
+offset_top = -71.0
+offset_right = 194.0
+offset_bottom = -48.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_5w55y")
+theme_override_font_sizes/font_size = 80
+text = "press to equip"
+horizontal_alignment = 1
+
+[node name="ReadyWrapperP1" type="Node2D" parent="UIBox"]
+
+[node name="Player1ReadyLabel" type="Label" parent="UIBox/ReadyWrapperP1"]
+offset_left = -184.0
+offset_top = 248.0
+offset_right = -48.0
+offset_bottom = 271.0
+theme_override_fonts/font = ExtResource("2_5w55y")
+text = "Player One Ready"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UIBox/ReadyWrapperP1"]
+libraries = {
+&"": SubResource("AnimationLibrary_3i5jp")
+}
+
+[node name="ReadyWrapperP2" type="Node2D" parent="UIBox"]
+
+[node name="Player2ReadyLabel" type="Label" parent="UIBox/ReadyWrapperP2"]
+offset_left = 197.0
+offset_top = 247.0
+offset_right = 333.0
+offset_bottom = 270.0
+theme_override_fonts/font = ExtResource("2_5w55y")
+text = "Player Two Ready"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UIBox/ReadyWrapperP2"]
+libraries = {
+&"": SubResource("AnimationLibrary_oakcq")
+}
