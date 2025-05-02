@@ -24,6 +24,14 @@ var weapon_scenes = {
 	4: preload("res://Players/Player_Weapon_Scenes/Weapon4.tscn"),
 	5: preload("res://Players/Player_Weapon_Scenes/Weapon5.tscn")
 }
+var weapon_names = {
+	1: "Pluse Blaster",
+	2: "Laser storm",
+	3: "Dual Shot",
+	4: "Railgun",
+	5: "The Devastator",
+}
+
 var current_weapon = null
 
 const max_speed := 250
@@ -45,6 +53,12 @@ var revive_progress := 0.0
 var is_invincible := false
 var p1_hearts := 3
 
+
+func get_weapon_name():
+	return weapon_names.get(selected_weapon_id, "no wepaon selected")
+	
+	
+	
 func _ready():
 	if Global.player1_permadead:
 		queue_free()
