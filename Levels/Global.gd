@@ -45,13 +45,12 @@ func toggle_pause_menu():
 	else:
 		pause_game()
 
-# === Pause the game ===
 func pause_game():
 	var scene_path = "res://UI/UI scenes/PauseMenu2P.tscn" if is_two_player_mode else "res://UI/UI scenes/PauseMenu1P.tscn"
 	var pause_menu_scene = load(scene_path)
 
-	if pause_menu_scene == null:
-		print(" Scene failed to load at path: ", scene_path)
+	if not pause_menu_scene:
+		print("❌ Pause menu scene failed to load: ", scene_path)
 		return
 
 	if pause_menu:
@@ -59,43 +58,33 @@ func pause_game():
 		pause_menu = null
 
 	pause_menu = pause_menu_scene.instantiate()
-
-	if pause_menu == null:
-		print(" Instantiation returned null")
-		return
-
-	if get_tree().current_scene == null:
-		print(" Current scene is null, can't add pause_menu")
+	if not pause_menu:
+		print("❌ Instantiation of pause menu failed.")
 		return
 
 	get_tree().current_scene.add_child(pause_menu)
 	pause_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	pause_menu.visible = true
-	pause_menu.set_z_index(100)
+	pause_menu.set_z_index(1000)  # Ensure it appears on top.
 
 	await get_tree().process_frame
 
-	# Extra safety check: verify again pause_menu is still valid.
-	if not is_instance_valid(pause_menu):
-		print(" Pause menu became invalid after adding to scene.")
-		return
-
-	var resume_button = pause_menu.get_node_or_null("VBoxContainer/ResumeButton")
-	if resume_button:
-		resume_button.grab_focus()
+	var resume_btn = pause_menu.get_node_or_null("VBoxContainer/ResumeButton")
+	if resume_btn:
+		resume_btn.grab_focus()
 	else:
-		print(" ResumeButton node missing in pause menu!")
+		print("⚠️ Resume button missing in pause menu.")
 
 	get_tree().paused = true
 	hide_gameplay()
 
-# === Resume the game ===
 func resume_game():
 	get_tree().paused = false
 	if pause_menu:
 		pause_menu.queue_free()
 		pause_menu = null
 	show_gameplay()
+
 
 
 # === Hide and Show Gameplay Nodes (HUD, players) ===
