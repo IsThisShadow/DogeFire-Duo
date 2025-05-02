@@ -37,6 +37,7 @@ func _input(event):
 		if current_scene_name.begins_with("mainLvl_") or current_scene_name == "weapon_unlock_screen":
 			toggle_pause_menu()
 
+
 # === Toggle pause on/off ===
 func toggle_pause_menu():
 	if pause_menu:
@@ -47,28 +48,46 @@ func toggle_pause_menu():
 # === Pause the game ===
 func pause_game():
 	var scene_path = "res://UI/UI scenes/PauseMenu2P.tscn" if is_two_player_mode else "res://UI/UI scenes/PauseMenu1P.tscn"
+	var pause_menu_scene = load(scene_path)
+
+	if pause_menu_scene == null:
+		print(" Scene failed to load at path: ", scene_path)
+		return
 
 	if pause_menu:
 		pause_menu.queue_free()
 		pause_menu = null
 
-	pause_menu = load(scene_path).instantiate()
-	get_tree().get_root().add_child(pause_menu)
+	pause_menu = pause_menu_scene.instantiate()
 
+	if pause_menu == null:
+		print(" Instantiation returned null")
+		return
+
+	if get_tree().current_scene == null:
+		print(" Current scene is null, can't add pause_menu")
+		return
+
+	get_tree().current_scene.add_child(pause_menu)
 	pause_menu.process_mode = Node.PROCESS_MODE_ALWAYS
-	pause_menu.pause_mode = Node.PAUSE_MODE_PROCESS
 	pause_menu.visible = true
+	pause_menu.set_z_index(100)
 
-	pause_menu.set_process_input(true)
-	pause_menu.set_process_unhandled_input(true)
+	await get_tree().process_frame
 
-	# Focus resume button
-	if pause_menu.has_node("VBoxContainer/ResumeButton"):
-		pause_menu.get_node("VBoxContainer/ResumeButton").grab_focus()
+	# Extra safety check: verify again pause_menu is still valid.
+	if not is_instance_valid(pause_menu):
+		print(" Pause menu became invalid after adding to scene.")
+		return
+
+	var resume_button = pause_menu.get_node_or_null("VBoxContainer/ResumeButton")
+	if resume_button:
+		resume_button.grab_focus()
+	else:
+		print(" ResumeButton node missing in pause menu!")
 
 	get_tree().paused = true
 	hide_gameplay()
-
 
 # === Resume the game ===
 func resume_game():
