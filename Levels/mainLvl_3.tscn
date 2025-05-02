@@ -166,9 +166,9 @@ text = "Score: 0"
 
 [node name="WeaponLabel_P2" type="Label" parent="HUD/Control2"]
 layout_mode = 0
-offset_left = -112.0
+offset_left = -113.0
 offset_top = 62.0
-offset_right = 384.0
+offset_right = 383.0
 offset_bottom = 127.0
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("4_hiydk")
