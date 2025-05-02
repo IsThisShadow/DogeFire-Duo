@@ -21,7 +21,8 @@ func set_2_players(enable: bool):
 
 func _ready():
 	Global.current_scene_name = "mainLvl_%d" % current_level
-
+	Global.unlock_weapon(0) #wepaon 1
+	Global.unlock_wepaon(1) #wepaon 2
 	_setup_players()
 	_setup_health_bars()
 	_set_parallax_speed()

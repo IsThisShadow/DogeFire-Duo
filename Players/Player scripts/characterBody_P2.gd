@@ -146,16 +146,24 @@ func _physics_process(delta):
 		current_weapon.fire()
 		
 func select_weapon(id: int):
+	if not Global.unlocked_weapons[id - 1]:  # Check unlock state
+		print("Weapon " + str(id) + " is locked.")
+		return
+
 	if selected_weapon_id == id:
 		return
+
 	selected_weapon_id = id
+
 	if current_weapon:
 		current_weapon.queue_free()
+
 	var weapon_scene = weapon_scenes.get(id)
 	if weapon_scene:
 		current_weapon = weapon_scene.instantiate()
 		weapon_container.add_child(current_weapon)
-		current_weapon.initialize(2)  # <<< NEW call!
+		current_weapon.initialize(2)  # Player 2 ID
+
 
 func die():
 	is_dead = true

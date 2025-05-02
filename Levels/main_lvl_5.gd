@@ -28,6 +28,7 @@ func set_2_players(enable: bool):
 
 func _ready():
 	Global.current_scene_name = "mainLvl_5"
+	
 	_setup_health_bars()
 	_set_parallax_speed()
 	start_enemy_spawning()

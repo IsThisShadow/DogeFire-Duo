@@ -58,7 +58,6 @@ func get_weapon_name():
 	return weapon_names.get(selected_weapon_id, "no wepaon selected")
 	
 	
-	
 func _ready():
 	if Global.player1_permadead:
 		queue_free()
@@ -155,16 +154,24 @@ func _physics_process(delta):
 		current_weapon.fire()
 
 func select_weapon(id: int):
+	if not Global.unlocked_weapons[id - 1]:  # Check if weapon is unlocked
+		print("Weapon " + str(id) + " is locked.")
+		return
+
 	if selected_weapon_id == id:
 		return
+
 	selected_weapon_id = id
+
 	if current_weapon:
 		current_weapon.queue_free()
+
 	var weapon_scene = weapon_scenes.get(id)
 	if weapon_scene:
 		current_weapon = weapon_scene.instantiate()
 		current_weapon.player_id = 1  # <-- Player 1
 		weapon_container.add_child(current_weapon)
+
 
 func die():
 	is_dead = true

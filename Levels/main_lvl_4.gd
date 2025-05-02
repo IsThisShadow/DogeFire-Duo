@@ -27,7 +27,8 @@ func set_2_players(enable: bool):
 
 func _ready():
 	Global.current_scene_name = "mainLvl_4"
-	print(">> Scene loaded, 2P mode is:", is_two_player_mode)
+	Global.unlock_weapon(4)
+	
 	_setup_health_bars()
 	_set_parallax_speed()
 	start_enemy_spawning()

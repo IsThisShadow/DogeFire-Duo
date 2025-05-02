@@ -1,5 +1,7 @@
 extends Node
 
+var unlocked_weapons = [true, true, false, false, false] #weapons one and two unlocked by default. 
+
 # === Player 1 Stats ===
 var player1_health := 100
 var player1_max_health := 100
@@ -33,7 +35,14 @@ func _input(event):
 	if event.is_action_pressed("p1_x") or event.is_action_pressed("p2_x"):
 		if current_scene_name.begins_with("mainLvl_") or current_scene_name == "weapon_unlock_screen":
 			toggle_pause_menu()
-
+			
+			
+			
+func unlock_wepaon(index: int):
+	if index >= 0 and index < unlocked_weapons.size():
+		unlocked_weapons[index] = true
+		
+		
 func toggle_pause_menu():
 	if pause_menu:
 		resume_game()
