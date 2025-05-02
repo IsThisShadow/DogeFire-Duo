@@ -189,10 +189,12 @@ texture = ExtResource("9_wvqud")
 centered = false
 
 [node name="DeathAnnouncement" type="Label" parent="." groups=["death_announcement"]]
+visible = false
 offset_left = 255.0
 offset_top = 136.0
 offset_right = 391.0
 offset_bottom = 185.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
 text = "Player 1 has died!
 "
 
