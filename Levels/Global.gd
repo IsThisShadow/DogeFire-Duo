@@ -27,6 +27,7 @@ var is_single_player: bool:
 		return not is_two_player_mode
 
 func _ready():
+	add_to_group("autoload")
 	set_process_input(true)
 
 func _input(event):
@@ -82,6 +83,7 @@ func reset_stats():
 	player2_revives = 0
 	player2_permadead = false
 	player2_score = 0
+	current_scene_name = ""
 
 func check_for_game_over():
 	var p1_dead = player1_health <= 0

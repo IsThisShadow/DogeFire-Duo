@@ -1,6 +1,7 @@
 extends Control
 
 func _ready():
+	Global.current_scene_name = "MainMenu"
 	$CenterContainer/VBoxContainer/OnePlayerButton.grab_focus()
 	$CenterContainer/VBoxContainer/OnePlayerButton.text = "1 Player"
 	$CenterContainer/VBoxContainer/TwoPlayerButton.text = "2 Players"
