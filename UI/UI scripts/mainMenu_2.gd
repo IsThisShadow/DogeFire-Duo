@@ -4,50 +4,66 @@ var p1_ready := false
 var p2_ready := false
 var countdown_started := false
 
-var joystick_cooldown := 0.25  # Cooldown time in seconds
-var joystick_timer := 0.0      # Timer countdown
+var joystick_cooldown := 0.2
+var joystick_timer := 0.0
+var p1_up_ready := true
+var p1_down_ready := true
+var p2_up_ready := true
+var p2_down_ready := true
 
 func _ready():
-	# Hide "Ready!" labels at start
 	$UIFadeGroup/ReadyWrapperP1/ReadyLabelP1.visible = false
 	$UIFadeGroup/ReadyWrapperP2/ReadyLabelP2.visible = false
 
-	# Set red color for P1, blue for P2
 	$UIFadeGroup/ReadyWrapperP1/ReadyLabelP1.add_theme_color_override("font_color", Color(1, 0.2, 0.2))  # Red
 	$UIFadeGroup/ReadyWrapperP2/ReadyLabelP2.add_theme_color_override("font_color", Color(0.4, 0.6, 1.0))  # Blue
 
-	# Start with flashing "Press Start"
 	$UIFadeGroup/VBoxContainer/CountdownWrapper/CountdownLabel.text = "Press Start"
 	$UIFadeGroup/VBoxContainer/CountdownWrapper/StartFlasher.play("FlashStart")
 
-	# Set initial button focus
 	$UIFadeGroup/VBoxContainer/ControlButton.grab_focus()
 
 func _process(delta):
 	if countdown_started:
-		return  # Don't allow new inputs once countdown starts
+		return
 
-	joystick_timer -= delta  # Decrease timer
+	joystick_timer -= delta
 
-	if joystick_timer <= 0.0:
-		var move_up = Input.get_action_strength("ui_up")
-		var move_down = Input.get_action_strength("ui_down")
+	# P1 Up
+	if Input.is_action_pressed("p1_up"):
+		if p1_up_ready and joystick_timer <= 0.0:
+			move_focus_up()
+			joystick_timer = joystick_cooldown
+			p1_up_ready = false
+	else:
+		p1_up_ready = true
 
-		if move_up > 0.5:
-			var focused = get_viewport().gui_get_focus_owner()
-			var neighbor_path = focused.get_focus_neighbor(SIDE_TOP)
-			if neighbor_path:
-				var neighbor = focused.get_node(neighbor_path)
-				neighbor.grab_focus()
-				joystick_timer = joystick_cooldown
+	# P1 Down
+	if Input.is_action_pressed("p1_down"):
+		if p1_down_ready and joystick_timer <= 0.0:
+			move_focus_down()
+			joystick_timer = joystick_cooldown
+			p1_down_ready = false
+	else:
+		p1_down_ready = true
 
-		elif move_down > 0.5:
-			var focused = get_viewport().gui_get_focus_owner()
-			var neighbor_path = focused.get_focus_neighbor(SIDE_BOTTOM)
-			if neighbor_path:
-				var neighbor = focused.get_node(neighbor_path)
-				neighbor.grab_focus()
-				joystick_timer = joystick_cooldown
+	# P2 Up
+	if Input.is_action_pressed("p2_up"):
+		if p2_up_ready and joystick_timer <= 0.0:
+			move_focus_up()
+			joystick_timer = joystick_cooldown
+			p2_up_ready = false
+	else:
+		p2_up_ready = true
+
+	# P2 Down
+	if Input.is_action_pressed("p2_down"):
+		if p2_down_ready and joystick_timer <= 0.0:
+			move_focus_down()
+			joystick_timer = joystick_cooldown
+			p2_down_ready = false
+	else:
+		p2_down_ready = true
 
 	if Input.is_action_just_pressed("p1_start") and not p1_ready:
 		p1_ready = true
@@ -72,30 +88,29 @@ func _unhandled_input(event):
 	if countdown_started:
 		return
 
-	if event.is_action_pressed("p1_up") or event.is_action_pressed("p2_up"):
-		var focused = get_viewport().gui_get_focus_owner()
-		var neighbor_path = focused.get_focus_neighbor(SIDE_TOP)
-		if neighbor_path:
-			var neighbor = focused.get_node(neighbor_path)
-			neighbor.grab_focus()
-
-	elif event.is_action_pressed("p1_down") or event.is_action_pressed("p2_down"):
-		var focused = get_viewport().gui_get_focus_owner()
-		var neighbor_path = focused.get_focus_neighbor(SIDE_BOTTOM)
-		if neighbor_path:
-			var neighbor = focused.get_node(neighbor_path)
-			neighbor.grab_focus()
-
 	if event.is_action_pressed("p1_a") or event.is_action_pressed("p2_a"):
 		var focused = get_viewport().gui_get_focus_owner()
 		if focused and focused is Button:
 			focused.emit_signal("pressed")
 
+func move_focus_up():
+	var focused = get_viewport().gui_get_focus_owner()
+	var neighbor_path = focused.get_focus_neighbor(SIDE_TOP)
+	if neighbor_path:
+		var neighbor = focused.get_node(neighbor_path)
+		neighbor.grab_focus()
+
+func move_focus_down():
+	var focused = get_viewport().gui_get_focus_owner()
+	var neighbor_path = focused.get_focus_neighbor(SIDE_BOTTOM)
+	if neighbor_path:
+		var neighbor = focused.get_node(neighbor_path)
+		neighbor.grab_focus()
+
 func start_countdown():
 	countdown_started = true
 	print(">> Starting countdown!")
 
-	# Stop flashing effect
 	$UIFadeGroup/VBoxContainer/CountdownWrapper/StartFlasher.stop()
 	$UIFadeGroup/VBoxContainer/CountdownWrapper/CountdownLabel.modulate.a = 1.0
 
