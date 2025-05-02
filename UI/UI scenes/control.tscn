@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce6l0xwmes1n1"]
+
+[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://2D Space Parallax Backgrounds/layers/complete.png" id="1_r34pi"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_8djbe"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(640, 360)
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("1_r34pi")
+expand_mode = 3
+
+[node name="GridContainer" type="GridContainer" parent="Background"]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 54.0
+offset_right = 418.0
+offset_bottom = 266.0
+
+[node name="Label" type="Label" parent="Background/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_8djbe")
+text = "JOYSTICK TO MOVE"
+
+[node name="Label2" type="Label" parent="Background/GridContainer"]
+layout_mode = 2
