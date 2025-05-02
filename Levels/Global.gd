@@ -38,7 +38,7 @@ func _input(event):
 			
 			
 			
-func unlock_wepaon(index: int):
+func unlock_weapon(index: int):
 	if index >= 0 and index < unlocked_weapons.size():
 		unlocked_weapons[index] = true
 		

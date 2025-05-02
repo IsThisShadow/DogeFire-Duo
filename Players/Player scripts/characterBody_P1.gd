@@ -155,7 +155,7 @@ func _physics_process(delta):
 
 func select_weapon(id: int):
 	if not Global.unlocked_weapons[id - 1]:  # Check if weapon is unlocked
-		print("Weapon " + str(id) + " is locked.")
+		show_locked_weapon_Warning(id)
 		return
 
 	if selected_weapon_id == id:
@@ -171,6 +171,8 @@ func select_weapon(id: int):
 		current_weapon = weapon_scene.instantiate()
 		current_weapon.player_id = 1  # <-- Player 1
 		weapon_container.add_child(current_weapon)
+		
+
 
 
 func die():

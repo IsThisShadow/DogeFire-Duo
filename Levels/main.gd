@@ -13,6 +13,7 @@ var transitioned := false
 var enemy1_scene = preload("res://enemies/enemy scenes/Enemy_1.tscn")
 var enemy2_scene = preload("res://enemies/enemy scenes/Enemy_2.tscn")
 @onready var enemy_timer = $Enemy1SpawnTimer
+@onready var weapon_locked_label: Label = $HUD/WeaponLockedLabel
 
 func set_2_players(enable: bool):
 	is_two_player_mode = enable
@@ -22,7 +23,7 @@ func set_2_players(enable: bool):
 func _ready():
 	Global.current_scene_name = "mainLvl_%d" % current_level
 	Global.unlock_weapon(0) #wepaon 1
-	Global.unlock_wepaon(1) #wepaon 2
+	Global.unlock_weapon(1) #wepaon 2
 	_setup_players()
 	_setup_health_bars()
 	_set_parallax_speed()
@@ -115,6 +116,14 @@ func _show_weapon_unlock_screen(next_level: int):
 	get_tree().get_root().add_child(unlock_scene)
 	get_tree().current_scene.queue_free()
 	get_tree().current_scene = unlock_scene
+	
+func show_locked_weapon_warning(weapon_id: int):
+	weapon_locked_label.text = "Weapon " + str(weapon_id) + " is not unlocked yet!"
+	weapon_locked_label.visible = true
+
+	await get_tree().create_timer(1.0).timeout
+	weapon_locked_label.visible = false
+
 
 # Enemy Spawning
 func start_enemy_spawning():
