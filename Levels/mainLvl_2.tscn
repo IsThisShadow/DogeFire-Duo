@@ -96,6 +96,17 @@ theme_override_fonts/font = ExtResource("6_5cut2")
 theme_override_font_sizes/font_size = 70
 text = "Score: 0"
 
+[node name="WeaponLabel_P1" type="Label" parent="HUD/Control"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 60.0
+offset_right = 510.0
+offset_bottom = 125.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_5cut2")
+theme_override_font_sizes/font_size = 50
+text = "No Weapon Selected"
+
 [node name="Control2" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 1
@@ -152,6 +163,17 @@ scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("6_5cut2")
 theme_override_font_sizes/font_size = 70
 text = "Score: 0"
+
+[node name="WeaponLabel_P2" type="Label" parent="HUD/Control2"]
+layout_mode = 0
+offset_left = -113.0
+offset_top = 59.0
+offset_right = 383.0
+offset_bottom = 124.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_5cut2")
+theme_override_font_sizes/font_size = 50
+text = "No Weapon Selected"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource("4_7jtt3")

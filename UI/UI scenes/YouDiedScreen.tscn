@@ -33,16 +33,20 @@ text = "You Died!"
 [node name="PlayAgain" type="Button" parent="ColorRect/VBoxContainer"]
 process_mode = 3
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../SeeYourScore")
 text = "Play Again"
 
 [node name="SeeYourScore" type="Button" parent="ColorRect/VBoxContainer"]
 process_mode = 3
 layout_mode = 2
+focus_neighbor_top = NodePath("../PlayAgain")
+focus_neighbor_bottom = NodePath("../QuitGame")
 text = "See Your Score"
 
 [node name="QuitGame" type="Button" parent="ColorRect/VBoxContainer"]
 process_mode = 3
 layout_mode = 2
+focus_neighbor_top = NodePath("../SeeYourScore")
 text = "Quit Game"
 
 [connection signal="pressed" from="ColorRect/VBoxContainer/PlayAgain" to="." method="_on_play_again_pressed"]
