@@ -14,6 +14,7 @@ When firing weapon and switching to another and back to the same it ignores the 
 
 var death_announcement: Label = null
 var is_single_player := Global.is_single_player
+var default_color := Color(1.2, 0.5, 0.5)  # red tint for P1
 
 var selected_weapon_id := 0
 var weapon_scenes = {
@@ -49,7 +50,7 @@ func _ready():
 		queue_free()
 		return
 
-	$Sprite_p1.modulate = Color(1.2, 0.5, 0.5)
+	$Sprite_p1.modulate = default_color
 	death_announcement = get_tree().get_first_node_in_group("death_announcement")
 	p1_health = Global.player1_health
 	p1_revive = Global.player1_revives
@@ -298,7 +299,7 @@ func flash_red():
 	tween.tween_property(self, "position", original_pos - Vector2(-6, 4), 0.04)
 	tween.tween_property(self, "position", original_pos, 0.03)
 	await tween.finished
-	$Sprite_p1.modulate = Color(1, 1, 1)
+	$Sprite_p1.modulate = default_color
 
 func _on_test_area_body_entered(_body: Node2D) -> void:
 	pass

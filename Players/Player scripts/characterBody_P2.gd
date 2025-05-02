@@ -24,7 +24,7 @@ var weapon_scenes = {
 	5: preload("res://Players/Player_Weapon_Scenes/Weapon5.tscn")
 }
 var current_weapon = null
-
+var default_color := Color(0.5, 0.5, 1.2)
 const max_speed := 250
 const acceleration := 5
 const friction := 3
@@ -50,7 +50,7 @@ func _ready():
 		queue_free()
 		return
 
-	$Sprite_p2.modulate = Color(0.5, 0.5, 1.2)
+	$Sprite_p2.modulate = default_color
 	death_announcement = get_tree().get_first_node_in_group("death_announcement")
 
 	# Load stats from global
@@ -250,7 +250,7 @@ func flash_red():
 	tween.tween_property(self, "position", original_pos - Vector2(-6, 4), 0.04)
 	tween.tween_property(self, "position", original_pos, 0.03)
 	await tween.finished
-	$Sprite_p2.modulate = Color(1, 1, 1)
+	$Sprite_p2.modulate = default_color
 
 func _on_revive_zone_body_entered(body: Node2D) -> void:
 	if is_dead:
