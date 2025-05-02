@@ -44,12 +44,10 @@ func toggle_pause_menu():
 	else:
 		pause_game()
 
-
 # === Pause the game ===
 func pause_game():
 	var scene_path = "res://UI/UI scenes/PauseMenu2P.tscn" if is_two_player_mode else "res://UI/UI scenes/PauseMenu1P.tscn"
 
-	# Always recreate a new pause menu (fixes stale state)
 	if pause_menu:
 		pause_menu.queue_free()
 		pause_menu = null
@@ -62,7 +60,6 @@ func pause_game():
 	pause_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	pause_menu.visible = true
 
-	# Ensure the resume button is focused
 	if pause_menu.has_node("VBoxContainer/ResumeButton"):
 		pause_menu.get_node("VBoxContainer/ResumeButton").grab_focus()
 
@@ -74,7 +71,6 @@ func resume_game():
 		pause_menu.queue_free()
 		pause_menu = null
 	show_gameplay()
-
 
 # === Hide and Show Gameplay Nodes (HUD, players) ===
 func hide_gameplay():
@@ -90,12 +86,12 @@ func reset_stats():
 	player1_health = player1_max_health
 	player1_revives = 0
 	player1_permadead = false
-	player1_score = 0 
+	player1_score = 0
 	
 	player2_health = player2_max_health
 	player2_revives = 0
 	player2_permadead = false
-	player2_score = 0 
+	player2_score = 0
 
 # === Check for total game over ===
 func check_for_game_over():
@@ -109,11 +105,10 @@ func check_for_game_over():
 
 # === You Died Screen ===
 func show_you_died_screen():
-	await get_tree().create_timer(0.5).timeout  # Delay for polish
+	await get_tree().create_timer(0.5).timeout
 	var scene = load("res://UI/UI scenes/YouDiedScreen.tscn")
 	if scene:
 		var screen = scene.instantiate()
-
 		screen.set_process_input(true)
 		screen.set_process_unhandled_input(true)
 		get_tree().get_root().add_child(screen)
