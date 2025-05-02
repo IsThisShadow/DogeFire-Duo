@@ -23,8 +23,10 @@ func _load_ready_screen(is_two_player: bool):
 	if current:
 		current.queue_free()
 
-	get_tree().get_root().add_child(menu2_scene)
+	# Add the new scene to the tree and set it as current
+	get_tree().root.add_child(menu2_scene)
 	get_tree().current_scene = menu2_scene
+
 
 func _unhandled_input(event):
 	print("its working")
