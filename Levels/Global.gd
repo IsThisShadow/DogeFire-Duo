@@ -112,3 +112,16 @@ func show_you_died_screen():
 		hide_gameplay()
 	else:
 		print("YouDiedScreen scene not found!")
+
+var weapon_locked_label: Label = null
+
+func show_locked_weapon_warning(weapon_id: int):
+	if weapon_locked_label and is_instance_valid(weapon_locked_label):
+		weapon_locked_label.text = "Weapon " + str(weapon_id) + " is not unlocked yet!"
+		weapon_locked_label.modulate = Color(1, 0, 0)
+		weapon_locked_label.visible = true
+
+		await get_tree().create_timer(1.0).timeout
+
+		if is_instance_valid(weapon_locked_label):
+			weapon_locked_label.visible = false

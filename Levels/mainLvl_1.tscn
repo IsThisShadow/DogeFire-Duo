@@ -39,14 +39,13 @@ position = Vector2(142, 138)
 [node name="HUD" type="CanvasLayer" parent="." groups=["gameplay"]]
 
 [node name="WeaponLockedLabel" type="Label" parent="HUD"]
-offset_left = 199.0
-offset_top = 36.0
-offset_right = 1389.0
-offset_bottom = 166.0
+offset_left = 191.0
+offset_top = 35.0
+offset_right = 1381.0
+offset_bottom = 165.0
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("6_f1hde")
-theme_override_font_sizes/font_size = 100
-text = "Weapon on unlocked yet"
+theme_override_font_sizes/font_size = 65
 horizontal_alignment = 1
 
 [node name="LevelProgressBar" type="ProgressBar" parent="HUD"]

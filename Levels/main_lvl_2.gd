@@ -4,7 +4,7 @@ var is_two_player_mode := false
 var current_level := 2
 
 var level_time := 0.0
-const TIME_LIMIT := 10.0
+const TIME_LIMIT := 100.0
 var transitioned := false
 
 # Enemy Spawning
@@ -20,6 +20,7 @@ func set_2_players(enable: bool):
 
 func _ready():
 	Global.current_scene_name = "mainLvl_%d" % current_level
+	Global.weapon_locked_label = $HUD/WeaponLockedLabel
 	Global.unlock_weapon(2) 
 	_setup_health_bars()
 	_set_parallax_speed()

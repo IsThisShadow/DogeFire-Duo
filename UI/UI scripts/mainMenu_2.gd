@@ -12,6 +12,8 @@ var p2_up_ready := true
 var p2_down_ready := true
 
 func _ready():
+	
+	
 	$UIFadeGroup/ReadyWrapperP1/ReadyLabelP1.visible = false
 	$UIFadeGroup/ReadyWrapperP2/ReadyLabelP2.visible = false
 

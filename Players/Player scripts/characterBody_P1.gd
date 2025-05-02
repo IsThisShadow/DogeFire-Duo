@@ -155,7 +155,7 @@ func _physics_process(delta):
 
 func select_weapon(id: int):
 	if not Global.unlocked_weapons[id - 1]:  # Check if weapon is unlocked
-		show_locked_weapon_Warning(id)
+		Global.show_locked_weapon_warning(id)
 		return
 
 	if selected_weapon_id == id:

@@ -4,7 +4,7 @@ var is_two_player_mode := false
 var current_level := 1  # Set this to 1, 2, 3, 4, or 5 depending on the scene
 
 var level_time := 0.0
-const TIME_LIMIT := 10.0
+const TIME_LIMIT := 5.0
 const ENEMY_SPAWN_MARGIN = 50
 var transitioned := false
 
@@ -22,6 +22,7 @@ func set_2_players(enable: bool):
 
 func _ready():
 	Global.current_scene_name = "mainLvl_%d" % current_level
+	Global.weapon_locked_label = $HUD/WeaponLockedLabel
 	Global.unlock_weapon(0) #wepaon 1
 	Global.unlock_weapon(1) #wepaon 2
 	_setup_players()
@@ -117,12 +118,6 @@ func _show_weapon_unlock_screen(next_level: int):
 	get_tree().current_scene.queue_free()
 	get_tree().current_scene = unlock_scene
 	
-func show_locked_weapon_warning(weapon_id: int):
-	weapon_locked_label.text = "Weapon " + str(weapon_id) + " is not unlocked yet!"
-	weapon_locked_label.visible = true
-
-	await get_tree().create_timer(1.0).timeout
-	weapon_locked_label.visible = false
 
 
 # Enemy Spawning
