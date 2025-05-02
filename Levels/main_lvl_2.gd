@@ -49,6 +49,8 @@ func _process(delta):
 
 	# Update Player 1 Score
 	$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
+	$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
+	$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 
 	# Update Player 2 (only if two-player mode)
 	var p2 = get_node_or_null("CharacterBodyP2")
@@ -58,6 +60,8 @@ func _process(delta):
 		$HUD/Control2/P2HealthBar.value = p2_health
 		$HUD/Control2/P2PercentLabel.text = str(int((p2_health / p2_max) * 100)) + "%"
 		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
+		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
+		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 		$HUD/Control2.visible = true
 	else:
 		$HUD/Control2.visible = false

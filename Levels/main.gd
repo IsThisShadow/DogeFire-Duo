@@ -59,7 +59,11 @@ func _process(delta):
 
 	# Update Player Scores
 	$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
+	$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
+	$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 	if is_two_player_mode:
+		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
+		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
 
 func _setup_players():

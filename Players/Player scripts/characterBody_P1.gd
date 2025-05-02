@@ -27,8 +27,8 @@ var weapon_scenes = {
 var weapon_names = {
 	1: "Pluse Blaster",
 	2: "Laser storm",
-	3: "Dual Shot",
-	4: "Railgun",
+	3: "rail Gun",
+	4: "Dual Shot",
 	5: "The Devastator",
 }
 
