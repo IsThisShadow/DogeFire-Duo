@@ -20,10 +20,10 @@ color = Color(0.20871, 0.20871, 0.20871, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
 layout_mode = 0
-offset_left = 224.0
-offset_top = 53.0
-offset_right = 347.0
-offset_bottom = 181.0
+offset_left = 270.0
+offset_top = 50.0
+offset_right = 344.0
+offset_bottom = 97.0
 scale = Vector2(2, 2)
 
 [node name="Label" type="Label" parent="ColorRect/VBoxContainer"]
@@ -33,20 +33,16 @@ text = "You Died!"
 [node name="PlayAgain" type="Button" parent="ColorRect/VBoxContainer"]
 process_mode = 3
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../SeeYourScore")
 text = "Play Again"
 
 [node name="SeeYourScore" type="Button" parent="ColorRect/VBoxContainer"]
 process_mode = 3
 layout_mode = 2
-focus_neighbor_top = NodePath("../PlayAgain")
-focus_neighbor_bottom = NodePath("../QuitGame")
 text = "See Your Score"
 
 [node name="QuitGame" type="Button" parent="ColorRect/VBoxContainer"]
 process_mode = 3
 layout_mode = 2
-focus_neighbor_top = NodePath("../SeeYourScore")
 text = "Quit Game"
 
 [connection signal="pressed" from="ColorRect/VBoxContainer/PlayAgain" to="." method="_on_play_again_pressed"]

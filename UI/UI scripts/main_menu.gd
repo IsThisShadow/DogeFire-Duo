@@ -26,6 +26,7 @@ func _load_ready_screen(is_two_player: bool):
 	get_tree().current_scene = menu2_scene
 
 func _unhandled_input(event):
+	print("its working")
 
 	if event.is_action_pressed("p1_up") or event.is_action_pressed("p2_up"):
 		var focused = get_viewport().gui_get_focus_owner()
