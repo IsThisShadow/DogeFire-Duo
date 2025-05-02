@@ -7,10 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://bfgjf0iyokkp4" path="res://Assets/Pixel Health Bar/Bar/no health bar.png" id="4_gh0aw"]
 [ext_resource type="Texture2D" uid="uid://ctysprhh2qur0" path="res://Assets/Pixel Health Bar/Bar/health bar.png" id="5_5cut2"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="6_5cut2"]
-[ext_resource type="Texture2D" uid="uid://bvccngnd3tt2b" path="res://2D Space Parallax Backgrounds/layers/black_bg.png" id="6_c1h3g"]
-[ext_resource type="Texture2D" uid="uid://b71b1etq41ye2" path="res://2D Space Parallax Backgrounds/layers/nebula.png" id="7_7ykja"]
-[ext_resource type="Texture2D" uid="uid://60hvkelfx71c" path="res://2D Space Parallax Backgrounds/layers/small_stars.png" id="8_7bq1a"]
-[ext_resource type="Texture2D" uid="uid://diwt20qjdcldu" path="res://2D Space Parallax Backgrounds/layers/big_stars.png" id="9_gp3ic"]
+[ext_resource type="Texture2D" uid="uid://bvccngnd3tt2b" path="res://Assets/2D Space Parallax Backgrounds/layers/black_bg.png" id="6_c1h3g"]
+[ext_resource type="Texture2D" uid="uid://b71b1etq41ye2" path="res://Assets/2D Space Parallax Backgrounds/layers/nebula.png" id="7_7ykja"]
+[ext_resource type="Texture2D" uid="uid://60hvkelfx71c" path="res://Assets/2D Space Parallax Backgrounds/layers/small_stars.png" id="8_7bq1a"]
+[ext_resource type="Texture2D" uid="uid://diwt20qjdcldu" path="res://Assets/2D Space Parallax Backgrounds/layers/big_stars.png" id="9_gp3ic"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5cut2"]
 bg_color = Color(0, 0, 0, 1)

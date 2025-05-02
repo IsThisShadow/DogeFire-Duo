@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cxyxbje4y883d" path="res://UI/UI scripts/weapon_unlock_screen.gd" id="1_tmbdm"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_5w55y"]
-[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://2D Space Parallax Backgrounds/layers/complete.png" id="2_n816y"]
+[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="2_n816y"]
 
 [sub_resource type="Animation" id="Animation_n816y"]
 resource_name = "FlashStart"
