@@ -20,9 +20,7 @@ func set_2_players(enable: bool):
 	_setup_players()
 
 func _ready():
-	Global.current_scene_name = get_tree().current_scene.name
-	Global.is_two_player_mode = is_two_player_mode
-	print(">> Scene loaded: ", Global.current_scene_name, " | 2P mode: ", is_two_player_mode)
+	Global.current_scene_name = "mainLvl_%d" % current_level
 
 	_setup_players()
 	_setup_health_bars()
