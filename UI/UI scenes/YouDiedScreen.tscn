@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bk0c8s7avefr7"]
+[gd_scene load_steps=4 format=3 uid="uid://bk0c8s7avefr7"]
 
 [ext_resource type="Script" uid="uid://sukvc5b8oead" path="res://UI/UI scripts/you_died_screen.gd" id="1_farrx"]
+[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://2D Space Parallax Backgrounds/layers/complete.png" id="2_gdh4s"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="3_332eg"]
 
 [node name="YouDiedScreen" type="Control"]
 layout_mode = 3
@@ -11,40 +13,54 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_farrx")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="background" type="TextureRect" parent="."]
+modulate = Color(0.947406, 3.77826e-06, 1.73271e-06, 1)
 custom_minimum_size = Vector2(640, 360)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(0.20871, 0.20871, 0.20871, 1)
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("2_gdh4s")
+expand_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 270.0
-offset_top = 50.0
-offset_right = 344.0
-offset_bottom = 97.0
-scale = Vector2(2, 2)
+offset_left = 175.0
+offset_top = 64.0
+offset_right = 1686.0
+offset_bottom = 1270.0
+scale = Vector2(0.2, 0.2)
 
-[node name="Label" type="Label" parent="ColorRect/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_332eg")
+theme_override_font_sizes/font_size = 300
 text = "You Died!"
+horizontal_alignment = 1
 
-[node name="PlayAgain" type="Button" parent="ColorRect/VBoxContainer"]
+[node name="PlayAgain" type="Button" parent="VBoxContainer"]
 process_mode = 3
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_332eg")
+theme_override_font_sizes/font_size = 200
 text = "Play Again"
+icon_alignment = 1
 
-[node name="SeeYourScore" type="Button" parent="ColorRect/VBoxContainer"]
+[node name="SeeYourScore" type="Button" parent="VBoxContainer"]
 process_mode = 3
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_332eg")
+theme_override_font_sizes/font_size = 200
 text = "See Your Score"
+icon_alignment = 1
 
-[node name="QuitGame" type="Button" parent="ColorRect/VBoxContainer"]
+[node name="QuitGame" type="Button" parent="VBoxContainer"]
 process_mode = 3
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_332eg")
+theme_override_font_sizes/font_size = 200
 text = "Quit Game"
+icon_alignment = 1
 
-[connection signal="pressed" from="ColorRect/VBoxContainer/PlayAgain" to="." method="_on_play_again_pressed"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/SeeYourScore" to="." method="_on_see_your_score_pressed"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/QuitGame" to="." method="_on_quit_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayAgain" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="VBoxContainer/SeeYourScore" to="." method="_on_see_your_score_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitGame" to="." method="_on_quit_game_pressed"]
