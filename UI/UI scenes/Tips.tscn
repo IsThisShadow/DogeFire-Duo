@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ps5oikthy7di"]
+[gd_scene load_steps=3 format=3 uid="uid://b0gyk173dbtoe"]
 
-[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="1_chgto"]
-[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_wunja"]
+[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="1_p4vfo"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_dgwjl"]
 
 [node name="Node2D" type="Control"]
 layout_mode = 3
@@ -10,7 +10,7 @@ anchors_preset = 0
 [node name="Complete" type="Sprite2D" parent="."]
 position = Vector2(321, 177)
 scale = Vector2(0.379108, 0.36875)
-texture = ExtResource("1_chgto")
+texture = ExtResource("1_p4vfo")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
@@ -30,7 +30,7 @@ scale = Vector2(0.2, 0.2)
 
 [node name="Label" type="Label" parent="TextureRect/GridContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_wunja")
+theme_override_fonts/font = ExtResource("2_dgwjl")
 theme_override_font_sizes/font_size = 78
 text = "Tip one: When in stressful times you don't always have to revive your teamate, but you can reset the timer by rushing passed them. Tip two: If times get hard use weapon 3 (dual shot) to clear the area"
 horizontal_alignment = 1
@@ -47,7 +47,7 @@ scale = Vector2(0.2, 0.2)
 
 [node name="Label" type="Label" parent="TextureRect/GridContainer2"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_wunja")
+theme_override_fonts/font = ExtResource("2_dgwjl")
 theme_override_font_sizes/font_size = 78
 text = " Tip two: If times get hard use weapon 3 (dual shot) to clear the area"
 horizontal_alignment = 1
@@ -64,7 +64,7 @@ scale = Vector2(0.2, 0.2)
 
 [node name="Label" type="Label" parent="TextureRect/GridContainer3"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_wunja")
+theme_override_fonts/font = ExtResource("2_dgwjl")
 theme_override_font_sizes/font_size = 78
 text = "Tip three: Each level increases in time by 15 seconds"
 horizontal_alignment = 1
@@ -77,6 +77,6 @@ offset_left = 36.0
 offset_top = 256.0
 offset_right = 273.0
 offset_bottom = 337.0
-theme_override_fonts/font = ExtResource("2_wunja")
+theme_override_fonts/font = ExtResource("2_dgwjl")
 theme_override_font_sizes/font_size = 25
 text = "Go Back"

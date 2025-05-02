@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://ce6l0xwmes1n1"]
 
-[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://2D Space Parallax Backgrounds/layers/complete.png" id="1_r34pi"]
+[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="1_r34pi"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_8djbe"]
 [ext_resource type="Texture2D" uid="uid://c4n2r81as8h4g" path="res://Assets/1. Free Hologram Interface Wenrexa/Icons/buttons.png" id="2_r34pi"]
 [ext_resource type="Texture2D" uid="uid://cc056dabnfnmd" path="res://Assets/1. Free Hologram Interface Wenrexa/Icons/SimpleShapes.png" id="3_8djbe"]
@@ -201,6 +201,7 @@ theme_override_fonts/font = ExtResource("2_8djbe")
 text = "THE DEVASTASTOR"
 
 [node name="BackButton" type="Button" parent="."]
+layout_mode = 0
 offset_left = 264.0
 offset_top = 300.0
 offset_right = 390.0
