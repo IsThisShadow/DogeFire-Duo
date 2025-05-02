@@ -4,6 +4,9 @@ var p1_ready := false
 var p2_ready := false
 var countdown_started := false
 
+var joystick_cooldown := 0.25  # Cooldown time in seconds
+var joystick_timer := 0.0      # Timer countdown
+
 func _ready():
 	# Hide "Ready!" labels at start
 	$UIFadeGroup/ReadyWrapperP1/ReadyLabelP1.visible = false
@@ -23,6 +26,28 @@ func _ready():
 func _process(delta):
 	if countdown_started:
 		return  # Don't allow new inputs once countdown starts
+
+	joystick_timer -= delta  # Decrease timer
+
+	if joystick_timer <= 0.0:
+		var move_up = Input.get_action_strength("ui_up")
+		var move_down = Input.get_action_strength("ui_down")
+
+		if move_up > 0.5:
+			var focused = get_viewport().gui_get_focus_owner()
+			var neighbor_path = focused.get_focus_neighbor(SIDE_TOP)
+			if neighbor_path:
+				var neighbor = focused.get_node(neighbor_path)
+				neighbor.grab_focus()
+				joystick_timer = joystick_cooldown
+
+		elif move_down > 0.5:
+			var focused = get_viewport().gui_get_focus_owner()
+			var neighbor_path = focused.get_focus_neighbor(SIDE_BOTTOM)
+			if neighbor_path:
+				var neighbor = focused.get_node(neighbor_path)
+				neighbor.grab_focus()
+				joystick_timer = joystick_cooldown
 
 	if Input.is_action_just_pressed("p1_start") and not p1_ready:
 		p1_ready = true
