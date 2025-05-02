@@ -1,7 +1,6 @@
 extends Control
 
 func _ready():
-	get_tree().paused = false 
 	# Set initial focus to Play Again
 	$ColorRect/VBoxContainer/PlayAgain.grab_focus()
 
