@@ -8,13 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="5_ghvct"]
 
 [node name="Control" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-focus_mode = 2
 script = ExtResource("1_ogp2j")
 
 [node name="Background" type="TextureRect" parent="."]
@@ -240,6 +240,7 @@ offset_right = 392.0
 offset_bottom = 349.0
 
 [node name="BackButton" type="Button" parent="VBoxContainer"]
+process_mode = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_8djbe")
 action_mode = 0

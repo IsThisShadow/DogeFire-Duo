@@ -1,16 +1,19 @@
 extends Control
-@onready var back_button = $VBoxContainer/BackButton
 
+@onready var back_button = $VBoxContainer/BackButton
 
 func _ready():
 	await get_tree().process_frame
-	back_button.grab_focus()
 	set_process_input(true)
+	back_button.grab_focus()
 
-func _input(event):
+	# Connect the pressed signal if it's not already
+	if not back_button.is_connected("pressed", Callable(self, "_on_back_button_pressed")):
+		back_button.connect("pressed", Callable(self, "_on_back_button_pressed"))
+
+func _unhandled_input(event):
 	if event.is_action_pressed("p1_a") or event.is_action_pressed("p2_a"):
 		back_button.emit_signal("pressed")
-
 
 func _on_back_button_pressed() -> void:
 	if Global.previous_scene_path != "":
@@ -28,18 +31,16 @@ func _on_back_button_pressed() -> void:
 			get_tree().get_root().add_child(level_scene)
 			get_tree().current_scene = level_scene
 
-			# Wait for scene to fully initialize
 			await get_tree().process_frame
 			await get_tree().process_frame
 
 			# Manually instance the pause menu and add it
-			var pause_menu_res = load("res://UI/UI scenes/PauseMenu2P.tscn")
-			if pause_menu_res:
-				var pause_menu = pause_menu_res.instantiate()
-				level_scene.add_child(pause_menu)
-				pause_menu.visible = true
-			else:
-				print("Failed to load PauseMenu2P.tscn")
+			if Global.previous_scene_path == "res://UI/UI scenes/PauseMenu2P.tscn":
+				var pause_menu_res = load(Global.previous_scene_path)
+				if pause_menu_res:
+					var pause_menu = pause_menu_res.instantiate()
+					level_scene.add_child(pause_menu)
+					pause_menu.visible = true
 		else:
 			print("Failed to load scene:", Global.previous_scene_path)
 

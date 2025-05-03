@@ -10,7 +10,7 @@ func _ready():
 	if not back_button.is_connected("pressed", Callable(self, "_on_back_button_pressed")):
 		back_button.connect("pressed", Callable(self, "_on_back_button_pressed"))
 
-func _input(event):
+func _unhandled_input(event):
 	if event.is_action_pressed("p1_a") or event.is_action_pressed("p2_a"):
 		back_button.emit_signal("pressed")
 

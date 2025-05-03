@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_dgwjl"]
 
 [node name="Node2D" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 focus_mode = 2
@@ -24,6 +25,7 @@ offset_bottom = 353.0
 expand_mode = 2
 
 [node name="BackButton" type="Button" parent="."]
+process_mode = 3
 layout_mode = 0
 offset_left = 36.0
 offset_top = 256.0
