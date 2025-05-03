@@ -62,13 +62,24 @@ func pause_game():
 	get_tree().get_root().add_child(pause_menu)
 
 	pause_menu.visible = true
-	pause_menu.pause_mode = 2  # ✅ Actually works — PAUSE_MODE_PROCESS
 	pause_menu.set_process_input(true)
 	pause_menu.set_process_unhandled_input(true)
 	pause_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 
+	set_pause_mode_recursive(pause_menu)
+
+	# Freeze the game logic to prevent level progression!
+	get_tree().paused = true
+
 	hide_gameplay()
 
+	
+func set_pause_mode_recursive(node: Node):
+	for child in node.get_children():
+		if child is Node:
+			if "pause_mode" in child:
+				child.pause_mode = 2  # PAUSE_MODE_PROCESS
+			set_pause_mode_recursive(child)
 
 
 func resume_game():
