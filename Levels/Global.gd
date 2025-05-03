@@ -62,11 +62,14 @@ func pause_game():
 	get_tree().get_root().add_child(pause_menu)
 
 	pause_menu.visible = true
+	pause_menu.pause_mode = 2  # ✅ Actually works — PAUSE_MODE_PROCESS
 	pause_menu.set_process_input(true)
 	pause_menu.set_process_unhandled_input(true)
 	pause_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 
 	hide_gameplay()
+
+
 
 func resume_game():
 	get_tree().paused = false
