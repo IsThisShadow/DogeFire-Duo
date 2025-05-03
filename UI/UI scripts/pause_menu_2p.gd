@@ -22,3 +22,13 @@ func go_to_main_menu():
 
 func _on_quit_game_button_pressed() -> void:
 	get_tree().quit()
+
+func _on_controls_button_pressed() -> void:
+	Global.resume_game()
+	Global.previous_scene_path = "res://UI/UI scenes/PauseMenu2P.tscn"
+	get_tree().change_scene_to_file("res://UI/UI scenes/control.tscn")
+
+func _on_game_tips_button_pressed() -> void:
+	Global.resume_game()
+	Global.previous_scene_path = "res://UI/UI scenes/PauseMenu2P.tscn"
+	get_tree().change_scene_to_file("res://UI/UI scenes/Tips.tscn")

@@ -23,6 +23,8 @@ var player2_score := 0
 var is_two_player_mode := false
 var current_scene_name := ""
 var pause_menu: Control = null
+var previous_scene_path: String = ""
+
 
 var is_single_player: bool:
 	get:

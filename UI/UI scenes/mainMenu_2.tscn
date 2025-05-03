@@ -342,5 +342,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_tpnuv")
 }
 
+[connection signal="pressed" from="UIFadeGroup/VBoxContainer/TipsButton" to="." method="_on_tips_button_pressed"]
+[connection signal="pressed" from="UIFadeGroup/VBoxContainer/ControlButton" to="." method="_on_control_button_pressed"]
 [connection signal="pressed" from="UIFadeGroup/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="UIFadeGroup/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
