@@ -53,6 +53,7 @@ func toggle_pause_menu():
 
 func pause_game():
 	var scene_path = "res://UI/UI scenes/PauseMenu2P.tscn"
+
 	if pause_menu:
 		pause_menu.queue_free()
 		pause_menu = null
@@ -65,9 +66,8 @@ func pause_game():
 	pause_menu.set_process_unhandled_input(true)
 	pause_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 
-	set_pause_mode_recursive(pause_menu)
+	set_pause_mode_recursive(pause_menu)  # This enables input while paused
 
-	# Freeze the game logic to prevent level progression!
 	get_tree().paused = true
 
 	hide_gameplay()

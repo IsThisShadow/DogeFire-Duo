@@ -1,10 +1,9 @@
 extends Control
 
 func _ready():
-	if not Global.is_two_player_mode:
-		$VBoxContainer.visible = false # Adjust path to match structure
+	# Adjust path to match structure
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	visible = false
+	visible = true
 	set_process_input(true)
 	$VBoxContainer/ResumeButton.grab_focus()
 
