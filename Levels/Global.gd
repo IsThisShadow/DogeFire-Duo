@@ -52,8 +52,7 @@ func toggle_pause_menu():
 		pause_game()
 
 func pause_game():
-	var scene_path = "res://UI/UI scenes/PauseMenu2P.tscn" if is_two_player_mode else "res://UI/UI scenes/PauseMenu1P.tscn"
-
+	var scene_path = "res://UI/UI scenes/PauseMenu2P.tscn"
 	if pause_menu:
 		pause_menu.queue_free()
 		pause_menu = null
