@@ -1,9 +1,9 @@
 extends Control
 
-func _on_button_pressed() -> void:
+func _on_back_button_pressed() -> void:
 	if Global.previous_scene_path != "":
-		var scene = load(Global.previous_scene_path).instantiate()
-		get_tree().current_scene.queue_free()
-		get_tree().get_root().add_child(scene)
-		get_tree().current_scene = scene
+		Global.resume_game()  # Important: unpause first
+		get_tree().change_scene_to_file(Global.previous_scene_path)
 		Global.previous_scene_path = ""
+	else:
+		print("No previous scene path set")
