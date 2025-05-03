@@ -7,6 +7,7 @@
 [node name="Node2D" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+focus_mode = 2
 script = ExtResource("1_dgwjl")
 
 [node name="Complete" type="Sprite2D" parent="."]

@@ -1,4 +1,16 @@
 extends Control
+@onready var back_button = $VBoxContainer/BackButton
+
+
+func _ready():
+	await get_tree().process_frame
+	back_button.grab_focus()
+	set_process_input(true)
+
+func _input(event):
+	if event.is_action_pressed("p1_a") or event.is_action_pressed("p2_a"):
+		back_button.emit_signal("pressed")
+
 
 func _on_back_button_pressed() -> void:
 	if Global.previous_scene_path != "":

@@ -1,4 +1,15 @@
 extends Control
+@onready var back_button = $Button
+
+
+func _ready():
+	back_button.grab_focus()
+	set_process_input(true)
+
+func _input(event):
+	if event.is_action_pressed("p1_a") or event.is_action_pressed("p2_a"):
+		if back_button.has_focus():
+			back_button.emit_signal("pressed")
 
 
 func _on_button_pressed() -> void:
