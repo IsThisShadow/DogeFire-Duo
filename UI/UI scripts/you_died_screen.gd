@@ -27,9 +27,13 @@ func _on_play_again_pressed() -> void:
 	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
 
 func _on_see_your_score_pressed() -> void:
-	print("Show score logic goes here.")
-	# You can switch to a leaderboard or summary scene here
-
+	var score_scene = load("res://UI/UI scenes/ScoreScene.tscn").instantiate()
+	score_scene.player1_score = Global.player1_score
+	score_scene.player2_score = Global.player2_score
+	score_scene.two_player_mode = Global.is_two_player
+	get_tree().change_scene_to_packed(score_scene)
+	
+	
 func _on_quit_game_pressed() -> void:
 	get_tree().quit()
 

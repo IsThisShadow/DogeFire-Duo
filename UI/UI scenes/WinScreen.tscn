@@ -53,3 +53,5 @@ offset_right = 391.0
 offset_bottom = 274.0
 focus_neighbor_top = NodePath("../See_Score_button")
 text = "Quit game"
+
+[connection signal="pressed" from="See_Score_button" to="." method="_on_see_score_button_pressed"]

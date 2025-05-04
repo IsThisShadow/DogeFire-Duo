@@ -19,3 +19,4 @@ func take_damage(amount: int, shooter_player := 1) -> void:
 
 func die(shooter_player := 1) -> void:
 	assert(false, "Child class must override die() method")
+	
