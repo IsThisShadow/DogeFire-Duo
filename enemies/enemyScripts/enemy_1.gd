@@ -33,8 +33,12 @@ func die(shooter_player := 1):
 	if $AnimationPlayer:
 		$AnimationPlayer.play("death_enemy_1")
 
-	# Optional: Score logic here if shooter tracking is handled elsewhere
-	Global.player1_score += 15  # Or assign based on context
+	
+	if shooter_player == 1:
+		Global.player1_score += 15
+	elif shooter_player == 2:
+		Global.player2_score += 15
+
 
 	await $AnimationPlayer.animation_finished
 	queue_free()

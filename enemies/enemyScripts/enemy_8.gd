@@ -73,7 +73,7 @@ func fire_laser_burst():
 		var offset = Vector2(-50, 0).rotated(rotation)
 		bullet.global_position = global_position + offset
 		bullet.rotation = rotation
-		bullet.damage = bullet_damage
+		bullet._damage = bullet_damage
 		get_tree().current_scene.add_child(bullet)
 
 

@@ -88,7 +88,7 @@ func _on_bullet_timer_timeout():
 	var bullet = bullet_scene.instantiate()
 	bullet.global_position = global_position
 	bullet.rotation = rotation
-	bullet.damage = bullet_damage
+	bullet._damage = bullet_damage
 	get_tree().current_scene.add_child(bullet)
 
 func spawn_damage_number(amount: int):

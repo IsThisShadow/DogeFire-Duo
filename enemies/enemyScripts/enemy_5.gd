@@ -71,7 +71,7 @@ func die(shooter_player := 1):
 func _on_bullet_timer_timeout() -> void:
 	var bullet = bullet_scene.instantiate()
 	bullet.position = position
-	bullet.damage = bullet_damage
+	bullet._damage = bullet_damage
 	get_tree().current_scene.add_child(bullet)
 
 func spawn_damage_number(amount: int):
