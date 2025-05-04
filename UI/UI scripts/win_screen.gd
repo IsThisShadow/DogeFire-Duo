@@ -96,10 +96,12 @@ func _on_play_again_pressed():
 func _on_quit_game_pressed():
 	get_tree().quit()
 
-
 func _on_see_score_button_pressed() -> void:
+	Global.previous_scene_path = "res://UI/UI scenes/WinScreen.tscn"
+
 	var score_scene = load("res://UI/UI scenes/ScoreScene.tscn").instantiate()
 	score_scene.player1_score = Global.player1_score
 	score_scene.player2_score = Global.player2_score
 	score_scene.two_player_mode = Global.is_two_player_mode
-	get_tree().change_scene_to_packed(score_scene)
+	get_tree().get_root().add_child(score_scene)
+	queue_free()

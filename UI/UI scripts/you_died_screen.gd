@@ -28,6 +28,8 @@ func _on_play_again_pressed() -> void:
 	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
 
 func _on_see_your_score_pressed() -> void:
+	Global.previous_scene_path = "res://UI/UI scenes/YouDiedScreen.tscn"
+
 	var packed_scene = load("res://UI/UI scenes/ScoreScene.tscn")
 	if packed_scene:
 		var score_scene = packed_scene.instantiate()
@@ -36,8 +38,7 @@ func _on_see_your_score_pressed() -> void:
 		score_scene.two_player_mode = Global.is_two_player_mode
 		get_tree().get_root().add_child(score_scene)
 		queue_free()
-	else:
-		print("Error: Could not load ScoreScene.tscn")
+
 
 func _on_quit_game_pressed() -> void:
 	get_tree().quit()
