@@ -2,7 +2,7 @@ extends Area2D
 
 
 @export var _speed := 300
-@export var _damage := 15  # Slightly more damage than Enemy 1 bullet!
+@export var _damage := 15 
 
 func _physics_process(delta):
 	position.x -= _speed * delta
