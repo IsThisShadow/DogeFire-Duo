@@ -20,7 +20,7 @@ func _physics_process(delta):
 		apply_escape_penalty()
 		queue_free()
 
-func die():
+func die(shooter_player := 1):
 	if is_dead:
 		return
 	is_dead = true

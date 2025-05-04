@@ -28,7 +28,6 @@ func _ready():
 	_setup_players()
 	_setup_health_bars()
 	_set_parallax_speed()
-
 	if current_level == 1:
 		start_enemy_spawning()
 

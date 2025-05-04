@@ -7,6 +7,8 @@ var bullet_scene = preload("res://enemies/enemy scenes/Enemy_1_bullet.tscn")
 @export var bullet_damage = 15  # Bullet does more damage!
 
 func _ready():
+	if max_health == null:
+		max_health = 30
 	_current_health = max_health
 	# Check if enemy escaped (x < -buffer)
 	if position.x < -50:
