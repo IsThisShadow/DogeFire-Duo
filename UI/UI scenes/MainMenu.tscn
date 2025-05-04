@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c77fuy3p65uft"]
+[gd_scene load_steps=6 format=3 uid="uid://c77fuy3p65uft"]
 
 [ext_resource type="Script" uid="uid://ta5xejup4ed4" path="res://UI/UI scripts/main_menu.gd" id="1_i26rj"]
 [ext_resource type="Texture2D" uid="uid://dxn4l4heoaqpa" path="res://Assets/1. Free Hologram Interface Wenrexa/Card X3/Card X5.png" id="2_eiy7p"]
 [ext_resource type="FontFile" uid="uid://bh5lgsy2gqycq" path="res://Tektur_MainFont/static/Tektur-Bold.ttf" id="3_h7a2f"]
 [ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="4_qoqlk"]
+[ext_resource type="AudioStream" uid="uid://dvnf63v8b88o6" path="res://Sounds/mainmenu's sound/DavidKBD - Eternity Pack - 10 - Rotten Offal - loop.ogg" id="5_dda8w"]
 
 [node name="Control" type="Control"]
 process_mode = 3
@@ -60,3 +61,8 @@ focus_neighbor_top = NodePath("../OnePlayerButton")
 icon = ExtResource("4_qoqlk")
 flat = true
 icon_alignment = 1
+
+[node name="Musicplayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_dda8w")
+autoplay = true
+parameters/looping = true

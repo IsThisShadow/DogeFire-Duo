@@ -256,7 +256,7 @@ func take_damage(amount: int):
 		flash_red()
 
 func spawn_damage_number(amount: int):
-	var dmg_label = preload("res://FloatingText.tscn").instantiate()
+	var dmg_label = preload("res://Players/Player scenes/FloatingText.tscn").instantiate()
 	dmg_label.text = "-" + str(amount)
 	dmg_label.position = Vector2(-25, -10)
 	dmg_label.rotation_degrees = 270
