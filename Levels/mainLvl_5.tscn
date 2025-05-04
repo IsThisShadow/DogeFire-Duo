@@ -97,10 +97,13 @@ text = "100"
 
 [node name="P1ScoreLabel" type="Label" parent="HUD/Control" groups=["p1_score_label"]]
 layout_mode = 0
-offset_left = 19.0
+offset_left = 13.0
 offset_top = 40.0
-offset_right = 59.0
-offset_bottom = 63.0
+offset_right = 294.0
+offset_bottom = 131.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_jbsp5")
+theme_override_font_sizes/font_size = 70
 text = "Score: 0"
 
 [node name="WeaponLabel_P1" type="Label" parent="HUD/Control"]
@@ -162,10 +165,13 @@ text = "100"
 
 [node name="P2ScoreLabel" type="Label" parent="HUD/Control2" groups=["p2_score_label"]]
 layout_mode = 0
-offset_left = -27.0
-offset_top = 43.0
-offset_right = 34.0
-offset_bottom = 66.0
+offset_left = -74.0
+offset_top = 39.0
+offset_right = 207.0
+offset_bottom = 130.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_jbsp5")
+theme_override_font_sizes/font_size = 70
 text = "Score: 0"
 
 [node name="WeaponLabel_P2" type="Label" parent="HUD/Control2"]
