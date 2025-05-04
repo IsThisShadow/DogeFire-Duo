@@ -8,14 +8,21 @@ var two_player_mode := false
 @onready var player1_label = $Player1ScoreLabel
 @onready var player2_label = $Player2ScoreLabel
 @onready var leaderboard_list = $VBoxContainer/ItemList
+@onready var back_button = $BackButton  # Adjust path if yours differs
 
 func _ready():
 	get_tree().paused = true
-	
+
+	back_button.grab_focus()
+	set_process_input(true)
+
+	if not back_button.is_connected("pressed", Callable(self, "_on_back_button_pressed")):
+		back_button.connect("pressed", Callable(self, "_on_back_button_pressed"))
+
 	"""
 	var dir = DirAccess.open("user://")
 	if dir and dir.file_exists("leaderboard.json"):
-		dir.remove("leaderboard.json") 
+		dir.remove("leaderboard.json")
 	"""  # use this to reset the leaderboard manually
 
 	update_score_display()
@@ -71,6 +78,10 @@ func _on_back_button_pressed() -> void:
 			get_tree().get_root().add_child(scene)
 			queue_free()
 		else:
-			print("⚠ Could not load previous scene at: ", Global.previous_scene_path)
+			print("Could not load previous scene at: ", Global.previous_scene_path)
 	else:
-		print("⚠ No previous scene path set in Global.")
+		print("No previous scene path set in Global.")
+
+func _unhandled_input(event):
+	if event.is_action_pressed("p1_a") or event.is_action_pressed("p2_a"):
+		back_button.emit_signal("pressed")
