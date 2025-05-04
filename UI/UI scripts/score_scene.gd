@@ -7,7 +7,7 @@ var two_player_mode := false
 
 @onready var player1_label = $VBoxContainer/Player1ScoreLabel
 @onready var player2_label = $VBoxContainer/Player2ScoreLabel
-@onready var leaderboard_list = $VBoxContainer/LeaderboardList
+@onready var leaderboard_list = $VBoxContainer/ItemList
 
 func _ready():
 	update_score_display()

@@ -43,7 +43,7 @@ text = "P1 Score: "
 layout_mode = 2
 text = "P2 Score: "
 
-[node name="Label3" type="Label" parent="VBoxContainer"]
+[node name="LeaderboardList" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Leaderboard
 "

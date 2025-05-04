@@ -27,15 +27,17 @@ func _on_play_again_pressed() -> void:
 	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
 
 func _on_see_your_score_pressed() -> void:
-	var score_scene = load("res://UI/UI scenes/ScoreScene.tscn").instantiate()
-	score_scene.player1_score = Global.player1_score
-	score_scene.player2_score = Global.player2_score
-	score_scene.two_player_mode = Global.is_two_player
-	get_tree().change_scene_to_packed(score_scene)
-	
-	
+	# Scores should already be stored in Global
+	var packed_scene = load("res://UI/UI scenes/ScoreScene.tscn")
+	if packed_scene:
+		get_tree().change_scene_to_packed(packed_scene)
+	else:
+		print("Error: Could not load ScoreScene.tscn")
+		
+		
 func _on_quit_game_pressed() -> void:
 	get_tree().quit()
+
 
 func _unhandled_input(event):
 	if event.is_action_pressed("p1_up") or event.is_action_pressed("p2_up"):
