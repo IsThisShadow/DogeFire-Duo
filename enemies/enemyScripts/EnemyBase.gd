@@ -10,8 +10,9 @@ func take_damage(amount: int, shooter_player := 1) -> void:
 	if is_dead:
 		return
 	_current_health -= amount
+	spawn_damage_number(amount)
 	if _current_health <= 0:
-		die()
+		die(shooter_player)
 
 func die():
 	assert(false, "Child class must override die() method")

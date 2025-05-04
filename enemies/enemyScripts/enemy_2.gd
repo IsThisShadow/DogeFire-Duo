@@ -1,9 +1,8 @@
-extends CharacterBody2D
+extends EnemyBase
 
 @export var speed = 50  # Maybe slightly slower
 @export var max_health = 30 # More health
-var is_dead = false
-var _current_health = max_health
+
 var bullet_scene = preload("res://enemies/enemy scenes/Enemy_1_bullet.tscn")
 @export var bullet_damage = 15  # Bullet does more damage!
 
