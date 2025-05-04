@@ -7,7 +7,7 @@ func _on_play_again_pressed() -> void:
 	print("Play Again pressed")
 	get_tree().paused = false
 
-	#  Reset all global player stats
+	# Reset all global player stats
 	Global.reset_stats()
 
 	# Remove this screen
@@ -20,24 +20,26 @@ func _on_play_again_pressed() -> void:
 
 	await get_tree().process_frame  # Let cleanup happen
 
-	#  Clear any pause menu leftovers
+	# Clear any pause menu leftovers
 	Global.pause_menu = null
 
-	#  Go back to main menu
+	# Go back to main menu
 	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
 
 func _on_see_your_score_pressed() -> void:
-	# Scores should already be stored in Global
 	var packed_scene = load("res://UI/UI scenes/ScoreScene.tscn")
 	if packed_scene:
-		get_tree().change_scene_to_packed(packed_scene)
+		var score_scene = packed_scene.instantiate()
+		score_scene.player1_score = Global.player1_score
+		score_scene.player2_score = Global.player2_score
+		score_scene.two_player_mode = Global.is_two_player_mode
+		get_tree().get_root().add_child(score_scene)
+		queue_free()
 	else:
 		print("Error: Could not load ScoreScene.tscn")
-		
-		
+
 func _on_quit_game_pressed() -> void:
 	get_tree().quit()
-
 
 func _unhandled_input(event):
 	if event.is_action_pressed("p1_up") or event.is_action_pressed("p2_up"):
