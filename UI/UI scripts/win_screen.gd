@@ -15,8 +15,7 @@ func _ready():
 	set_process(true)
 	set_process_unhandled_input(true)
 	
-	# Connect buttons
-	play_again_button.pressed.connect(_on_play_again_pressed)
+	# Connect button I just wanted to try it this way
 	quit_game_button.pressed.connect(_on_quit_game_pressed)
 
 	# Start focus on play again
@@ -73,26 +72,6 @@ func move_focus_down():
 		var neighbor = focused.get_node(neighbor_path)
 		neighbor.grab_focus()
 
-func _on_play_again_pressed():
-	get_tree().paused = false
-
-	# Reset all global player stats
-	Global.reset_stats()
-
-	# Remove this screen
-	queue_free()
-
-	# Clean up all non-autoload nodes (leftover gameplay/UI)
-	for node in get_tree().get_root().get_children():
-		if node.name != "Global":
-			node.queue_free()
-
-	await get_tree().process_frame
-
-	Global.pause_menu = null
-
-	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
-
 func _on_quit_game_pressed():
 	get_tree().quit()
 
@@ -105,3 +84,21 @@ func _on_see_score_button_pressed() -> void:
 	score_scene.two_player_mode = Global.is_two_player_mode
 	get_tree().get_root().add_child(score_scene)
 	queue_free()
+
+
+func _on_play_again_button_pressed() -> void:
+	get_tree().paused = false
+	Global.reset_stats()
+
+	# Clear non-autoload nodes
+	for node in get_tree().get_root().get_children():
+		if node.name != "Global":
+			node.queue_free()
+
+	await get_tree().process_frame
+	Global.pause_menu = null
+
+	call_deferred("go_to_main_menu")
+
+func go_to_main_menu():
+	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")

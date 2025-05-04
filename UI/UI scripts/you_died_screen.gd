@@ -8,23 +8,24 @@ func _on_play_again_pressed() -> void:
 	print("Play Again pressed")
 	get_tree().paused = false
 
-	# Reset all global player stats
 	Global.reset_stats()
 
 	# Remove this screen
 	queue_free()
 
-	# Clean up all non-autoload nodes (leftover gameplay/UI)
+	# Clean up all non-autoload nodes
 	for node in get_tree().get_root().get_children():
-		if node.name != "Global":  # Keep autoloads
+		if node.name != "Global":
 			node.queue_free()
 
-	await get_tree().process_frame  # Let cleanup happen
+	await get_tree().process_frame
 
-	# Clear any pause menu leftovers
 	Global.pause_menu = null
 
-	# Go back to main menu
+	# Use deferred call to avoid scene switch while nodes are being deleted
+	call_deferred("go_to_main_menu")
+
+func go_to_main_menu():
 	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
 
 func _on_see_your_score_pressed() -> void:
