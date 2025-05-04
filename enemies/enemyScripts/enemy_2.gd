@@ -16,16 +16,6 @@ func _ready():
 func _physics_process(delta):
 	position.x -= speed * delta
 
-func take_damage(amount, shooter_player := 1):
-	if is_dead:
-		return
-	
-	_current_health -= amount
-	spawn_damage_number(amount)
-
-	if _current_health <= 0:
-		die(shooter_player)
-
 func die(shooter_player := 1):
 	is_dead = true
 	

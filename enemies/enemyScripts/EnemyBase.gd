@@ -10,7 +10,8 @@ func take_damage(amount: int, shooter_player := 1) -> void:
 	if is_dead:
 		return
 	_current_health -= amount
-	spawn_damage_number(amount)
+	if "spawn_damage_number" in self:
+		self.spawn_damage_number(amount)
 	if _current_health <= 0:
 		die(shooter_player)
 
