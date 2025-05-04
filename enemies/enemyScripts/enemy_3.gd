@@ -26,7 +26,7 @@ func take_damage(amount: int, shooter_player := 1):
 		return
 
 	_current_health -= amount
-	print("Enemy 3 health:", current_health)
+	print("Enemy 3 health:", _current_health)
 	spawn_damage_number(amount)  # Show damage popup!
 
 	if _current_health <= 0:
