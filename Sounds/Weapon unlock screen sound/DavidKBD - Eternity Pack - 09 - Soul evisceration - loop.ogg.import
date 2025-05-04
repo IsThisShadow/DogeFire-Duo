@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://kxghga77idyt"
+path="res://.godot/imported/DavidKBD - Eternity Pack - 09 - Soul evisceration - loop.ogg-3130a733e9898d4e7b5fb33bb658139b.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/Weapon unlock screen sound/DavidKBD - Eternity Pack - 09 - Soul evisceration - loop.ogg"
+dest_files=["res://.godot/imported/DavidKBD - Eternity Pack - 09 - Soul evisceration - loop.ogg-3130a733e9898d4e7b5fb33bb658139b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
