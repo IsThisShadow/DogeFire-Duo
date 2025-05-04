@@ -11,6 +11,7 @@ var p2_down_ready := true
 @onready var quit_game_button = $Quit_button
 
 func _ready():
+	get_tree().paused = true
 	set_process(true)
 	set_process_unhandled_input(true)
 	

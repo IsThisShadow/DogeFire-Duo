@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="1_v1t45"]
 
 [node name="ScoreScene" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,7 +50,7 @@ layout_mode = 0
 offset_left = 268.0
 offset_top = 1.0
 offset_right = 368.0
-offset_bottom = 120.0
+offset_bottom = 96.0
 
 [node name="LeaderboardList" type="Label" parent="VBoxContainer"]
 layout_mode = 2

@@ -10,9 +10,18 @@ var two_player_mode := false
 @onready var leaderboard_list = $VBoxContainer/ItemList
 
 func _ready():
+	get_tree().paused = true
+	"""
+	var dir = DirAccess.open("user://")
+	if dir and dir.file_exists("leaderboard.json"):
+		dir.remove("leaderboard.json") 
+	"""   # use this to reset the leaderboard
+	
+	
 	update_score_display()
 	save_new_score()
 	update_leaderboard_display()
+
 
 func update_score_display():
 	player1_label.text = "Player 1 Score: %d" % player1_score
@@ -54,4 +63,5 @@ func update_leaderboard_display():
 		leaderboard_list.add_item("%d. %d pts" % [i + 1, leaderboard[i]])
 
 func _on_back_button_pressed() -> void:
+	#get_tree().paused = true
 	pass
