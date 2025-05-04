@@ -1,9 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://bas7g8kt51ufe"]
+[gd_scene load_steps=5 format=3 uid="uid://wbiub60g5q6v"]
 
-[ext_resource type="Script" uid="uid://djvn33og7lda1" path="res://UI/UI scripts/pause_menu_1p.gd" id="1_4bko2"]
 [ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="2_7d01o"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_oxmis"]
 [ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="4_imr0t"]
+
+[sub_resource type="GDScript" id="GDScript_kkagk"]
+script/source = "extends Control
+\"\"\"
+On entering level 2 the pause button does not hide the player.
+
+During the entering Level 2 menu, when pressing start and pressing pause immediately after, 
+nothing is hidden on the pause menu.
+\"\"\"
+func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	visible = false  # Hide until shown
+	set_process_input(true)
+
+func _input(event):
+	if event.is_action_pressed(\"p1_x\") or event.is_action_pressed(\"p2_x\"):
+		Global.resume_game()
+
+
+func _on_resume_button_pressed() -> void:
+	Global.resume_game()
+
+
+func _on_return_main_menu_button_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file(\"res://UI/UI scenes/MainMenu.tscn\")
+
+
+func _on_quit_game_button_pressed() -> void:
+	get_tree().quit()
+"
 
 [node name="Control2" type="Control"]
 process_mode = 3
@@ -13,7 +43,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_4bko2")
+script = SubResource("GDScript_kkagk")
 
 [node name="Background" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(640, 360)

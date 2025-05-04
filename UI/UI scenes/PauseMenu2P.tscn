@@ -32,16 +32,9 @@ offset_top = 44.0
 offset_right = 412.0
 offset_bottom = 319.0
 
-[node name="GamePausedLabel" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-focus_neighbor_bottom = NodePath("../ResumeButton")
-theme_override_fonts/font = ExtResource("2_oaebk")
-text = "2 Player Game Paused"
-
 [node name="ResumeButton" type="Button" parent="VBoxContainer"]
 process_mode = 3
 layout_mode = 2
-focus_neighbor_top = NodePath("../GamePausedLabel")
 focus_neighbor_bottom = NodePath("../GameTipsButton")
 theme_override_fonts/font = ExtResource("2_oaebk")
 text = "Resume
