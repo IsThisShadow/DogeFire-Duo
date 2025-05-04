@@ -2,13 +2,13 @@ extends CharacterBody2D
 
 @export var speed := 60
 @export var max_health := 20
-var current_health := max_health
+var _current_health := max_health
 var is_dead := false
 
 var bullet_scene = preload("res://enemies/enemy scenes/Enemy_1_bullet.tscn")
 
 func _ready():
-	current_health = max_health
+	_current_health = max_health
 	# Make sure only the normal flying sprite is visible at start
 	if $enemy_1_SupportShip:
 		$enemy_1_SupportShip.visible = true
@@ -27,9 +27,9 @@ func take_damage(amount, shooter_player := 1):
 	if is_dead:
 		return
 	
-	current_health -= amount
+	_current_health -= amount
 	spawn_damage_number(amount)
-	if current_health <= 0:
+	if _current_health <= 0:
 		die(shooter_player)
 
 func die(shooter_player := 1):

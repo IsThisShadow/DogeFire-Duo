@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var bullet_damage := 20
 @export var fire_rate := 2.0  # Seconds between bursts
 
-var current_health = max_health
+var _current_health = max_health
 var is_dead = false
 var moving_in = true
 var stop_x = 0.0
@@ -15,13 +15,13 @@ var bullet_scene = preload("res://enemies/enemy scenes/Enemy_8_bullet.tscn")
 var time_since_last_shot := 0.0
 
 func _ready():
-	current_health = max_health
+	_current_health = max_health
 	stop_x = get_viewport_rect().size.x * stop_x_ratio
 	$BulletTimer.wait_time = fire_rate
 	$BulletTimer.timeout.connect(_on_BulletTimer_timeout)
 	$BulletTimer.start()
 	$HealthBar.max_value = max_health
-	$HealthBar.value = current_health
+	$HealthBar.value = _current_health
 
 func _physics_process(delta):
 	if is_dead:
@@ -86,11 +86,11 @@ func take_damage(amount: int, shooter_player := 1):
 	if is_dead:
 		return
 
-	current_health -= amount
-	$HealthBar.value = current_health
+	_current_health -= amount
+	$HealthBar.value = _current_health
 	spawn_damage_number(amount)
 
-	if current_health <= 0:
+	if _current_health <= 0:
 		die(shooter_player)
 
 func die(shooter_player := 1):
