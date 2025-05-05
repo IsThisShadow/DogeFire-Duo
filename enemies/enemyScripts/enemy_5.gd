@@ -92,5 +92,5 @@ func spawn_damage_number(amount: int):
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	Global.player1_score -= 50  # Subtract 50 points when escaping
+	Global.player1_score -= 5  # Subtract 50 points when escaping
 	queue_free()

@@ -30,9 +30,9 @@ func _ready():
 	update_leaderboard_display()
 
 func update_score_display():
-	player1_label.text = "Player 1 Score: %d" % player1_score
+	player1_label.text = "Player 1 Score: %d" % Global.player1_score
 	if two_player_mode:
-		player2_label.text = "Player 2 Score: %d" % player2_score
+		player2_label.text = "Player 2 Score: %d" % Global.player2_score
 		player2_label.show()
 	else:
 		player2_label.hide()

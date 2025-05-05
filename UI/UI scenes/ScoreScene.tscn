@@ -15,6 +15,7 @@ script = ExtResource("1_b0rgd")
 
 [node name="Background" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(640, 360)
+layout_mode = 0
 offset_right = 640.0
 offset_bottom = 360.0
 texture = ExtResource("1_v1t45")
