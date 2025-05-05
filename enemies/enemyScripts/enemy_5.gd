@@ -89,3 +89,8 @@ func spawn_damage_number(amount: int):
 	label.visible = false
 	label.modulate.a = 1.0
 	label.position = Vector2(0, -20)
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	Global.player1_score -= 50  # Subtract 50 points when escaping
+	queue_free()

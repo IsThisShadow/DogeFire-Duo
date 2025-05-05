@@ -79,3 +79,8 @@ func apply_penalty():
 		Global.player2_score = max(Global.player2_score - 15, 0)
 	else:
 		Global.player1_score = max(Global.player1_score - 20, 0)
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	Global.player1_score -= 50  # Subtract 50 points when escaping
+	queue_free()
