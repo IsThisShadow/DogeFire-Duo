@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bvn8r0huswy6v"
+path="res://.godot/imported/DavidKBD - Eternity Pack - 02 - Agony Space-deep - loop.ogg-88a43ef460418396b299cdd9941eba98.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/Level sounds/DavidKBD - Eternity Pack - 02 - Agony Space-deep - loop.ogg"
+dest_files=["res://.godot/imported/DavidKBD - Eternity Pack - 02 - Agony Space-deep - loop.ogg-88a43ef460418396b299cdd9941eba98.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

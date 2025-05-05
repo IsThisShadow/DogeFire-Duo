@@ -152,3 +152,13 @@ func _on_quit_button_pressed() -> void:
 
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
+
+func _on_control_button_pressed() -> void:
+	Global.resume_game()
+	Global.previous_scene_path = get_tree().current_scene.scene_file_path
+	get_tree().change_scene_to_file("res://UI/UI scenes/control.tscn")
+
+func _on_tips_button_pressed() -> void:
+	Global.resume_game()
+	Global.previous_scene_path = get_tree().current_scene.scene_file_path
+	get_tree().change_scene_to_file("res://UI/UI scenes/Tips.tscn")

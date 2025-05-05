@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cm8btmccrf7sc"]
+[gd_scene load_steps=15 format=3 uid="uid://cm8btmccrf7sc"]
 
 [ext_resource type="Script" uid="uid://bxfbh3jp80jpv" path="res://Levels/main.gd" id="1_gtmw4"]
 [ext_resource type="PackedScene" uid="uid://b44ebn5xhv34r" path="res://Players/Player scenes/characterBodyP1.tscn" id="3_0w4dj"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b71b1etq41ye2" path="res://Assets/2D Space Parallax Backgrounds/layers/nebula.png" id="7_dcip6"]
 [ext_resource type="Texture2D" uid="uid://60hvkelfx71c" path="res://Assets/2D Space Parallax Backgrounds/layers/small_stars.png" id="8_pk2n4"]
 [ext_resource type="Texture2D" uid="uid://diwt20qjdcldu" path="res://Assets/2D Space Parallax Backgrounds/layers/big_stars.png" id="9_wvqud"]
+[ext_resource type="AudioStream" uid="uid://bvn8r0huswy6v" path="res://Sounds/Level sounds/DavidKBD - Eternity Pack - 02 - Agony Space-deep - loop.ogg" id="12_8opq3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1hde"]
 bg_color = Color(0, 0, 0, 1)
@@ -38,11 +39,21 @@ position = Vector2(142, 138)
 
 [node name="HUD" type="CanvasLayer" parent="." groups=["gameplay"]]
 
-[node name="LevelProgressBar" type="ProgressBar" parent="HUD"]
-offset_left = 228.0
+[node name="WeaponLockedLabel" type="Label" parent="HUD"]
+offset_left = 191.0
 offset_top = 35.0
-offset_right = 251.0
-offset_bottom = 235.0
+offset_right = 1381.0
+offset_bottom = 165.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_f1hde")
+theme_override_font_sizes/font_size = 65
+horizontal_alignment = 1
+
+[node name="LevelProgressBar" type="ProgressBar" parent="HUD"]
+offset_left = 215.0
+offset_top = 32.0
+offset_right = 238.0
+offset_bottom = 232.0
 rotation = 4.71239
 theme_override_styles/background = SubResource("StyleBoxFlat_f1hde")
 theme_override_styles/fill = SubResource("StyleBoxFlat_64ibx")
@@ -221,4 +232,14 @@ text = "Player 1 has died!
 wait_time = 2.0
 autostart = true
 
+[node name="LevelMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_8opq3")
+autoplay = true
+parameters/looping = true
+
+[node name="SeekDelayTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="timeout" from="Enemy1SpawnTimer" to="." method="_on_enemy_1_spawn_timer_timeout"]
+[connection signal="timeout" from="SeekDelayTimer" to="." method="_on_seek_delay_timer_timeout"]

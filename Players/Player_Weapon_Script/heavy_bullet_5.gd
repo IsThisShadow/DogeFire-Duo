@@ -1,5 +1,5 @@
 extends Area2D
-@export var damage := 100
+@export var damage := 60
 var direction: Vector2 = Vector2(1, 0)
 const SPEED := 300
 @export var shooter_player:= 1
@@ -8,14 +8,18 @@ const SPEED := 300
 func _physics_process(delta):
 	global_position += direction.normalized() * SPEED * delta
 
+
 func _on_body_entered(body):
 	if body.is_in_group("enemies"):
-		body.queue_free()  # Remove enemy
+		if body.has_method("take_damage"):
+			body.take_damage(damage, shooter_player)
+		else:
+			body.queue_free()  # Remove enemy
 
 		# Play explosion animation
 		var anim_player = $Sprite2D/AnimationPlayer
 		anim_player.play("explode")  # Make sure this matches your animation name exactly
-		$CollisionShape2D.disabled = true  # Disable collisions while animating
+		$CollisionShape2D.set_deferred("disabled", true)  # Disable collisions while animating
 		#need to use call deffered, gives error when trying ot turn of the collision. 
 		await anim_player.animation_finished
 		queue_free()

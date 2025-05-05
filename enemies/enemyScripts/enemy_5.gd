@@ -8,7 +8,7 @@ extends CharacterBody2D
 @export var stop_x_position := 950  # X where enemy stops
 
 var is_dead = false
-var current_health = max_health
+var _current_health = max_health
 var moving_left = true
 var base_y = 0
 var moving_up = true
@@ -19,7 +19,7 @@ var bottom_margin := 80  # <-- Stay at least 80px from bottom
 var bullet_scene = preload("res://enemies/enemy scenes/Enemy_5_bullet.tscn")
 
 func _ready():
-	current_health = max_health
+	_current_health = max_health
 	base_y = position.y
 	$BulletTimer.wait_time = 2.8
 	$BulletTimer.start()
@@ -44,10 +44,10 @@ func take_damage(amount: int, shooter_player := 1):
 	if is_dead:
 		return
 
-	current_health -= amount
+	_current_health -= amount
 	spawn_damage_number(amount)
 
-	if current_health <= 0:
+	if _current_health <= 0:
 		die(shooter_player)
 
 func die(shooter_player := 1):
@@ -71,7 +71,7 @@ func die(shooter_player := 1):
 func _on_bullet_timer_timeout() -> void:
 	var bullet = bullet_scene.instantiate()
 	bullet.position = position
-	bullet.damage = bullet_damage
+	bullet._damage = bullet_damage
 	get_tree().current_scene.add_child(bullet)
 
 func spawn_damage_number(amount: int):
@@ -89,3 +89,8 @@ func spawn_damage_number(amount: int):
 	label.visible = false
 	label.modulate.a = 1.0
 	label.position = Vector2(0, -20)
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	Global.player1_score -= 5  # Subtract 50 points when escaping
+	queue_free()

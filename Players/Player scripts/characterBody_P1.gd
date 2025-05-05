@@ -58,7 +58,6 @@ func get_weapon_name():
 	return weapon_names.get(selected_weapon_id, "no wepaon selected")
 	
 	
-	
 func _ready():
 	if Global.player1_permadead:
 		queue_free()
@@ -155,16 +154,26 @@ func _physics_process(delta):
 		current_weapon.fire()
 
 func select_weapon(id: int):
+	if not Global.unlocked_weapons[id - 1]:  # Check if weapon is unlocked
+		Global.show_locked_weapon_warning(id)
+		return
+
 	if selected_weapon_id == id:
 		return
+
 	selected_weapon_id = id
+
 	if current_weapon:
 		current_weapon.queue_free()
+
 	var weapon_scene = weapon_scenes.get(id)
 	if weapon_scene:
 		current_weapon = weapon_scene.instantiate()
 		current_weapon.player_id = 1  # <-- Player 1
 		weapon_container.add_child(current_weapon)
+		
+
+
 
 func die():
 	is_dead = true
@@ -299,7 +308,7 @@ func take_damage(amount: int):
 				die()
 
 func spawn_damage_number(amount: int):
-	var dmg_label = preload("res://FloatingText.tscn").instantiate()
+	var dmg_label = preload("res://Players/Player scenes/FloatingText.tscn").instantiate()
 	dmg_label.text = "-" + str(amount)
 	dmg_label.position = Vector2(-25, -10)
 	dmg_label.rotation_degrees = 270

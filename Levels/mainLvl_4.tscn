@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b41y3qaub0rna"]
+[gd_scene load_steps=15 format=3 uid="uid://b41y3qaub0rna"]
 
 [ext_resource type="Script" uid="uid://blfx22055wjwc" path="res://Levels/main_lvl_4.gd" id="1_tm4t6"]
 [ext_resource type="Texture2D" uid="uid://bfgjf0iyokkp4" path="res://Assets/Pixel Health Bar/Bar/no health bar.png" id="3_k2cak"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b71b1etq41ye2" path="res://Assets/2D Space Parallax Backgrounds/layers/nebula.png" id="7_ovuje"]
 [ext_resource type="Texture2D" uid="uid://60hvkelfx71c" path="res://Assets/2D Space Parallax Backgrounds/layers/small_stars.png" id="8_jn4s6"]
 [ext_resource type="Texture2D" uid="uid://diwt20qjdcldu" path="res://Assets/2D Space Parallax Backgrounds/layers/big_stars.png" id="9_k3o1g"]
+[ext_resource type="AudioStream" uid="uid://bwrifjcdwev3b" path="res://Sounds/Level sounds/DavidKBD - Eternity Pack - 05 - Evil soul inside - oneshoot.ogg" id="12_ajbwj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vi2yg"]
 bg_color = Color(0, 0, 0, 1)
@@ -36,6 +37,16 @@ position = Vector2(195, 269)
 position = Vector2(142, 138)
 
 [node name="HUD" type="CanvasLayer" parent="." groups=["gameplay"]]
+
+[node name="WeaponLockedLabel" type="Label" parent="HUD"]
+offset_left = 191.0
+offset_top = 35.0
+offset_right = 1381.0
+offset_bottom = 165.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_vi2yg")
+theme_override_font_sizes/font_size = 65
+horizontal_alignment = 1
 
 [node name="LevelProgressBar" type="ProgressBar" parent="HUD"]
 offset_left = 228.0
@@ -219,4 +230,11 @@ text = "Player 1 has died!
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 
+[node name="LevelMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_ajbwj")
+
+[node name="SeekDelayTimer" type="Timer" parent="."]
+wait_time = 0.2
+
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
+[connection signal="timeout" from="SeekDelayTimer" to="." method="_on_seek_delay_timer_timeout"]
