@@ -97,6 +97,7 @@ func show_gameplay():
 		node.visible = true
 
 func reset_stats():
+	unlocked_weapons = [true, true, false, false, false]
 	player1_health = player1_max_health
 	player1_revives = 0
 	player1_permadead = false
