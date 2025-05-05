@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7fcqsn5jatcy"]
+[gd_scene load_steps=6 format=3 uid="uid://b7fcqsn5jatcy"]
 
 [ext_resource type="Script" uid="uid://chenxecmtkix7" path="res://UI/UI scripts/pause_menu_2p.gd" id="1_tf24n"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_oaebk"]
-[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://2D Space Parallax Backgrounds/layers/complete.png" id="2_uwo0j"]
+[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="2_uwo0j"]
 [ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="4_oh65t"]
+[ext_resource type="AudioStream" uid="uid://dvnf63v8b88o6" path="res://Sounds/mainmenu's sound/DavidKBD - Eternity Pack - 10 - Rotten Offal - loop.ogg" id="5_50epb"]
 
-[node name="Control" type="Control"]
+[node name="Control2" type="Control"]
 process_mode = 3
 z_index = 5
 layout_mode = 3
@@ -25,27 +26,17 @@ texture = ExtResource("2_uwo0j")
 expand_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+process_mode = 3
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 47.0
+offset_left = 237.0
+offset_top = 44.0
+offset_right = 412.0
+offset_bottom = 319.0
 
-[node name="pauseWrapper" type="Node2D" parent="VBoxContainer"]
-
-[node name="GamePausedLabel" type="Label" parent="VBoxContainer/pauseWrapper"]
-offset_left = 241.0
-offset_top = 12.0
-offset_right = 416.0
-offset_bottom = 35.0
-theme_override_fonts/font = ExtResource("2_oaebk")
-text = "2 Player Game Paused"
-
-[node name="resumeWrapper" type="Node2D" parent="VBoxContainer"]
-
-[node name="ResumeButton" type="Button" parent="VBoxContainer/resumeWrapper"]
-offset_left = 270.0
-offset_top = 50.0
-offset_right = 392.0
-offset_bottom = 96.0
+[node name="ResumeButton" type="Button" parent="VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../GameTipsButton")
 theme_override_fonts/font = ExtResource("2_oaebk")
 text = "Resume
 "
@@ -53,28 +44,22 @@ icon = ExtResource("4_oh65t")
 flat = true
 icon_alignment = 1
 
-[node name="returnWrapper" type="Node2D" parent="VBoxContainer"]
-
-[node name="ReturnMainMenuButton" type="Button" parent="VBoxContainer/returnWrapper"]
-layout_direction = 2
-offset_left = 270.0
-offset_top = 255.0
-offset_right = 392.0
-offset_bottom = 305.0
+[node name="GameTipsButton" type="Button" parent="VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+focus_neighbor_top = NodePath("../ResumeButton")
+focus_neighbor_bottom = NodePath("../ControlsButton")
 theme_override_fonts/font = ExtResource("2_oaebk")
-text = "Return to 
-main menu"
+text = "Game Tips"
 icon = ExtResource("4_oh65t")
 flat = true
 icon_alignment = 1
 
-[node name="controlWrapper" type="Node2D" parent="VBoxContainer"]
-
-[node name="ControlsButton" type="Button" parent="VBoxContainer/controlWrapper"]
-offset_left = 270.0
-offset_top = 130.0
-offset_right = 392.0
-offset_bottom = 176.0
+[node name="ControlsButton" type="Button" parent="VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+focus_neighbor_top = NodePath("../GameTipsButton")
+focus_neighbor_bottom = NodePath("../ReturnMainMenuButton")
 theme_override_fonts/font = ExtResource("2_oaebk")
 text = "Controls
 "
@@ -82,26 +67,23 @@ icon = ExtResource("4_oh65t")
 flat = true
 icon_alignment = 1
 
-[node name="tipWrapper" type="Node2D" parent="VBoxContainer"]
-
-[node name="GameTipsButton" type="Button" parent="VBoxContainer/tipWrapper"]
-offset_left = 270.0
-offset_top = 170.0
-offset_right = 392.0
-offset_bottom = 216.0
+[node name="ReturnMainMenuButton" type="Button" parent="VBoxContainer"]
+process_mode = 3
+layout_direction = 2
+layout_mode = 2
+focus_neighbor_top = NodePath("../ControlsButton")
+focus_neighbor_bottom = NodePath("../QuitGameButton")
 theme_override_fonts/font = ExtResource("2_oaebk")
-text = "Game Tips"
+text = "Return to 
+main menu"
 icon = ExtResource("4_oh65t")
 flat = true
 icon_alignment = 1
 
-[node name="quitWrapper" type="Node2D" parent="VBoxContainer"]
-
-[node name="QuitGameButton" type="Button" parent="VBoxContainer/quitWrapper"]
-offset_left = 270.0
-offset_top = 300.0
-offset_right = 392.0
-offset_bottom = 346.0
+[node name="QuitGameButton" type="Button" parent="VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+focus_neighbor_top = NodePath("../ReturnMainMenuButton")
 theme_override_fonts/font = ExtResource("2_oaebk")
 text = "Quit Game
 "
@@ -109,6 +91,13 @@ icon = ExtResource("4_oh65t")
 flat = true
 icon_alignment = 1
 
-[connection signal="pressed" from="VBoxContainer/resumeWrapper/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/returnWrapper/ReturnMainMenuButton" to="." method="_on_return_main_menu_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/quitWrapper/QuitGameButton" to="." method="_on_quit_game_button_pressed"]
+[node name="PauseMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_50epb")
+autoplay = true
+parameters/looping = true
+
+[connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/GameTipsButton" to="." method="_on_game_tips_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ControlsButton" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ReturnMainMenuButton" to="." method="_on_return_main_menu_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]

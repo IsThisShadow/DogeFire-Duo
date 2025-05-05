@@ -1,14 +1,15 @@
-extends CharacterBody2D
+extends EnemyBase
 
 @export var speed = 50  # Maybe slightly slower
 @export var max_health = 30 # More health
-var is_dead = false
-var current_health = max_health
+
 var bullet_scene = preload("res://enemies/enemy scenes/Enemy_1_bullet.tscn")
 @export var bullet_damage = 15  # Bullet does more damage!
 
 func _ready():
-	current_health = max_health
+	if max_health == null:
+		max_health = 30
+	_current_health = max_health
 	# Check if enemy escaped (x < -buffer)
 	if position.x < -50:
 		apply_escape_penalty()
@@ -16,16 +17,6 @@ func _ready():
 
 func _physics_process(delta):
 	position.x -= speed * delta
-
-func take_damage(amount, shooter_player := 1):
-	if is_dead:
-		return
-	
-	current_health -= amount
-	spawn_damage_number(amount)
-
-	if current_health <= 0:
-		die(shooter_player)
 
 func die(shooter_player := 1):
 	is_dead = true
@@ -49,7 +40,7 @@ func die(shooter_player := 1):
 func _on_bullet_timer_timeout() -> void:
 	var bullet = bullet_scene.instantiate()
 	bullet.position = position
-	bullet.damage = bullet_damage  # SET IT withhout checking
+	bullet._damage = bullet_damage  # SET IT withhout checking
 	get_tree().current_scene.add_child(bullet)
 
 

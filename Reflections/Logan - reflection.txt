@@ -1,0 +1,13 @@
+
+	I picked out the font for the Game and designed the home screen
+	I start making the enemies
+	It figured out how to make the enemies move up and down and have varried movement
+	I added a second enemy that is faster
+	Made enemies spawn in waves and and get harder over time
+	made enimies shoot bullets at different speeds and sizes 
+	cleaned up a lot of UIs and made them look prettier 
+	made the buttons be arranged in a clean order
+	I had trouble figuring out how to move around the buttons without moving them all at once
+	i also desighned how the health and progress bar looks 
+	I made the controlls menu and designed how its laid out
+	

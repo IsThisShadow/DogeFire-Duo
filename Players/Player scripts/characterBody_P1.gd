@@ -14,6 +14,7 @@ When firing weapon and switching to another and back to the same it ignores the 
 
 var death_announcement: Label = null
 var is_single_player := Global.is_single_player
+var default_color := Color(1.2, 0.5, 0.5)  # red tint for P1
 
 var selected_weapon_id := 0
 var weapon_scenes = {
@@ -23,6 +24,14 @@ var weapon_scenes = {
 	4: preload("res://Players/Player_Weapon_Scenes/Weapon4.tscn"),
 	5: preload("res://Players/Player_Weapon_Scenes/Weapon5.tscn")
 }
+var weapon_names = {
+	1: "Pulse Blaster",
+	2: "Laser Storm",
+	3: "Rail Gun",
+	4: "Dual Shot",
+	5: "The Devastator",
+}
+
 var current_weapon = null
 
 const max_speed := 250
@@ -34,7 +43,7 @@ const MAX_REVIVE_TIME := 10.0
 var revive_active := false
 var is_downed := false
 var revive_time_left := 10.0
-var p1_health := 100
+var p1_health := 10
 var p1_maxHealth = 100
 var is_dead = false
 var is_permadead = false
@@ -44,12 +53,17 @@ var revive_progress := 0.0
 var is_invincible := false
 var p1_hearts := 3
 
+
+func get_weapon_name():
+	return weapon_names.get(selected_weapon_id, "no wepaon selected")
+	
+	
 func _ready():
 	if Global.player1_permadead:
 		queue_free()
 		return
 
-	$Sprite_p1.modulate = Color(1.2, 0.5, 0.5)
+	$Sprite_p1.modulate = default_color
 	death_announcement = get_tree().get_first_node_in_group("death_announcement")
 	p1_health = Global.player1_health
 	p1_revive = Global.player1_revives
@@ -140,16 +154,26 @@ func _physics_process(delta):
 		current_weapon.fire()
 
 func select_weapon(id: int):
+	if not Global.unlocked_weapons[id - 1]:  # Check if weapon is unlocked
+		Global.show_locked_weapon_warning(id)
+		return
+
 	if selected_weapon_id == id:
 		return
+
 	selected_weapon_id = id
+
 	if current_weapon:
 		current_weapon.queue_free()
+
 	var weapon_scene = weapon_scenes.get(id)
 	if weapon_scene:
 		current_weapon = weapon_scene.instantiate()
 		current_weapon.player_id = 1  # <-- Player 1
 		weapon_container.add_child(current_weapon)
+		
+
+
 
 func die():
 	is_dead = true
@@ -284,7 +308,7 @@ func take_damage(amount: int):
 				die()
 
 func spawn_damage_number(amount: int):
-	var dmg_label = preload("res://FloatingText.tscn").instantiate()
+	var dmg_label = preload("res://Players/Player scenes/FloatingText.tscn").instantiate()
 	dmg_label.text = "-" + str(amount)
 	dmg_label.position = Vector2(-25, -10)
 	dmg_label.rotation_degrees = 270
@@ -298,7 +322,7 @@ func flash_red():
 	tween.tween_property(self, "position", original_pos - Vector2(-6, 4), 0.04)
 	tween.tween_property(self, "position", original_pos, 0.03)
 	await tween.finished
-	$Sprite_p1.modulate = Color(1, 1, 1)
+	$Sprite_p1.modulate = default_color
 
 func _on_test_area_body_entered(_body: Node2D) -> void:
 	pass

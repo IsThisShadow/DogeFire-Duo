@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://b0pwgemgq86bc"]
+[gd_scene load_steps=14 format=3 uid="uid://b0pwgemgq86bc"]
 
 [ext_resource type="Script" uid="uid://cxyxbje4y883d" path="res://UI/UI scripts/weapon_unlock_screen.gd" id="1_tmbdm"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_5w55y"]
-[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://2D Space Parallax Backgrounds/layers/complete.png" id="2_n816y"]
+[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="2_n816y"]
+[ext_resource type="AudioStream" uid="uid://kxghga77idyt" path="res://Sounds/Weapon unlock screen sound/DavidKBD - Eternity Pack - 09 - Soul evisceration - loop.ogg" id="4_mspf1"]
 
 [sub_resource type="Animation" id="Animation_n816y"]
 resource_name = "FlashStart"
@@ -236,3 +237,8 @@ text = "Player Two Ready"
 libraries = {
 &"": SubResource("AnimationLibrary_oakcq")
 }
+
+[node name="UnlockMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_mspf1")
+autoplay = true
+parameters/looping = true

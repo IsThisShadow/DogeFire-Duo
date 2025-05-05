@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b41y3qaub0rna"]
+[gd_scene load_steps=15 format=3 uid="uid://b41y3qaub0rna"]
 
 [ext_resource type="Script" uid="uid://blfx22055wjwc" path="res://Levels/main_lvl_4.gd" id="1_tm4t6"]
 [ext_resource type="Texture2D" uid="uid://bfgjf0iyokkp4" path="res://Assets/Pixel Health Bar/Bar/no health bar.png" id="3_k2cak"]
@@ -6,11 +6,12 @@
 [ext_resource type="Script" uid="uid://dtdcfjsj4r8i0" path="res://Levels/parallax_background_lvl4.gd" id="4_jimy6"]
 [ext_resource type="Texture2D" uid="uid://ctysprhh2qur0" path="res://Assets/Pixel Health Bar/Bar/health bar.png" id="4_tm4t6"]
 [ext_resource type="PackedScene" uid="uid://ckmiuk6k2658l" path="res://Players/Player scenes/characterBodyP2.tscn" id="4_vi2yg"]
-[ext_resource type="Texture2D" uid="uid://bvccngnd3tt2b" path="res://2D Space Parallax Backgrounds/layers/black_bg.png" id="6_qr2eo"]
+[ext_resource type="Texture2D" uid="uid://bvccngnd3tt2b" path="res://Assets/2D Space Parallax Backgrounds/layers/black_bg.png" id="6_qr2eo"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="6_vi2yg"]
-[ext_resource type="Texture2D" uid="uid://b71b1etq41ye2" path="res://2D Space Parallax Backgrounds/layers/nebula.png" id="7_ovuje"]
-[ext_resource type="Texture2D" uid="uid://60hvkelfx71c" path="res://2D Space Parallax Backgrounds/layers/small_stars.png" id="8_jn4s6"]
-[ext_resource type="Texture2D" uid="uid://diwt20qjdcldu" path="res://2D Space Parallax Backgrounds/layers/big_stars.png" id="9_k3o1g"]
+[ext_resource type="Texture2D" uid="uid://b71b1etq41ye2" path="res://Assets/2D Space Parallax Backgrounds/layers/nebula.png" id="7_ovuje"]
+[ext_resource type="Texture2D" uid="uid://60hvkelfx71c" path="res://Assets/2D Space Parallax Backgrounds/layers/small_stars.png" id="8_jn4s6"]
+[ext_resource type="Texture2D" uid="uid://diwt20qjdcldu" path="res://Assets/2D Space Parallax Backgrounds/layers/big_stars.png" id="9_k3o1g"]
+[ext_resource type="AudioStream" uid="uid://bwrifjcdwev3b" path="res://Sounds/Level sounds/DavidKBD - Eternity Pack - 05 - Evil soul inside - oneshoot.ogg" id="12_ajbwj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vi2yg"]
 bg_color = Color(0, 0, 0, 1)
@@ -36,6 +37,16 @@ position = Vector2(195, 269)
 position = Vector2(142, 138)
 
 [node name="HUD" type="CanvasLayer" parent="." groups=["gameplay"]]
+
+[node name="WeaponLockedLabel" type="Label" parent="HUD"]
+offset_left = 191.0
+offset_top = 35.0
+offset_right = 1381.0
+offset_bottom = 165.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_vi2yg")
+theme_override_font_sizes/font_size = 65
+horizontal_alignment = 1
 
 [node name="LevelProgressBar" type="ProgressBar" parent="HUD"]
 offset_left = 228.0
@@ -96,6 +107,17 @@ theme_override_fonts/font = ExtResource("6_vi2yg")
 theme_override_font_sizes/font_size = 70
 text = "Score: 0"
 
+[node name="WeaponLabel_P1" type="Label" parent="HUD/Control"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 57.0
+offset_right = 502.0
+offset_bottom = 122.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_vi2yg")
+theme_override_font_sizes/font_size = 50
+text = "No Weapon Selected"
+
 [node name="Control2" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 1
@@ -153,6 +175,17 @@ theme_override_fonts/font = ExtResource("6_vi2yg")
 theme_override_font_sizes/font_size = 70
 text = "Score: 0"
 
+[node name="WeaponLabel_P2" type="Label" parent="HUD/Control2"]
+layout_mode = 0
+offset_left = -115.0
+offset_top = 58.0
+offset_right = 381.0
+offset_bottom = 123.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_vi2yg")
+theme_override_font_sizes/font_size = 50
+text = "No Weapon Selected"
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource("4_jimy6")
 
@@ -197,4 +230,11 @@ text = "Player 1 has died!
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 
+[node name="LevelMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_ajbwj")
+
+[node name="SeekDelayTimer" type="Timer" parent="."]
+wait_time = 0.2
+
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
+[connection signal="timeout" from="SeekDelayTimer" to="." method="_on_seek_delay_timer_timeout"]

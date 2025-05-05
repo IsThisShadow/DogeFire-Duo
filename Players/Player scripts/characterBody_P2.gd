@@ -23,8 +23,16 @@ var weapon_scenes = {
 	4: preload("res://Players/Player_Weapon_Scenes/Weapon4.tscn"),
 	5: preload("res://Players/Player_Weapon_Scenes/Weapon5.tscn")
 }
-var current_weapon = null
 
+var weapon_names = {
+	1: "Pulse Blaster",
+	2: "Laser Storm",
+	3: "Rail Gun",
+	4: "Dual Shot",
+	5: "The Devastator",
+}
+var current_weapon = null
+var default_color := Color(0.5, 0.5, 1.2)
 const max_speed := 250
 const acceleration := 5
 const friction := 3
@@ -36,7 +44,7 @@ var is_downed := false
 var revive_time_left := 10.0
 var is_dead = false
 var is_permadead = false
-var p2_health := 100
+var p2_health := 10
 var p2_maxHealth = 100
 var p2_max_revive = 3
 var p2_revive = 0
@@ -44,13 +52,17 @@ var revive_progress := 0.0
 var is_invincible := false
 
 
+
+func get_weapon_name():
+	return weapon_names.get(selected_weapon_id, "No weapon selected")
+
 func _ready():
 	# If player 2 was permadead in a previous level, do not spawn
 	if Global.player2_permadead:
 		queue_free()
 		return
 
-	$Sprite_p2.modulate = Color(0.5, 0.5, 1.2)
+	$Sprite_p2.modulate = default_color
 	death_announcement = get_tree().get_first_node_in_group("death_announcement")
 
 	# Load stats from global
@@ -134,16 +146,24 @@ func _physics_process(delta):
 		current_weapon.fire()
 		
 func select_weapon(id: int):
+	if not Global.unlocked_weapons[id - 1]:  # Check unlock state
+		Global.show_locked_weapon_warning(id)
+		return
+
 	if selected_weapon_id == id:
 		return
+
 	selected_weapon_id = id
+
 	if current_weapon:
 		current_weapon.queue_free()
+
 	var weapon_scene = weapon_scenes.get(id)
 	if weapon_scene:
 		current_weapon = weapon_scene.instantiate()
 		weapon_container.add_child(current_weapon)
-		current_weapon.initialize(2)  # <<< NEW call!
+		current_weapon.initialize(2)  # Player 2 ID
+
 
 func die():
 	is_dead = true
@@ -236,7 +256,7 @@ func take_damage(amount: int):
 		flash_red()
 
 func spawn_damage_number(amount: int):
-	var dmg_label = preload("res://FloatingText.tscn").instantiate()
+	var dmg_label = preload("res://Players/Player scenes/FloatingText.tscn").instantiate()
 	dmg_label.text = "-" + str(amount)
 	dmg_label.position = Vector2(-25, -10)
 	dmg_label.rotation_degrees = 270
@@ -250,7 +270,7 @@ func flash_red():
 	tween.tween_property(self, "position", original_pos - Vector2(-6, 4), 0.04)
 	tween.tween_property(self, "position", original_pos, 0.03)
 	await tween.finished
-	$Sprite_p2.modulate = Color(1, 1, 1)
+	$Sprite_p2.modulate = default_color
 
 func _on_revive_zone_body_entered(body: Node2D) -> void:
 	if is_dead:

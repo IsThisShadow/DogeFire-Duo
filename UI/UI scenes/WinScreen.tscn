@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="3_2oepr"]
 
 [node name="Control" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,3 +58,34 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3_2oepr")
 theme_override_font_sizes/font_size = 200
 text = "Quit Game"
+[node name="PlayAgain_button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 213.0
+offset_top = 151.0
+offset_right = 430.0
+offset_bottom = 182.0
+focus_neighbor_bottom = NodePath("../See_Score_button")
+text = "Play Again
+"
+
+[node name="See_Score_button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 202.0
+offset_right = 426.0
+offset_bottom = 233.0
+focus_neighbor_top = NodePath("../PlayAgain_button")
+focus_neighbor_bottom = NodePath("../Quit_button")
+text = "See your score"
+
+[node name="Quit_button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 243.0
+offset_right = 391.0
+offset_bottom = 274.0
+focus_neighbor_top = NodePath("../See_Score_button")
+text = "Quit game"
+
+[connection signal="pressed" from="PlayAgain_button" to="." method="_on_play_again_button_pressed"]
+[connection signal="pressed" from="See_Score_button" to="." method="_on_see_score_button_pressed"]

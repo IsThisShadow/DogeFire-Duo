@@ -1,9 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://c08ttg78rqsvj"]
+[gd_scene load_steps=22 format=3 uid="uid://c08ttg78rqsvj"]
 
 [ext_resource type="Script" uid="uid://bhrw00eoqlu3q" path="res://UI/UI scripts/mainMenu_2.gd" id="1_tbxbm"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_20xwr"]
-[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://2D Space Parallax Backgrounds/layers/complete.png" id="2_otx5p"]
+[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="2_otx5p"]
 [ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="3_80tsv"]
+[ext_resource type="AudioStream" uid="uid://dvnf63v8b88o6" path="res://Sounds/mainmenu's sound/DavidKBD - Eternity Pack - 10 - Rotten Offal - loop.ogg" id="5_pftuo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_otx5p"]
 
 [sub_resource type="Animation" id="Animation_2tw83"]
 resource_name = "FlashStart"
@@ -80,8 +83,6 @@ _data = {
 &"CountdownPulse": SubResource("Animation_tbxbm"),
 &"RESET": SubResource("Animation_20xwr")
 }
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_otx5p"]
 
 [sub_resource type="Animation" id="Animation_otx5p"]
 length = 0.001
@@ -220,22 +221,50 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 294.0
-offset_top = 148.0
-offset_right = 254.0
-offset_bottom = 108.0
+offset_left = 251.0
+offset_top = 135.0
+offset_right = 333.0
+offset_bottom = 291.0
 alignment = 1
 
-[node name="TipesWrapper" type="Node2D" parent="UIFadeGroup/VBoxContainer"]
-position = Vector2(-296, -172)
-
-[node name="TipsButton" type="Button" parent="UIFadeGroup/VBoxContainer/TipesWrapper"]
-offset_left = 258.0
-offset_top = 206.0
-offset_right = 380.0
-offset_bottom = 252.0
+[node name="TipsButton" type="Button" parent="UIFadeGroup/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../ControlButton")
 theme_override_fonts/font = ExtResource("2_20xwr")
 text = "Game Tips"
+icon = ExtResource("3_80tsv")
+flat = true
+icon_alignment = 1
+
+[node name="ControlButton" type="Button" parent="UIFadeGroup/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../TipsButton")
+focus_neighbor_bottom = NodePath("../BackButton")
+theme_override_fonts/font = ExtResource("2_20xwr")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_otx5p")
+text = "Control
+"
+icon = ExtResource("3_80tsv")
+flat = true
+icon_alignment = 1
+
+[node name="BackButton" type="Button" parent="UIFadeGroup/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../ControlButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
+theme_override_fonts/font = ExtResource("2_20xwr")
+action_mode = 0
+text = "Back"
+icon = ExtResource("3_80tsv")
+flat = true
+icon_alignment = 1
+
+[node name="QuitButton" type="Button" parent="UIFadeGroup/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../BackButton")
+theme_override_fonts/font = ExtResource("2_20xwr")
+text = "Quit Game
+"
 icon = ExtResource("3_80tsv")
 flat = true
 icon_alignment = 1
@@ -255,9 +284,9 @@ libraries = {
 }
 
 [node name="CountdownLabel" type="Label" parent="UIFadeGroup/VBoxContainer/CountdownWrapper"]
-offset_left = -12.0
+offset_left = 25.0
 offset_top = -31.0
-offset_right = 559.0
+offset_right = 596.0
 offset_bottom = 99.0
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("2_20xwr")
@@ -265,51 +294,6 @@ theme_override_font_sizes/font_size = 100
 text = "Press Start"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="ControlWrapper" type="Node2D" parent="UIFadeGroup/VBoxContainer"]
-position = Vector2(-2, -14)
-
-[node name="ControlButton" type="Button" parent="UIFadeGroup/VBoxContainer/ControlWrapper"]
-offset_left = -36.0
-offset_top = 2.0
-offset_right = 86.0
-offset_bottom = 48.0
-theme_override_fonts/font = ExtResource("2_20xwr")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_otx5p")
-text = "Control
-"
-icon = ExtResource("3_80tsv")
-flat = true
-icon_alignment = 1
-
-[node name="QuitGameWrapper" type="Node2D" parent="UIFadeGroup/VBoxContainer"]
-position = Vector2(-13, -16)
-
-[node name="QuitButton" type="Button" parent="UIFadeGroup/VBoxContainer/QuitGameWrapper"]
-offset_left = -25.0
-offset_top = 95.0
-offset_right = 97.0
-offset_bottom = 141.0
-theme_override_fonts/font = ExtResource("2_20xwr")
-text = "Quit Game
-"
-icon = ExtResource("3_80tsv")
-flat = true
-icon_alignment = 1
-
-[node name="BackWraper" type="Node2D" parent="UIFadeGroup/VBoxContainer"]
-
-[node name="BackButton" type="Button" parent="UIFadeGroup/VBoxContainer/BackWraper"]
-offset_left = -40.0
-offset_top = 128.0
-offset_right = 86.0
-offset_bottom = 174.0
-theme_override_fonts/font = ExtResource("2_20xwr")
-action_mode = 0
-text = "Back"
-icon = ExtResource("3_80tsv")
-flat = true
-icon_alignment = 1
 
 [node name="ReadyWrapperP1" type="Node2D" parent="UIFadeGroup"]
 scale = Vector2(0.9, 0.9)
@@ -359,5 +343,12 @@ libraries = {
 &"": SubResource("AnimationLibrary_tpnuv")
 }
 
-[connection signal="pressed" from="UIFadeGroup/VBoxContainer/QuitGameWrapper/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="UIFadeGroup/VBoxContainer/BackWraper/BackButton" to="." method="_on_back_button_pressed"]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_pftuo")
+autoplay = true
+parameters/looping = true
+
+[connection signal="pressed" from="UIFadeGroup/VBoxContainer/TipsButton" to="." method="_on_tips_button_pressed"]
+[connection signal="pressed" from="UIFadeGroup/VBoxContainer/ControlButton" to="." method="_on_control_button_pressed"]
+[connection signal="pressed" from="UIFadeGroup/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="UIFadeGroup/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

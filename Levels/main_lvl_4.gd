@@ -4,8 +4,18 @@ var is_two_player_mode := false
 var current_level := 4
 
 var level_time := 0.0
-const TIME_LIMIT := 100.0
+const TIME_LIMIT := 20.0
 var transitioned := false
+
+# Music control
+@export var music_start_time := 80.0
+@export var music_stop_time := 200.0
+@export var fade_in_time := 1.5
+@export var music_fade_out_time := 2.0
+
+var fade_timer := 0.0
+var music_fade_out_timer := 0.0
+var is_fading_out_music := false
 
 # Enemy Spawning
 @onready var screen_size = get_viewport_rect().size
@@ -26,8 +36,17 @@ func set_2_players(enable: bool):
 	_setup_players()
 
 func _ready():
+	# Music init
+	$LevelMusic.volume_db = -80
+	$LevelMusic.play()
+	$SeekDelayTimer.start()
+	fade_timer = fade_in_time
+	set_process(true)
+
 	Global.current_scene_name = "mainLvl_4"
-	print(">> Scene loaded, 2P mode is:", is_two_player_mode)
+	Global.weapon_locked_label = $HUD/WeaponLockedLabel
+	Global.unlock_weapon(4)
+	
 	_setup_health_bars()
 	_set_parallax_speed()
 	start_enemy_spawning()
@@ -36,24 +55,43 @@ func _ready():
 	wave1_spawned = true
 
 func _process(delta):
+	# MUSIC FADE-IN
+	if fade_timer > 0:
+		fade_timer -= delta
+		var t = 1.0 - fade_timer / fade_in_time
+		$LevelMusic.volume_db = lerp(-30, 0, t)
+
+	# MUSIC FADE-OUT
+	if is_fading_out_music:
+		music_fade_out_timer -= delta
+		var t = clamp(music_fade_out_timer / music_fade_out_time, 0, 1)
+		$LevelMusic.volume_db = lerp(0, -30, 1.0 - t)
+		if music_fade_out_timer <= 0:
+			$LevelMusic.stop()
+			is_fading_out_music = false
+			_show_weapon_unlock_screen(current_level + 1)
+
+	# Stop if track hits limit (not fading out)
+	if not is_fading_out_music and $LevelMusic.get_playback_position() >= music_stop_time:
+		$LevelMusic.stop()
+
 	if not get_tree().paused and current_level < 5 and not transitioned:
 		level_time += delta
 		$HUD/LevelProgressBar.max_value = TIME_LIMIT
 		$HUD/LevelProgressBar.value = level_time
 
-		# 40% spawn miniboss (Enemy 7)
 		if not miniboss_spawned and level_time >= (TIME_LIMIT * 0.4):
 			spawn_enemy7_miniboss()
 			miniboss_spawned = true
 
-		# 50% second big wave
 		if not wave2_spawned and level_time >= (TIME_LIMIT * 0.5):
 			spawn_big_enemy6_wave()
 			wave2_spawned = true
 
 		if level_time >= TIME_LIMIT:
 			transitioned = true
-			_show_weapon_unlock_screen(current_level + 1)
+			is_fading_out_music = true
+			music_fade_out_timer = music_fade_out_time
 
 	# Safely check if Player 1 exists
 	var p1 = get_node_or_null("CharacterBodyP1")
@@ -63,10 +101,11 @@ func _process(delta):
 		$HUD/Control/P1HealthBar.value = p1_health
 		$HUD/Control/P1PercentLabel.text = str(int((p1_health / p1_max) * 100)) + "%"
 		$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
+		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
+		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 	else:
 		$HUD/Control.visible = false
 
-	# Safely check if Player 2 exists
 	var p2 = get_node_or_null("CharacterBodyP2")
 	if is_two_player_mode and p2:
 		var p2_health = p2.p2_health
@@ -74,9 +113,16 @@ func _process(delta):
 		$HUD/Control2/P2HealthBar.value = p2_health
 		$HUD/Control2/P2PercentLabel.text = str(int((p2_health / p2_max) * 100)) + "%"
 		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
+		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
+		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 		$HUD/Control2.visible = true
 	else:
 		$HUD/Control2.visible = false
+
+func _on_seek_delay_timer_timeout() -> void:
+	if $LevelMusic.playing:
+		$LevelMusic.seek(music_start_time)
+	$SeekDelayTimer.stop()
 
 func _setup_players():
 	if is_two_player_mode:
@@ -134,19 +180,17 @@ func start_enemy_spawning():
 
 func _on_enemy_spawn_timer_timeout():
 	if wave1_spawned and not miniboss_spawned:
-		# Between wave1 and miniboss: spawn more enemies
 		if randi() % 100 < 70:
 			spawn_random_enemy1()
 		if randi() % 100 < 50:
 			spawn_random_enemy4()
 	elif wave2_spawned:
-		# After second big wave: spawn both enemy1 and enemy4 more often
 		if randi() % 100 < 80:
 			spawn_random_enemy1()
 		if randi() % 100 < 80:
 			spawn_random_enemy4()
 
-	enemy_timer.wait_time = randf_range(2.0, 3.5) # Faster spawning
+	enemy_timer.wait_time = randf_range(2.0, 3.5)
 	enemy_timer.start()
 
 func spawn_big_enemy6_wave():

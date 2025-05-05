@@ -4,8 +4,18 @@ var is_two_player_mode := false
 var current_level := 5
 
 var level_time := 0.0
-const TIME_LIMIT := 120.0
+const TIME_LIMIT := 100.0
 var transitioned := false
+
+# Music control
+@export var music_start_time := 17.0
+@export var music_stop_time := 220.0
+@export var fade_in_time := 2.0
+@export var music_fade_out_time := 2.0
+
+var fade_timer := 0.0
+var music_fade_out_timer := 0.0
+var is_fading_out_music := false
 
 # Enemy Spawning
 @onready var screen_size = get_viewport_rect().size
@@ -27,12 +37,42 @@ func set_2_players(enable: bool):
 	_setup_players()
 
 func _ready():
+	# Music setup
+	$LevelMusic.volume_db = -80
+	$LevelMusic.play()
+	$SeekDelayTimer.start()
+	fade_timer = fade_in_time
+	set_process(true)
+
 	Global.current_scene_name = "mainLvl_5"
+	Global.weapon_locked_label = $HUD/WeaponLockedLabel
+	Global.unlock_weapon(5)
 	_setup_health_bars()
 	_set_parallax_speed()
 	start_enemy_spawning()
 
 func _process(delta):
+	# MUSIC FADE-IN
+	if fade_timer > 0:
+		fade_timer -= delta
+		var t = 1.0 - fade_timer / fade_in_time
+		$LevelMusic.volume_db = lerp(-30, 0, t)
+
+	# MUSIC FADE-OUT
+	if is_fading_out_music:
+		music_fade_out_timer -= delta
+		var t = clamp(music_fade_out_timer / music_fade_out_time, 0, 1)
+		$LevelMusic.volume_db = lerp(0, -30, 1.0 - t)
+		if music_fade_out_timer <= 0:
+			$LevelMusic.stop()
+			is_fading_out_music = false
+			_show_win_screen()
+
+	# Stop music at custom stop time (only if not fading)
+	if not is_fading_out_music and $LevelMusic.get_playback_position() >= music_stop_time:
+		$LevelMusic.stop()
+
+	# GAME LOGIC
 	if not get_tree().paused and not transitioned:
 		level_time += delta
 		$HUD/LevelProgressBar.max_value = TIME_LIMIT
@@ -47,9 +87,15 @@ func _process(delta):
 
 		if level_time >= TIME_LIMIT:
 			transitioned = true
-			_show_win_screen()
+			is_fading_out_music = true
+			music_fade_out_timer = music_fade_out_time
 
 	_update_player_hud()
+
+func _on_seek_delay_timer_timeout() -> void:
+	if $LevelMusic.playing:
+		$LevelMusic.seek(music_start_time)
+	$SeekDelayTimer.stop()
 
 func _update_player_hud():
 	var p1 = get_node_or_null("CharacterBodyP1")
@@ -64,6 +110,8 @@ func _update_player_hud():
 		$HUD/Control2/P2HealthBar.value = p2.p2_health
 		$HUD/Control2/P2PercentLabel.text = str(int((p2.p2_health / p2.p2_maxHealth) * 100)) + "%"
 		$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
+		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
+		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 		$HUD/Control2.visible = true
 	else:
 		$HUD/Control2.visible = false
@@ -127,7 +175,6 @@ func _on_enemy_spawn_timer_timeout() -> void:
 		else:
 			spawn_random_enemy1_to_6()
 
-	# Randomly spawn big enemy6 waves a few times
 	if big_enemy6_wave_count < 3 and randi() % 100 < 20:
 		spawn_big_enemy6_wave()
 		big_enemy6_wave_count += 1

@@ -4,12 +4,12 @@ extends CharacterBody2D
 @export var max_health := 40
 @export var bullet_damage := 18  # Stronger bullet damage
 var is_dead = false
-var current_health = max_health
+var _current_health = max_health
 
 var bullet_scene = preload("res://enemies/enemy scenes/Enemy_3_bullet.tscn")  # Make sure path is right!
 
 func _ready():
-	current_health = max_health
+	_current_health = max_health
 	$BulletTimer.wait_time = 2.5
 	$BulletTimer.start()
 
@@ -25,11 +25,11 @@ func take_damage(amount: int, shooter_player := 1):
 	if is_dead:
 		return
 
-	current_health -= amount
-	print("Enemy 3 health:", current_health)
+	_current_health -= amount
+	print("Enemy 3 health:", _current_health)
 	spawn_damage_number(amount)  # Show damage popup!
 
-	if current_health <= 0:
+	if _current_health <= 0:
 		die(shooter_player)
 
 func die(shooter_player := 1):
@@ -54,7 +54,7 @@ func die(shooter_player := 1):
 func _on_bullet_timer_timeout() -> void:
 	var bullet = bullet_scene.instantiate()
 	bullet.position = position
-	bullet.damage = bullet_damage
+	bullet._damage = bullet_damage
 	get_tree().current_scene.add_child(bullet)
 
 func spawn_damage_number(amount: int):
@@ -79,3 +79,8 @@ func apply_penalty():
 		Global.player2_score = max(Global.player2_score - 15, 0)
 	else:
 		Global.player1_score = max(Global.player1_score - 20, 0)
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	Global.player1_score -= 10  # Subtract 50 points when escaping
+	queue_free()

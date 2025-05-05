@@ -1,0 +1,258 @@
+[gd_scene load_steps=8 format=3 uid="uid://ce6l0xwmes1n1"]
+
+[ext_resource type="Script" uid="uid://cx40c7b3rukvj" path="res://UI/UI scripts/controls.gd" id="1_ogp2j"]
+[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="1_r34pi"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_8djbe"]
+[ext_resource type="Texture2D" uid="uid://c4n2r81as8h4g" path="res://Assets/1. Free Hologram Interface Wenrexa/Icons/buttons.png" id="2_r34pi"]
+[ext_resource type="Texture2D" uid="uid://cc056dabnfnmd" path="res://Assets/1. Free Hologram Interface Wenrexa/Icons/SimpleShapes.png" id="3_8djbe"]
+[ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="5_ghvct"]
+[ext_resource type="AudioStream" uid="uid://du4mj0cr5myf3" path="res://Sounds/win screen sound/DavidKBD - Eternity Pack - 08 - While We Sleep - loop.ogg" id="7_n7wv0"]
+
+[node name="Control" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ogp2j")
+
+[node name="Background" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("1_r34pi")
+expand_mode = 3
+
+[node name="Buttons" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(316, 150)
+scale = Vector2(2.375, 2.1875)
+texture = ExtResource("2_r34pi")
+hframes = 12
+vframes = 6
+frame = 1
+
+[node name="Buttons2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(316, 219)
+scale = Vector2(2.375, 2.1875)
+texture = ExtResource("2_r34pi")
+hframes = 12
+vframes = 6
+frame = 1
+
+[node name="Buttons3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(382, 148)
+scale = Vector2(2.375, 2.1875)
+texture = ExtResource("2_r34pi")
+hframes = 12
+vframes = 6
+frame = 14
+
+[node name="Buttons4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(382, 218)
+scale = Vector2(2.375, 2.1875)
+texture = ExtResource("2_r34pi")
+hframes = 12
+vframes = 6
+frame = 14
+
+[node name="Buttons5" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(448, 183)
+scale = Vector2(2.375, 2.1875)
+texture = ExtResource("2_r34pi")
+hframes = 12
+vframes = 6
+frame = 17
+
+[node name="Buttons6" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(257, 183)
+scale = Vector2(2.375, 2.1875)
+texture = ExtResource("2_r34pi")
+hframes = 12
+vframes = 6
+frame = 3
+
+[node name="Buttons7" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(257, 245)
+scale = Vector2(2.375, 2.1875)
+texture = ExtResource("2_r34pi")
+hframes = 12
+vframes = 6
+frame = 2
+
+[node name="Buttons8" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(182, 207)
+scale = Vector2(2.89062, 2.03125)
+texture = ExtResource("2_r34pi")
+hframes = 12
+vframes = 2
+frame = 13
+
+[node name="SimpleShapes" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(251, 149)
+rotation = -1.57952
+scale = Vector2(0.254013, 0.225144)
+texture = ExtResource("3_8djbe")
+hframes = 6
+vframes = 8
+
+[node name="SimpleShapes2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(309, 119)
+rotation = -1.57952
+scale = Vector2(0.254013, 0.225144)
+texture = ExtResource("3_8djbe")
+hframes = 6
+vframes = 8
+
+[node name="SimpleShapes3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(375, 117)
+rotation = -1.57952
+scale = Vector2(0.254013, 0.225144)
+texture = ExtResource("3_8djbe")
+hframes = 6
+vframes = 8
+
+[node name="SimpleShapes4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(387, 249)
+rotation = -4.75253
+scale = Vector2(0.254013, 0.225144)
+texture = ExtResource("3_8djbe")
+hframes = 6
+vframes = 8
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 137.0
+offset_top = 224.0
+offset_right = 229.0
+offset_bottom = 247.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_8djbe")
+theme_override_font_sizes/font_size = 75
+text = "MOVEMENT"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 271.0
+offset_right = 771.0
+offset_bottom = 374.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_8djbe")
+theme_override_font_sizes/font_size = 79
+text = "SHOOT/SELECT"
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 169.0
+offset_top = 106.0
+offset_right = 289.0
+offset_bottom = 129.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_8djbe")
+theme_override_font_sizes/font_size = 75
+text = "PULSE BLASTER"
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 0
+offset_left = 255.0
+offset_top = 73.0
+offset_right = 723.0
+offset_bottom = 164.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_8djbe")
+theme_override_font_sizes/font_size = 70
+text = "LASER STORM"
+
+[node name="Label5" type="Label" parent="."]
+layout_mode = 0
+offset_left = 363.0
+offset_top = 75.0
+offset_right = 483.0
+offset_bottom = 98.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_8djbe")
+theme_override_font_sizes/font_size = 70
+text = "DUAL SHOT"
+
+[node name="Label6" type="Label" parent="."]
+layout_mode = 0
+offset_left = 427.0
+offset_top = 143.0
+offset_right = 645.0
+offset_bottom = 234.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_8djbe")
+theme_override_font_sizes/font_size = 70
+text = "PAUSE"
+
+[node name="Label7" type="Label" parent="."]
+layout_mode = 0
+offset_left = 289.0
+offset_top = 239.0
+offset_right = 609.0
+offset_bottom = 330.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_8djbe")
+theme_override_font_sizes/font_size = 70
+text = "RAIL GUN"
+
+[node name="Label9" type="Label" parent="."]
+layout_mode = 0
+offset_left = 252.0
+offset_top = 17.0
+offset_right = 1095.0
+offset_bottom = 212.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_8djbe")
+theme_override_font_sizes/font_size = 150
+text = "CONTROLS"
+
+[node name="Label8" type="Label" parent="."]
+layout_mode = 0
+offset_left = 346.0
+offset_top = 273.0
+offset_right = 966.0
+offset_bottom = 364.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_8djbe")
+theme_override_font_sizes/font_size = 70
+text = "THE DEVASTASTOR"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 303.0
+offset_right = 392.0
+offset_bottom = 349.0
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_8djbe")
+action_mode = 0
+text = "Back"
+icon = ExtResource("5_ghvct")
+flat = true
+icon_alignment = 1
+
+[node name="ControlSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_n7wv0")
+autoplay = true
+parameters/looping = true
+
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

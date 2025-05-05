@@ -9,7 +9,7 @@ extends CharacterBody2D
 
 var can_take_damage: bool = false
 var is_dead := false
-var current_health = max_health
+var _current_health = max_health
 var has_stopped := false  # New flag!
 
 var bullet_scene = preload("res://enemies/enemy scenes/Enemy_7_bullet.tscn")
@@ -17,7 +17,7 @@ var bullet_scene = preload("res://enemies/enemy scenes/Enemy_7_bullet.tscn")
 func _ready():
 	health_bar.max_value = max_health
 	health_bar.value = max_health
-	current_health = max_health
+	_current_health = max_health
 	$BulletTimer.wait_time = 3.5
 	$BulletTimer.start()
 	rotation_degrees = 180  # Face LEFT
@@ -57,12 +57,12 @@ func take_damage(amount: int, shooter_player := 1):
 	if is_dead or not can_take_damage:
 		return  # Can't be hurt yet!
 
-	current_health -= amount
-	health_bar.value = current_health
+	_current_health -= amount
+	health_bar.value = _current_health
 
 	spawn_damage_number(amount)
 
-	if current_health <= 0:
+	if _current_health <= 0:
 		die(shooter_player)
 
 
@@ -88,7 +88,7 @@ func _on_bullet_timer_timeout():
 	var bullet = bullet_scene.instantiate()
 	bullet.global_position = global_position
 	bullet.rotation = rotation
-	bullet.damage = bullet_damage
+	bullet._damage = bullet_damage
 	get_tree().current_scene.add_child(bullet)
 
 func spawn_damage_number(amount: int):

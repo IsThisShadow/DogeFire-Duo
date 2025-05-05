@@ -4,8 +4,17 @@ var is_two_player_mode := false
 var current_level := 2
 
 var level_time := 0.0
-const TIME_LIMIT := 10.0
+const TIME_LIMIT := 20.0
 var transitioned := false
+
+# Music control
+@export var music_start_time := 42.0
+@export var music_stop_time := 140.0
+@export var fade_in_time := 1.5
+@export var music_fade_out_time := 2.0
+var fade_timer := 0.0
+var music_fade_out_timer := 0.0
+var is_fading_out_music := false
 
 # Enemy Spawning
 @onready var screen_size = get_viewport_rect().size
@@ -19,14 +28,42 @@ func set_2_players(enable: bool):
 	_setup_players()
 
 func _ready():
+	# Sound setup
+	$LevelMusic.volume_db = -80
+	$LevelMusic.play()
+	$SeekDelayTimer.start()
+	fade_timer = fade_in_time
+	set_process(true)
+
 	Global.current_scene_name = "mainLvl_%d" % current_level
-	print(">> Scene loaded, 2P mode is:", is_two_player_mode)
+	Global.weapon_locked_label = $HUD/WeaponLockedLabel
+	Global.unlock_weapon(2) 
 	_setup_health_bars()
 	_set_parallax_speed()
 	
 	start_enemy_spawning()
 
 func _process(delta):
+	# MUSIC FADE-IN
+	if fade_timer > 0:
+		fade_timer -= delta
+		var t = 1.0 - fade_timer / fade_in_time
+		$LevelMusic.volume_db = lerp(-30, 0, t)
+
+	# MUSIC FADE-OUT
+	if is_fading_out_music:
+		music_fade_out_timer -= delta
+		var t = clamp(music_fade_out_timer / music_fade_out_time, 0, 1)
+		$LevelMusic.volume_db = lerp(0, -30, 1.0 - t)
+		if music_fade_out_timer <= 0:
+			$LevelMusic.stop()
+			is_fading_out_music = false
+			_show_weapon_unlock_screen(current_level + 1)
+
+	# Check stop time (in case fade not triggered)
+	if not is_fading_out_music and $LevelMusic.get_playback_position() >= music_stop_time:
+		$LevelMusic.stop()
+	# GAME LOGIC
 	if not get_tree().paused and current_level < 5 and not transitioned:
 		level_time += delta
 		$HUD/LevelProgressBar.max_value = TIME_LIMIT
@@ -34,7 +71,8 @@ func _process(delta):
 
 		if level_time >= TIME_LIMIT:
 			transitioned = true
-			_show_weapon_unlock_screen(current_level + 1)
+			is_fading_out_music = true
+			music_fade_out_timer = music_fade_out_time
 
 	# Update Player 1 Health
 	var p1 = get_node_or_null("CharacterBodyP1")
@@ -49,6 +87,8 @@ func _process(delta):
 
 	# Update Player 1 Score
 	$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
+	$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
+	$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 
 	# Update Player 2 (only if two-player mode)
 	var p2 = get_node_or_null("CharacterBodyP2")
@@ -58,9 +98,16 @@ func _process(delta):
 		$HUD/Control2/P2HealthBar.value = p2_health
 		$HUD/Control2/P2PercentLabel.text = str(int((p2_health / p2_max) * 100)) + "%"
 		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
+		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
+		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 		$HUD/Control2.visible = true
 	else:
 		$HUD/Control2.visible = false
+
+func _on_seek_delay_timer_timeout() -> void:
+	if $LevelMusic.playing:
+		$LevelMusic.seek(music_start_time)
+	$SeekDelayTimer.stop() 
 
 
 func _setup_players():
@@ -141,13 +188,11 @@ func spawn_enemy_level2():
 	
 	if roll < 50:
 		# 50% chance to spawn arrow formation
-		if randf() < 0.5:  # Only allow arrow spawn 50% of the time when picked
+		if randf() < 0.5:
 			spawn_arrow_formation()
 		else:
-			# If not, do nothing (skip)
 			return
 	else:
-		# 50% chance spawn one Enemy 4
 		var enemy = enemy4_scene.instantiate()
 		var y_pos = randf_range(50, screen_size.y - 50)
 		enemy.position = Vector2(screen_size.x + 50, y_pos)
@@ -156,17 +201,14 @@ func spawn_enemy_level2():
 func spawn_arrow_formation():
 	var base_y = randf_range(100, screen_size.y - 100)
 
-	# Middle enemy
 	var enemy_mid = enemy3_scene.instantiate()
 	enemy_mid.position = Vector2(screen_size.x + 50, base_y)
 	add_child(enemy_mid)
 
-	# Top enemy
 	var enemy_top = enemy3_scene.instantiate()
 	enemy_top.position = Vector2(screen_size.x + 30, base_y - 25)
 	add_child(enemy_top)
 
-	# Bottom enemy
 	var enemy_bot = enemy3_scene.instantiate()
 	enemy_bot.position = Vector2(screen_size.x + 30, base_y + 25)
 	add_child(enemy_bot)

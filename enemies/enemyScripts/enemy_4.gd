@@ -4,12 +4,12 @@ extends CharacterBody2D
 @export var max_health := 50
 @export var bullet_damage := 18  # Same stronger bullet as Enemy 3
 var is_dead := false
-var current_health = max_health
+var _current_health = max_health
 
 var bullet_scene = preload("res://enemies/enemy scenes/Enemy_3_bullet.tscn")  # SAME bullet as enemy 3
 
 func _ready():
-	current_health = max_health
+	_current_health = max_health
 	$BulletTimer.wait_time = 2.5
 	$BulletTimer.start()
 
@@ -25,11 +25,10 @@ func take_damage(amount: int, shooter_player := 1):
 	if is_dead:
 		return
 
-	current_health -= amount
-	print("Enemy 4 health:", current_health)
+	_current_health -= amount
 	spawn_damage_number(amount)
 
-	if current_health <= 0:
+	if _current_health <= 0:
 		die(shooter_player)
 
 func die(shooter_player := 1):
@@ -59,7 +58,7 @@ func die(shooter_player := 1):
 func _on_bullet_timer_timeout() -> void:
 	var bullet = bullet_scene.instantiate()
 	bullet.position = position
-	bullet.damage = bullet_damage
+	bullet._damage = bullet_damage
 	get_tree().current_scene.add_child(bullet)
 
 func spawn_damage_number(amount: int):

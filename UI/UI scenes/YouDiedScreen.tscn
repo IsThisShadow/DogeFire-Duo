@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="3_332eg"]
 
 [node name="YouDiedScreen" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,6 +43,7 @@ process_mode = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_332eg")
 theme_override_font_sizes/font_size = 200
+focus_neighbor_bottom = NodePath("../SeeYourScore")
 text = "Play Again"
 icon_alignment = 1
 
@@ -50,6 +52,8 @@ process_mode = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_332eg")
 theme_override_font_sizes/font_size = 200
+focus_neighbor_top = NodePath("../PlayAgain")
+focus_neighbor_bottom = NodePath("../QuitGame")
 text = "See Your Score"
 icon_alignment = 1
 
@@ -58,6 +62,7 @@ process_mode = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_332eg")
 theme_override_font_sizes/font_size = 200
+focus_neighbor_top = NodePath("../SeeYourScore")
 text = "Quit Game"
 icon_alignment = 1
 

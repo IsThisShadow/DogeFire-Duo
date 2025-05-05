@@ -4,8 +4,17 @@ var is_two_player_mode := false
 var current_level := 3
 
 var level_time := 0.0
-const TIME_LIMIT := 10.0
+const TIME_LIMIT := 20.0
 var transitioned := false
+
+# Music control
+@export var music_start_time := 5.0
+@export var music_stop_time := 110.0
+@export var fade_in_time := 2.0
+@export var music_fade_out_time := 2.0
+var fade_timer := 0.0
+var music_fade_out_timer := 0.0
+var is_fading_out_music := false
 
 # Enemy Spawning
 @onready var screen_size = get_viewport_rect().size
@@ -20,13 +29,43 @@ func set_2_players(enable: bool):
 	_setup_players()
 
 func _ready():
+	# Sound setup
+	$LevelMusic.volume_db = -80
+	$LevelMusic.play()
+	$SeekDelayTimer.start()
+	fade_timer = fade_in_time
+	set_process(true)
+
 	Global.current_scene_name = "mainLvl_3"
-	print(">> Scene loaded, 2P mode is:", is_two_player_mode)
+	Global.weapon_locked_label = $HUD/WeaponLockedLabel
+	Global.unlock_weapon(3)
+	
 	_setup_health_bars()
 	_set_parallax_speed()
 	start_enemy_spawning()
 
 func _process(delta):
+	# MUSIC FADE-IN
+	if fade_timer > 0:
+		fade_timer -= delta
+		var t = 1.0 - fade_timer / fade_in_time
+		$LevelMusic.volume_db = lerp(-30, 0, t)
+
+	# MUSIC FADE-OUT
+	if is_fading_out_music:
+		music_fade_out_timer -= delta
+		var t = clamp(music_fade_out_timer / music_fade_out_time, 0, 1)
+		$LevelMusic.volume_db = lerp(0, -30, 1.0 - t)
+		if music_fade_out_timer <= 0:
+			$LevelMusic.stop()
+			is_fading_out_music = false
+			_show_weapon_unlock_screen(current_level + 1)
+
+	# Stop if track exceeds custom stop time
+	if not is_fading_out_music and $LevelMusic.get_playback_position() >= music_stop_time:
+		$LevelMusic.stop()
+
+	# GAME LOGIC
 	if not get_tree().paused and current_level < 5 and not transitioned:
 		level_time += delta
 		$HUD/LevelProgressBar.max_value = TIME_LIMIT
@@ -34,7 +73,8 @@ func _process(delta):
 
 		if level_time >= TIME_LIMIT:
 			transitioned = true
-			_show_weapon_unlock_screen(current_level + 1)
+			is_fading_out_music = true
+			music_fade_out_timer = music_fade_out_time
 
 	# Safely check if Player 1 exists
 	var p1 = get_node_or_null("CharacterBodyP1")
@@ -44,8 +84,9 @@ func _process(delta):
 		$HUD/Control/P1HealthBar.value = p1_health
 		$HUD/Control/P1PercentLabel.text = str(int((p1_health / p1_max) * 100)) + "%"
 		$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
+		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
+		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 	else:
-		# Hide Player 1 HUD if missing
 		$HUD/Control.visible = false
 
 	# Safely check if Player 2 exists
@@ -56,9 +97,16 @@ func _process(delta):
 		$HUD/Control2/P2HealthBar.value = p2_health
 		$HUD/Control2/P2PercentLabel.text = str(int((p2_health / p2_max) * 100)) + "%"
 		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
+		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
+		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 		$HUD/Control2.visible = true
 	else:
 		$HUD/Control2.visible = false
+
+func _on_seek_delay_timer_timeout() -> void:
+	if $LevelMusic.playing:
+		$LevelMusic.seek(music_start_time)
+	$SeekDelayTimer.stop()
 
 func _setup_players():
 	if is_two_player_mode:
@@ -138,7 +186,7 @@ func spawn_enemy_level3():
 	else:
 		var enemy = enemy5_scene.instantiate()
 		var y_pos = randf_range(100, screen_size.y - 100)
-		enemy.position = Vector2(screen_size.x - 150, y_pos)  # Stay near right side
+		enemy.position = Vector2(screen_size.x - 150, y_pos)
 		add_child(enemy)
 
 func spawn_arrow_formation():
