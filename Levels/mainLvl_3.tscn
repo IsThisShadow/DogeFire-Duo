@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cv044j7pf6pib"]
+[gd_scene load_steps=15 format=3 uid="uid://cv044j7pf6pib"]
 
 [ext_resource type="Script" uid="uid://daohn0vhgaan3" path="res://Levels/main_lvl_3.gd" id="1_n2xxi"]
 [ext_resource type="PackedScene" uid="uid://b44ebn5xhv34r" path="res://Players/Player scenes/characterBodyP1.tscn" id="3_n2xxi"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b71b1etq41ye2" path="res://Assets/2D Space Parallax Backgrounds/layers/nebula.png" id="7_tifgc"]
 [ext_resource type="Texture2D" uid="uid://60hvkelfx71c" path="res://Assets/2D Space Parallax Backgrounds/layers/small_stars.png" id="8_dx5eg"]
 [ext_resource type="Texture2D" uid="uid://diwt20qjdcldu" path="res://Assets/2D Space Parallax Backgrounds/layers/big_stars.png" id="9_hsyqg"]
+[ext_resource type="AudioStream" uid="uid://olqudsbbhrq4" path="res://Sounds/Level sounds/DavidKBD - Eternity Pack - 06 - God of darkness - oneshoot.ogg" id="12_3om5r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_27y8f"]
 bg_color = Color(0, 0, 0, 1)
@@ -230,4 +231,11 @@ text = "Player 1 has died!
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 2.0
 
+[node name="LevelMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_3om5r")
+
+[node name="SeekDelayTimer" type="Timer" parent="."]
+wait_time = 0.22
+
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
+[connection signal="timeout" from="SeekDelayTimer" to="." method="_on_seek_delay_timer_timeout"]
