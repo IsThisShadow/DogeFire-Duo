@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ce6l0xwmes1n1"]
+[gd_scene load_steps=8 format=3 uid="uid://ce6l0xwmes1n1"]
 
 [ext_resource type="Script" uid="uid://cx40c7b3rukvj" path="res://UI/UI scripts/controls.gd" id="1_ogp2j"]
 [ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="1_r34pi"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c4n2r81as8h4g" path="res://Assets/1. Free Hologram Interface Wenrexa/Icons/buttons.png" id="2_r34pi"]
 [ext_resource type="Texture2D" uid="uid://cc056dabnfnmd" path="res://Assets/1. Free Hologram Interface Wenrexa/Icons/SimpleShapes.png" id="3_8djbe"]
 [ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="5_ghvct"]
+[ext_resource type="AudioStream" uid="uid://du4mj0cr5myf3" path="res://Sounds/win screen sound/DavidKBD - Eternity Pack - 08 - While We Sleep - loop.ogg" id="7_n7wv0"]
 
 [node name="Control" type="Control"]
 process_mode = 3
@@ -248,5 +249,10 @@ text = "Back"
 icon = ExtResource("5_ghvct")
 flat = true
 icon_alignment = 1
+
+[node name="ControlSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_n7wv0")
+autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

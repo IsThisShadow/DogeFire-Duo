@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7fcqsn5jatcy"]
+[gd_scene load_steps=6 format=3 uid="uid://b7fcqsn5jatcy"]
 
 [ext_resource type="Script" uid="uid://chenxecmtkix7" path="res://UI/UI scripts/pause_menu_2p.gd" id="1_tf24n"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_oaebk"]
 [ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="2_uwo0j"]
 [ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="4_oh65t"]
+[ext_resource type="AudioStream" uid="uid://dvnf63v8b88o6" path="res://Sounds/mainmenu's sound/DavidKBD - Eternity Pack - 10 - Rotten Offal - loop.ogg" id="5_50epb"]
 
 [node name="Control2" type="Control"]
 process_mode = 3
@@ -89,6 +90,11 @@ text = "Quit Game
 icon = ExtResource("4_oh65t")
 flat = true
 icon_alignment = 1
+
+[node name="PauseMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_50epb")
+autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/GameTipsButton" to="." method="_on_game_tips_button_pressed"]

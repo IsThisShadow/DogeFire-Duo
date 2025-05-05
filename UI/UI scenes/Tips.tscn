@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0gyk173dbtoe"]
+[gd_scene load_steps=5 format=3 uid="uid://b0gyk173dbtoe"]
 
 [ext_resource type="Script" uid="uid://4g0p27ljmcea" path="res://UI/UI scripts/tips.gd" id="1_dgwjl"]
 [ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="1_p4vfo"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_dgwjl"]
+[ext_resource type="AudioStream" uid="uid://du4mj0cr5myf3" path="res://Sounds/win screen sound/DavidKBD - Eternity Pack - 08 - While We Sleep - loop.ogg" id="4_pqy63"]
 
 [node name="Node2D" type="Control"]
 process_mode = 3
@@ -79,5 +80,10 @@ text = "Tip three: Each level increases in time by 15 seconds"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="TipsMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_pqy63")
+autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
