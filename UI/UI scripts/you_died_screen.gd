@@ -2,7 +2,7 @@ extends Control
 
 func _ready():
 	get_tree().paused = true
-	$ColorRect/VBoxContainer/PlayAgain.grab_focus()
+	$VBoxContainer/PlayAgain.grab_focus()
 
 func _on_play_again_pressed() -> void:
 	print("Play Again pressed")

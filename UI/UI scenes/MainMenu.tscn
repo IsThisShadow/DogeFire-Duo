@@ -66,3 +66,5 @@ icon_alignment = 1
 stream = ExtResource("5_dda8w")
 autoplay = true
 parameters/looping = true
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/OnePlayerButton" to="." method="_on_one_player_button_pressed"]

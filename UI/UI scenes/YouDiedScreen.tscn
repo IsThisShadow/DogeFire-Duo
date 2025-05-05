@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bk0c8s7avefr7"]
 
 [ext_resource type="Script" uid="uid://sukvc5b8oead" path="res://UI/UI scripts/you_died_screen.gd" id="1_farrx"]
-[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://2D Space Parallax Backgrounds/layers/complete.png" id="2_gdh4s"]
+[ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="2_gdh4s"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="3_332eg"]
 
 [node name="YouDiedScreen" type="Control"]
@@ -41,28 +41,28 @@ horizontal_alignment = 1
 [node name="PlayAgain" type="Button" parent="VBoxContainer"]
 process_mode = 3
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../SeeYourScore")
 theme_override_fonts/font = ExtResource("3_332eg")
 theme_override_font_sizes/font_size = 200
-focus_neighbor_bottom = NodePath("../SeeYourScore")
 text = "Play Again"
 icon_alignment = 1
 
 [node name="SeeYourScore" type="Button" parent="VBoxContainer"]
 process_mode = 3
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_332eg")
-theme_override_font_sizes/font_size = 200
 focus_neighbor_top = NodePath("../PlayAgain")
 focus_neighbor_bottom = NodePath("../QuitGame")
+theme_override_fonts/font = ExtResource("3_332eg")
+theme_override_font_sizes/font_size = 200
 text = "See Your Score"
 icon_alignment = 1
 
 [node name="QuitGame" type="Button" parent="VBoxContainer"]
 process_mode = 3
 layout_mode = 2
+focus_neighbor_top = NodePath("../SeeYourScore")
 theme_override_fonts/font = ExtResource("3_332eg")
 theme_override_font_sizes/font_size = 200
-focus_neighbor_top = NodePath("../SeeYourScore")
 text = "Quit Game"
 icon_alignment = 1
 

@@ -47,3 +47,7 @@ func _unhandled_input(event):
 		var focused = get_viewport().gui_get_focus_owner()
 		if focused and focused is Button:
 			focused.emit_signal("pressed")
+
+
+func _on_one_player_button_pressed() -> void:
+	pass # Replace with function body.
