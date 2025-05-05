@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0gyk173dbtoe"]
+[gd_scene load_steps=6 format=3 uid="uid://b0gyk173dbtoe"]
 
 [ext_resource type="Script" uid="uid://4g0p27ljmcea" path="res://UI/UI scripts/tips.gd" id="1_dgwjl"]
 [ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="1_p4vfo"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="2_dgwjl"]
 [ext_resource type="AudioStream" uid="uid://du4mj0cr5myf3" path="res://Sounds/win screen sound/DavidKBD - Eternity Pack - 08 - While We Sleep - loop.ogg" id="4_pqy63"]
+[ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="4_qyv47"]
 
 [node name="Node2D" type="Control"]
 process_mode = 3
@@ -26,15 +27,18 @@ offset_bottom = 353.0
 expand_mode = 2
 
 [node name="BackButton" type="Button" parent="."]
-process_mode = 3
-layout_mode = 0
-offset_left = 36.0
-offset_top = 256.0
-offset_right = 273.0
-offset_bottom = 337.0
+offset_left = 260.0
+offset_top = 282.0
+offset_right = 382.0
+offset_bottom = 328.0
+focus_neighbor_top = NodePath("../ControlButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
 theme_override_fonts/font = ExtResource("2_dgwjl")
-theme_override_font_sizes/font_size = 25
-text = "Go Back"
+action_mode = 0
+text = "Back"
+icon = ExtResource("4_qyv47")
+flat = true
+icon_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -85,5 +89,3 @@ autowrap_mode = 2
 stream = ExtResource("4_pqy63")
 autoplay = true
 parameters/looping = true
-
-[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
