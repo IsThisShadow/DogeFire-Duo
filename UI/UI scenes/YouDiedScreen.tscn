@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bk0c8s7avefr7"]
+[gd_scene load_steps=5 format=3 uid="uid://bk0c8s7avefr7"]
 
 [ext_resource type="Script" uid="uid://sukvc5b8oead" path="res://UI/UI scripts/you_died_screen.gd" id="1_farrx"]
 [ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="2_gdh4s"]
 [ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="3_332eg"]
+[ext_resource type="AudioStream" uid="uid://dccqp1ikbyj3i" path="res://Sounds/dead screen sound/DavidKBD - Eternity Pack - 01 - The desolation of a civilization - loop.ogg" id="4_332eg"]
 
 [node name="YouDiedScreen" type="Control"]
 process_mode = 3
@@ -65,6 +66,11 @@ theme_override_fonts/font = ExtResource("3_332eg")
 theme_override_font_sizes/font_size = 200
 text = "Quit Game"
 icon_alignment = 1
+
+[node name="DeadMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_332eg")
+autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="VBoxContainer/PlayAgain" to="." method="_on_play_again_pressed"]
 [connection signal="pressed" from="VBoxContainer/SeeYourScore" to="." method="_on_see_your_score_pressed"]

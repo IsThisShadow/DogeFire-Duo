@@ -7,8 +7,8 @@ var p1_down_ready := true
 var p2_up_ready := true
 var p2_down_ready := true
 
-@onready var play_again_button = $PlayAgain_button
-@onready var quit_game_button = $Quit_button
+@onready var play_again_button = $VBoxContainer/PlayAgain_button
+@onready var quit_game_button = $VBoxContainer/Quit_game_button
 
 func _ready():
 	get_tree().paused = true

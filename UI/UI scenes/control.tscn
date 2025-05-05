@@ -232,6 +232,7 @@ theme_override_font_sizes/font_size = 150
 text = "CONTROLS"
 
 [node name="Label10" type="Label" parent="."]
+layout_mode = 0
 offset_left = 456.0
 offset_top = 75.0
 offset_right = 691.0
