@@ -87,18 +87,11 @@ func _on_see_score_button_pressed() -> void:
 
 
 func _on_play_again_button_pressed() -> void:
+	print("Play Again pressed")
 	get_tree().paused = false
 	Global.reset_stats()
-
-	# Clear non-autoload nodes
-	for node in get_tree().get_root().get_children():
-		if node.name != "Global":
-			node.queue_free()
-
-	await get_tree().process_frame
 	Global.pause_menu = null
-
-	call_deferred("go_to_main_menu")
+	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
 
 func go_to_main_menu():
 	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
