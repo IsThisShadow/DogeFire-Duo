@@ -6,10 +6,7 @@ var p1_up_ready := true
 var p1_down_ready := true
 var p2_up_ready := true
 var p2_down_ready := true
-var is_armed := false  #  Prevents immediate resume on re-entry
-
-@onready var tips_button = $VBoxContainer/GameTipsButton
-@onready var controls_button = $VBoxContainer/ControlsButton
+var is_armed := false  # Prevents immediate resume on re-entry
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -19,7 +16,7 @@ func _ready():
 	$VBoxContainer/ResumeButton.grab_focus()
 	get_tree().paused = true
 
-	#  Wait one frame to avoid catching old input
+	# Wait one frame to avoid catching old input
 	await get_tree().process_frame
 	is_armed = true
 
@@ -94,23 +91,3 @@ func go_to_main_menu():
 
 func _on_quit_game_button_pressed() -> void:
 	get_tree().quit()
-
-func _on_controls_button_pressed() -> void:
-	Global.return_to_pause_menu = true
-	Global.previous_scene_path = "res://UI/UI scenes/PauseMenu2P.tscn"
-	get_tree().paused = true
-	visible = false
-
-	var controls_scene = load("res://UI/UI scenes/control.tscn").instantiate()
-	controls_scene.process_mode = Node.PROCESS_MODE_ALWAYS
-	get_tree().get_root().add_child(controls_scene)
-
-func _on_game_tips_button_pressed() -> void:
-	Global.return_to_pause_menu = true
-	Global.previous_scene_path = "res://UI/UI scenes/PauseMenu2P.tscn"
-	get_tree().paused = true
-	visible = false
-
-	var tips_scene = load("res://UI/UI scenes/Tips.tscn").instantiate()
-	tips_scene.process_mode = Node.PROCESS_MODE_ALWAYS
-	get_tree().get_root().add_child(tips_scene)

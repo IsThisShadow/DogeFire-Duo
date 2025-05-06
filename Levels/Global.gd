@@ -1,7 +1,6 @@
 extends Node
 
-var unlocked_weapons = [true, true, false, false, false] #weapons one and two unlocked by default. 
-var return_to_pause_menu := false
+var unlocked_weapons = [true, true, false, false, false] # weapons one and two unlocked by default.
 
 # === Player 1 Stats ===
 var player1_health := 100
@@ -24,8 +23,6 @@ var player2_score := 0
 var is_two_player_mode := false
 var current_scene_name := ""
 var pause_menu: Control = null
-var previous_scene_path: String = ""
-
 
 var is_single_player: bool:
 	get:
@@ -36,21 +33,13 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("p1_x") or event.is_action_pressed("p2_x"):
-		# Prevent double-toggle when returning from tips/controls
-		if return_to_pause_menu:
-			return_to_pause_menu = false
-			return
-
 		if current_scene_name.begins_with("mainLvl_") or current_scene_name == "weapon_unlock_screen":
 			toggle_pause_menu()
 
-			
-			
 func unlock_weapon(index: int):
 	if index >= 0 and index < unlocked_weapons.size():
 		unlocked_weapons[index] = true
-		
-		
+
 func toggle_pause_menu():
 	if pause_menu:
 		resume_game()
@@ -72,13 +61,10 @@ func pause_game():
 	pause_menu.set_process_unhandled_input(true)
 	pause_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 
-	set_pause_mode_recursive(pause_menu)  # This enables input while paused
-
+	set_pause_mode_recursive(pause_menu)
 	get_tree().paused = true
-
 	hide_gameplay()
 
-	
 func set_pause_mode_recursive(node: Node):
 	for child in node.get_children():
 		if child is Node:
@@ -86,14 +72,12 @@ func set_pause_mode_recursive(node: Node):
 				child.pause_mode = 2  # PAUSE_MODE_PROCESS
 			set_pause_mode_recursive(child)
 
-
 func resume_game():
 	if pause_menu:
 		pause_menu.queue_free()
 		pause_menu = null
 	get_tree().paused = false
 	show_gameplay()
-
 
 func hide_gameplay():
 	for node in get_tree().get_nodes_in_group("gameplay"):

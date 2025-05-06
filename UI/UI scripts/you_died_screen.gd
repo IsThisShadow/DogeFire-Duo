@@ -65,6 +65,7 @@ func move_focus_down():
 		neighbor.grab_focus()
 
 func _on_play_again_pressed() -> void:
+
 	print("Play Again pressed")
 	get_tree().paused = false
 	Global.reset_stats()
@@ -78,7 +79,9 @@ func _on_play_again_pressed() -> void:
 	await get_tree().process_frame
 	Global.pause_menu = null
 	call_deferred("go_to_main_menu")
-
+	
+	
+	
 func go_to_main_menu():
 	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
 
