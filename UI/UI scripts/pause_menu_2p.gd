@@ -89,11 +89,11 @@ func _on_quit_game_button_pressed() -> void:
 func _on_controls_button_pressed() -> void:
 	Global.previous_scene_path = "res://UI/UI scenes/PauseMenu2P.tscn"
 	self.visible = false
-	var control_scene = load("res://UI/UI scenes/control.tscn").instantiate()
-	get_tree().current_scene.add_child(control_scene)
+	var controls_scene = load("res://UI/UI scenes/control.tscn").instantiate()
+	get_tree().get_root().add_child(controls_scene)
 
 func _on_game_tips_button_pressed() -> void:
 	Global.previous_scene_path = "res://UI/UI scenes/PauseMenu2P.tscn"
 	self.visible = false
 	var tips_scene = load("res://UI/UI scenes/Tips.tscn").instantiate()
-	get_tree().current_scene.add_child(tips_scene)
+	get_tree().get_root().add_child(tips_scene)

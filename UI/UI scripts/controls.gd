@@ -16,17 +16,22 @@ func _unhandled_input(event):
 
 func _on_back_button_pressed() -> void:
 	if Global.previous_scene_path == "res://UI/UI scenes/PauseMenu2P.tscn":
-		var pause_menu = load("res://UI/UI scenes/PauseMenu2P.tscn").instantiate()
-		get_tree().current_scene.add_child(pause_menu)
-		Global.pause_menu = pause_menu
-		pause_menu.visible = true
-		get_tree().paused = true
+		# Resume the game before showing the pause menu
+		get_tree().paused = false
 
-		queue_free()  # Remove the controls scene after returning
-
+		# Load and display the pause menu
+		var pause_menu_scene = load(Global.previous_scene_path)
+		if pause_menu_scene:
+			var pause_menu = pause_menu_scene.instantiate()
+			get_tree().current_scene.add_child(pause_menu)
+			Global.pause_menu = pause_menu
+			pause_menu.visible = true
+			get_tree().paused = true
+			queue_free()
+		else:
+			print("Failed to load PauseMenu2P scene.")
 	elif Global.previous_scene_path == "res://UI/UI scenes/mainMenu_2.tscn":
 		get_tree().change_scene_to_file("res://UI/UI scenes/mainMenu_2.tscn")
-
 	else:
 		print("Invalid previous_scene_path: " + str(Global.previous_scene_path))
 		get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
