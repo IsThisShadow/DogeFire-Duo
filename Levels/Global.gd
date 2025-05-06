@@ -1,6 +1,7 @@
 extends Node
 
 var unlocked_weapons = [true, true, false, false, false] #weapons one and two unlocked by default. 
+var return_to_pause_menu := false
 
 # === Player 1 Stats ===
 var player1_health := 100

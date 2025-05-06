@@ -7,6 +7,18 @@ var p1_down_ready := true
 var p2_up_ready := true
 var p2_down_ready := true
 
+@onready var tips_button = $VBoxContainer/TipsButton
+@onready var controls_button = $VBoxContainer/ControlsButton
+
+func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	Global.pause_menu = self
+	Global.previous_scene_path = ""
+	visible = true
+	set_process_input(true)
+	$VBoxContainer/ResumeButton.grab_focus()
+	get_tree().paused = true
+
 func _process(delta):
 	joystick_timer -= delta
 
@@ -58,14 +70,6 @@ func _unhandled_input(event):
 		if focused and focused is Button:
 			focused.emit_signal("pressed")
 
-func _ready():
-	process_mode = Node.PROCESS_MODE_ALWAYS
-	Global.pause_menu = self
-	Global.previous_scene_path = ""
-	visible = true
-	set_process_input(true)
-	$VBoxContainer/ResumeButton.grab_focus()
-
 func _input(event):
 	if event.is_action_pressed("p1_x") or event.is_action_pressed("p2_x"):
 		Global.previous_scene_path = ""
@@ -87,12 +91,14 @@ func _on_quit_game_button_pressed() -> void:
 	get_tree().quit()
 
 func _on_controls_button_pressed() -> void:
+	Global.return_to_pause_menu = true
 	Global.previous_scene_path = "res://UI/UI scenes/PauseMenu2P.tscn"
 	self.visible = false
 	var controls_scene = load("res://UI/UI scenes/control.tscn").instantiate()
 	get_tree().get_root().add_child(controls_scene)
 
 func _on_game_tips_button_pressed() -> void:
+	Global.return_to_pause_menu = true
 	Global.previous_scene_path = "res://UI/UI scenes/PauseMenu2P.tscn"
 	self.visible = false
 	var tips_scene = load("res://UI/UI scenes/Tips.tscn").instantiate()

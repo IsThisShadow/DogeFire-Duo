@@ -78,7 +78,7 @@ func _on_back_button_pressed() -> void:
 			get_tree().get_root().add_child(scene)
 			queue_free()
 		else:
-			print("Could not load previous scene at: ", Global.previous_scene_path)
+			print("Could not load pr0evious scene at: ", Global.previous_scene_path)
 	else:
 		print("No previous scene path set in Global.")
 
