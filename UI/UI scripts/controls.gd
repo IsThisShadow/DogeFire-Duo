@@ -26,12 +26,11 @@ func _on_back_button_pressed() -> void:
 			pause_menu.visible = true
 			get_tree().paused = true
 
-	elif Global.previous_scene_path == "res://UI/UI scenes/MainMenu_2.tscn":
-		get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu_2.tscn")
+	elif Global.previous_scene_path == "res://UI/UI scenes/mainMenu_2.tscn":
+		get_tree().change_scene_to_file("res://UI/UI scenes/mainMenu_2.tscn")
 
 	else:
-		# Final fallback — avoid crash if path is missing
-		print("No valid previous scene path, returning to main menu as fallback.")
+		print("Invalid or missing previous_scene_path, returning to main menu")
 		get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
 
 	Global.previous_scene_path = ""

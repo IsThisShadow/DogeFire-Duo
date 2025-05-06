@@ -65,6 +65,7 @@ func _ready():
 	# Adjust path to match structure
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	Global.pause_menu = self 
+	Global.previous_scene_path = ""
 	visible = true
 	set_process_input(true)
 	$VBoxContainer/ResumeButton.grab_focus()
