@@ -83,11 +83,12 @@ func set_pause_mode_recursive(node: Node):
 
 
 func resume_game():
-	get_tree().paused = false
 	if pause_menu:
 		pause_menu.queue_free()
 		pause_menu = null
+	get_tree().paused = false
 	show_gameplay()
+
 
 func hide_gameplay():
 	for node in get_tree().get_nodes_in_group("gameplay"):

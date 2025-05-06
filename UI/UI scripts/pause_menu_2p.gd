@@ -68,11 +68,14 @@ func _unhandled_input(event):
 		var focused = get_viewport().gui_get_focus_owner()
 		if focused and focused is Button:
 			focused.emit_signal("pressed")
-
+			
 func _input(event):
 	if event.is_action_pressed("p1_x") or event.is_action_pressed("p2_x"):
-		Global.previous_scene_path = ""
-		Global.resume_game()
+		# Only resume if we're in an active pause menu, not coming back from Tips/Controls
+		if visible:
+			Global.previous_scene_path = ""
+			Global.resume_game()
+
 
 func _on_resume_button_pressed() -> void:
 	Global.previous_scene_path = ""
