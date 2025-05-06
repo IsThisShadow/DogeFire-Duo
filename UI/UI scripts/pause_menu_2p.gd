@@ -1,13 +1,11 @@
 extends Control
 
-
 var joystick_cooldown := 0.2
 var joystick_timer := 0.0
 var p1_up_ready := true
 var p1_down_ready := true
 var p2_up_ready := true
 var p2_down_ready := true
-
 
 func _process(delta):
 	joystick_timer -= delta
@@ -53,18 +51,16 @@ func move_focus_down():
 	if neighbor_path:
 		var neighbor = focused.get_node(neighbor_path)
 		neighbor.grab_focus()
-		
+
 func _unhandled_input(event):
 	if event.is_action_pressed("p1_a") or event.is_action_pressed("p2_a"):
 		var focused = get_viewport().gui_get_focus_owner()
 		if focused and focused is Button:
 			focused.emit_signal("pressed")
 
-
 func _ready():
-	# Adjust path to match structure
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	Global.pause_menu = self 
+	Global.pause_menu = self
 	Global.previous_scene_path = ""
 	visible = true
 	set_process_input(true)
@@ -89,13 +85,15 @@ func go_to_main_menu():
 
 func _on_quit_game_button_pressed() -> void:
 	get_tree().quit()
-	
+
 func _on_controls_button_pressed() -> void:
 	Global.previous_scene_path = "res://UI/UI scenes/PauseMenu2P.tscn"
-	self.visible = false  # Hide pause menu
-	get_tree().change_scene_to_file("res://UI/UI scenes/control.tscn")
+	self.visible = false
+	var control_scene = load("res://UI/UI scenes/control.tscn").instantiate()
+	get_tree().current_scene.add_child(control_scene)
 
 func _on_game_tips_button_pressed() -> void:
 	Global.previous_scene_path = "res://UI/UI scenes/PauseMenu2P.tscn"
-	self.visible = false  #  Hide pause menu
-	get_tree().change_scene_to_file("res://UI/UI scenes/Tips.tscn")
+	self.visible = false
+	var tips_scene = load("res://UI/UI scenes/Tips.tscn").instantiate()
+	get_tree().current_scene.add_child(tips_scene)
