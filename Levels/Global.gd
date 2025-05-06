@@ -1,7 +1,7 @@
 extends Node
 
 var unlocked_weapons = [true, true, false, false, false] # weapons one and two unlocked by default.
-
+var previous_scene_path: String = ""
 # === Player 1 Stats ===
 var player1_health := 100
 var player1_max_health := 100
