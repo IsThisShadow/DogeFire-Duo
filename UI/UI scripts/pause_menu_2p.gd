@@ -6,8 +6,9 @@ var p1_up_ready := true
 var p1_down_ready := true
 var p2_up_ready := true
 var p2_down_ready := true
+var is_armed := false  #  Prevents immediate resume on re-entry
 
-@onready var tips_button = $VBoxContainer/TipsButton
+@onready var tips_button = $VBoxContainer/GameTipsButton
 @onready var controls_button = $VBoxContainer/ControlsButton
 
 func _ready():
@@ -17,6 +18,10 @@ func _ready():
 	set_process_input(true)
 	$VBoxContainer/ResumeButton.grab_focus()
 	get_tree().paused = true
+
+	#  Wait one frame to avoid catching old input
+	await get_tree().process_frame
+	is_armed = true
 
 func _process(delta):
 	joystick_timer -= delta
@@ -68,14 +73,12 @@ func _unhandled_input(event):
 		var focused = get_viewport().gui_get_focus_owner()
 		if focused and focused is Button:
 			focused.emit_signal("pressed")
-			
+
 func _input(event):
-	if event.is_action_pressed("p1_x") or event.is_action_pressed("p2_x"):
-		# Only resume if we're in an active pause menu, not coming back from Tips/Controls
+	if is_armed and (event.is_action_pressed("p1_x") or event.is_action_pressed("p2_x")):
 		if visible:
 			Global.previous_scene_path = ""
 			Global.resume_game()
-
 
 func _on_resume_button_pressed() -> void:
 	Global.previous_scene_path = ""
@@ -95,13 +98,19 @@ func _on_quit_game_button_pressed() -> void:
 func _on_controls_button_pressed() -> void:
 	Global.return_to_pause_menu = true
 	Global.previous_scene_path = "res://UI/UI scenes/PauseMenu2P.tscn"
-	self.visible = false
+	get_tree().paused = true
+	visible = false
+
 	var controls_scene = load("res://UI/UI scenes/control.tscn").instantiate()
+	controls_scene.process_mode = Node.PROCESS_MODE_ALWAYS
 	get_tree().get_root().add_child(controls_scene)
 
 func _on_game_tips_button_pressed() -> void:
 	Global.return_to_pause_menu = true
 	Global.previous_scene_path = "res://UI/UI scenes/PauseMenu2P.tscn"
-	self.visible = false
+	get_tree().paused = true
+	visible = false
+
 	var tips_scene = load("res://UI/UI scenes/Tips.tscn").instantiate()
+	tips_scene.process_mode = Node.PROCESS_MODE_ALWAYS
 	get_tree().get_root().add_child(tips_scene)

@@ -36,9 +36,14 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("p1_x") or event.is_action_pressed("p2_x"):
+		# Prevent double-toggle when returning from tips/controls
+		if return_to_pause_menu:
+			return_to_pause_menu = false
+			return
+
 		if current_scene_name.begins_with("mainLvl_") or current_scene_name == "weapon_unlock_screen":
 			toggle_pause_menu()
-			
+
 			
 			
 func unlock_weapon(index: int):
