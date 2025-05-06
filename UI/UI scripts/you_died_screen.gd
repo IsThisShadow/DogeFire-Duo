@@ -11,6 +11,9 @@ func _ready():
 	get_tree().paused = true
 	set_process(true)
 	set_process_unhandled_input(true)
+
+	await get_tree().process_frame  # Let any held input be released
+
 	$VBoxContainer/PlayAgain.grab_focus()
 
 func _process(delta):
@@ -65,23 +68,12 @@ func move_focus_down():
 		neighbor.grab_focus()
 
 func _on_play_again_pressed() -> void:
-
 	print("Play Again pressed")
 	get_tree().paused = false
 	Global.reset_stats()
-
-	queue_free()
-
-	for node in get_tree().get_root().get_children():
-		if node.name != "Global":
-			node.queue_free()
-
-	await get_tree().process_frame
 	Global.pause_menu = null
-	call_deferred("go_to_main_menu")
-	
-	
-	
+	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
+
 func go_to_main_menu():
 	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
 
