@@ -14,11 +14,8 @@ func _ready():
 	get_tree().paused = true
 	set_process(true)
 	set_process_unhandled_input(true)
-	
-	# Connect button I just wanted to try it this way
-	quit_game_button.pressed.connect(_on_quit_game_pressed)
 
-	# Start focus on play again
+	quit_game_button.pressed.connect(_on_quit_game_pressed)
 	play_again_button.grab_focus()
 
 func _process(delta):
@@ -77,21 +74,27 @@ func _on_quit_game_pressed():
 
 func _on_see_score_button_pressed() -> void:
 	Global.previous_scene_path = "res://UI/UI scenes/WinScreen.tscn"
-
 	var score_scene = load("res://UI/UI scenes/ScoreScene.tscn").instantiate()
 	score_scene.player1_score = Global.player1_score
 	score_scene.player2_score = Global.player2_score
-	score_scene.two_player_mode = Global.is_two_player_mode
 	get_tree().get_root().add_child(score_scene)
 	queue_free()
 
-
 func _on_play_again_button_pressed() -> void:
 	print("Play Again pressed")
+	reset_to_main_menu()
+
+func reset_to_main_menu():
 	get_tree().paused = false
 	Global.reset_stats()
 	Global.pause_menu = null
-	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
 
-func go_to_main_menu():
-	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
+	# Let any current UI cleanup occur first
+	await get_tree().create_timer(0.1).timeout
+
+	# Use change_scene_to_packed to guarantee transition
+	var main_menu_packed = load("res://UI/UI scenes/MainMenu.tscn") as PackedScene
+	if main_menu_packed:
+		get_tree().change_scene_to_packed(main_menu_packed)
+	else:
+		push_error("Failed to load packed scene: MainMenu.tscn")

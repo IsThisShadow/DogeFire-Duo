@@ -209,6 +209,7 @@ text = "press to equip"
 horizontal_alignment = 1
 
 [node name="ReadyWrapperP1" type="Node2D" parent="UIBox"]
+position = Vector2(-11, -1)
 
 [node name="Player1ReadyLabel" type="Label" parent="UIBox/ReadyWrapperP1"]
 offset_left = -184.0

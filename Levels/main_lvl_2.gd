@@ -4,7 +4,7 @@ var is_two_player_mode := false
 var current_level := 2
 
 var level_time := 0.0
-const TIME_LIMIT := 5.0
+const TIME_LIMIT := 20.0
 var transitioned := false
 
 # Music control

@@ -1,5 +1,6 @@
 extends Control
 
+
 const SAVE_PATH_1P := "user://leaderboard_1p.json"
 const SAVE_PATH_2P := "user://leaderboard_2p.json"
 
@@ -15,7 +16,6 @@ var player2_score := 0
 
 func _ready():
 	get_tree().paused = true
-
 	back_button.grab_focus()
 	set_process_input(true)
 

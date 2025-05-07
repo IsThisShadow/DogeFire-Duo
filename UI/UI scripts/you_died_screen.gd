@@ -85,7 +85,6 @@ func _on_see_your_score_pressed() -> void:
 		var score_scene = packed_scene.instantiate()
 		score_scene.player1_score = Global.player1_score
 		score_scene.player2_score = Global.player2_score
-		score_scene.two_player_mode = Global.is_two_player_mode
 		get_tree().get_root().add_child(score_scene)
 		queue_free()
 

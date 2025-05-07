@@ -110,15 +110,14 @@ func check_for_game_over():
 
 func show_you_died_screen():
 	await get_tree().create_timer(0.5).timeout
-	var scene = load("res://UI/UI scenes/YouDiedScreen.tscn")
-	if scene:
-		var screen = scene.instantiate()
-		screen.set_process_input(true)
-		screen.set_process_unhandled_input(true)
-		get_tree().get_root().add_child(screen)
-		hide_gameplay()
-	else:
-		print("YouDiedScreen scene not found!")
+
+	var loading_screen = preload("res://UI/UI scenes/loading_screen.tscn").instantiate()
+	loading_screen.target_scene_path = "res://UI/UI scenes/YouDiedScreen.tscn"
+
+	get_tree().get_root().add_child(loading_screen)
+	get_tree().current_scene.queue_free()
+	get_tree().current_scene = loading_screen
+
 
 var weapon_locked_label: Label = null
 
