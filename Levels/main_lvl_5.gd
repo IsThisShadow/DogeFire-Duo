@@ -4,7 +4,7 @@ var is_two_player_mode := false
 var current_level := 5
 
 var level_time := 0.0
-const TIME_LIMIT := 100.0
+const TIME_LIMIT := 5.0
 var transitioned := false
 
 # Music control
@@ -158,10 +158,14 @@ func _set_collision_polygons_enabled(node: Node, enabled: bool):
 
 func _show_win_screen():
 	await get_tree().create_timer(1.0).timeout
-	var win_scene = preload("res://UI/UI scenes/WinScreen.tscn").instantiate()
-	get_tree().get_root().add_child(win_scene)
+
+	var loading_screen = preload("res://UI/UI scenes/loading_screen.tscn").instantiate()
+	loading_screen.target_scene_path = "res://UI/UI scenes/WinScreen.tscn"
+
+	get_tree().get_root().add_child(loading_screen)
 	get_tree().current_scene.queue_free()
-	get_tree().current_scene = win_scene
+	get_tree().current_scene = loading_screen
+
 
 # --- Enemy Spawning System ---
 
