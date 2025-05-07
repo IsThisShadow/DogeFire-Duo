@@ -1,0 +1,21 @@
+During this project, 
+I spent most of my time improving and rewriting code written by other team members so that it worked better with the gameplay. 
+I didn’t always make brand new systems, but I made sure the systems we already had were cleaner, more functional, 
+and worked the way we needed them to during gameplay. My main goal was to make everything more fluid and responsive.
+
+One of the biggest struggles I had was coding the UI and the revive system in two-player mode. 
+Getting both players to work together with a shared revive logic while still keeping things understandable was hard. 
+It became even harder when I had to get the one-player mode to work with the heart system seperate from the revive system. 
+Managing three hearts for one player and switching to revives for two players wasn’t just a simple toggle.
+Another struggle I had was meeting the polymorphism and the absteaction requirments. 
+
+A big surprise for me was how complex reviving became when both players were involved.
+I expected it to be a quick thing to implement, but it took a lot more logic than I thought. For example, 
+checking if the other player was still alive, what to do if both players require a revive, 
+if one player had already died then what to do when teammate gets downed ,and then handling when to allow revives or not,
+made things more complicated than expected.
+
+Looking back, I learned a lot about keeping code flexible so it works for more than one setup. 
+I also got better at thinking about how different parts of the game (like the UI, player stats,
+and level flow) all connect. It was a good reminder that sometimes “fixing” things means rewriting
+and improving what’s already there instead of starting from scratch.
