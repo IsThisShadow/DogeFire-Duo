@@ -84,17 +84,30 @@ func _on_play_again_button_pressed() -> void:
 	print("Play Again pressed")
 	reset_to_main_menu()
 
+
 func reset_to_main_menu():
 	get_tree().paused = false
 	Global.reset_stats()
 	Global.pause_menu = null
 
-	# Let any current UI cleanup occur first
-	await get_tree().create_timer(0.1).timeout
+	var root = get_tree().get_root()
 
-	# Use change_scene_to_packed to guarantee transition
-	var main_menu_packed = load("res://UI/UI scenes/MainMenu.tscn") as PackedScene
-	if main_menu_packed:
-		get_tree().change_scene_to_packed(main_menu_packed)
+	# Remove all non-autoload nodes (protect Global)
+	for child in root.get_children():
+		if child.name != "Global":  # adjust this name to match your autoload
+			child.queue_free()
+
+	await get_tree().create_timer(0.1).timeout  # let all scenes clear
+
+	# Load the main menu
+	var scene = load("res://UI/UI scenes/MainMenu.tscn") as PackedScene
+	if scene:
+		var instance = scene.instantiate()
+		root.add_child(instance)
+		get_tree().current_scene = instance
+
+		# Safety: reset Global fields if still valid
+		if is_instance_valid(Global):
+			Global.current_scene_name = "MainMenu"
 	else:
-		push_error("Failed to load packed scene: MainMenu.tscn")
+		push_error("MainMenu.tscn failed to load")

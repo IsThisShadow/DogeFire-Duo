@@ -4,7 +4,7 @@ var is_two_player_mode := false
 var current_level := 1
 
 var level_time := 0.0
-const TIME_LIMIT := 20.0
+const TIME_LIMIT := 5.0
 const ENEMY_SPAWN_MARGIN = 50
 var transitioned := false
 
