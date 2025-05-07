@@ -12,6 +12,7 @@ var p2_up_ready := true
 var p2_down_ready := true
 
 func _ready():
+	Global.pause_menu = self
 	$UIFadeGroup/ReadyWrapperP1/ReadyLabelP1.visible = false
 	$UIFadeGroup/ReadyWrapperP2/ReadyLabelP2.visible = false
 
@@ -29,39 +30,31 @@ func _process(delta):
 
 	joystick_timer -= delta
 
-	# P1 Up
-	if Input.is_action_pressed("p1_up"):
-		if p1_up_ready and joystick_timer <= 0.0:
-			move_focus_up()
-			joystick_timer = joystick_cooldown
-			p1_up_ready = false
+	if Input.is_action_pressed("p1_up") and p1_up_ready and joystick_timer <= 0.0:
+		move_focus_up()
+		joystick_timer = joystick_cooldown
+		p1_up_ready = false
 	else:
 		p1_up_ready = true
 
-	# P1 Down
-	if Input.is_action_pressed("p1_down"):
-		if p1_down_ready and joystick_timer <= 0.0:
-			move_focus_down()
-			joystick_timer = joystick_cooldown
-			p1_down_ready = false
+	if Input.is_action_pressed("p1_down") and p1_down_ready and joystick_timer <= 0.0:
+		move_focus_down()
+		joystick_timer = joystick_cooldown
+		p1_down_ready = false
 	else:
 		p1_down_ready = true
 
-	# P2 Up
-	if Input.is_action_pressed("p2_up"):
-		if p2_up_ready and joystick_timer <= 0.0:
-			move_focus_up()
-			joystick_timer = joystick_cooldown
-			p2_up_ready = false
+	if Input.is_action_pressed("p2_up") and p2_up_ready and joystick_timer <= 0.0:
+		move_focus_up()
+		joystick_timer = joystick_cooldown
+		p2_up_ready = false
 	else:
 		p2_up_ready = true
 
-	# P2 Down
-	if Input.is_action_pressed("p2_down"):
-		if p2_down_ready and joystick_timer <= 0.0:
-			move_focus_down()
-			joystick_timer = joystick_cooldown
-			p2_down_ready = false
+	if Input.is_action_pressed("p2_down") and p2_down_ready and joystick_timer <= 0.0:
+		move_focus_down()
+		joystick_timer = joystick_cooldown
+		p2_down_ready = false
 	else:
 		p2_down_ready = true
 
@@ -154,11 +147,7 @@ func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
 
 func _on_control_button_pressed() -> void:
-	Global.resume_game()
-	Global.previous_scene_path = get_tree().current_scene.scene_file_path
 	get_tree().change_scene_to_file("res://UI/UI scenes/control.tscn")
 
 func _on_tips_button_pressed() -> void:
-	Global.resume_game()
-	Global.previous_scene_path = get_tree().current_scene.scene_file_path
 	get_tree().change_scene_to_file("res://UI/UI scenes/Tips.tscn")

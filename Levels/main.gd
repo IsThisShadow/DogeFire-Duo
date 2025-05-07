@@ -89,13 +89,13 @@ func _process(delta):
 	var p1_health = $CharacterBodyP1.p1_health
 	var p1_max = $CharacterBodyP1.p1_maxHealth
 	$HUD/Control/P1HealthBar.value = p1_health
-	$HUD/Control/P1PercentLabel.text = str(int((p1_health / p1_max) * 100)) + "%"
+	$HUD/Control/P1PercentLabel.text = str(int((p1_health)))
 
 	if is_two_player_mode:
 		var p2_health = $CharacterBodyP2.p2_health
 		var p2_max = $CharacterBodyP2.p2_maxHealth
 		$HUD/Control2/P2HealthBar.value = p2_health
-		$HUD/Control2/P2PercentLabel.text = str(int((p2_health / p2_max) * 100)) + "%"
+		$HUD/Control2/P2PercentLabel.text = str(int((p2_health)))
 		$HUD/Control2.visible = true
 	else:
 		$HUD/Control2.visible = false

@@ -28,40 +28,17 @@ expand_mode = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 process_mode = 3
 layout_mode = 0
-offset_left = 237.0
-offset_top = 44.0
-offset_right = 412.0
-offset_bottom = 319.0
+offset_left = 238.0
+offset_top = 90.0
+offset_right = 413.0
+offset_bottom = 267.0
 
 [node name="ResumeButton" type="Button" parent="VBoxContainer"]
 process_mode = 3
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../GameTipsButton")
-theme_override_fonts/font = ExtResource("2_oaebk")
-text = "Resume
-"
-icon = ExtResource("4_oh65t")
-flat = true
-icon_alignment = 1
-
-[node name="GameTipsButton" type="Button" parent="VBoxContainer"]
-process_mode = 3
-layout_mode = 2
-focus_neighbor_top = NodePath("../ResumeButton")
-focus_neighbor_bottom = NodePath("../ControlsButton")
-theme_override_fonts/font = ExtResource("2_oaebk")
-text = "Game Tips"
-icon = ExtResource("4_oh65t")
-flat = true
-icon_alignment = 1
-
-[node name="ControlsButton" type="Button" parent="VBoxContainer"]
-process_mode = 3
-layout_mode = 2
-focus_neighbor_top = NodePath("../GameTipsButton")
 focus_neighbor_bottom = NodePath("../ReturnMainMenuButton")
 theme_override_fonts/font = ExtResource("2_oaebk")
-text = "Controls
+text = "Resume
 "
 icon = ExtResource("4_oh65t")
 flat = true
@@ -71,7 +48,7 @@ icon_alignment = 1
 process_mode = 3
 layout_direction = 2
 layout_mode = 2
-focus_neighbor_top = NodePath("../ControlsButton")
+focus_neighbor_top = NodePath("../ResumeButton")
 focus_neighbor_bottom = NodePath("../QuitGameButton")
 theme_override_fonts/font = ExtResource("2_oaebk")
 text = "Return to 
@@ -91,13 +68,23 @@ icon = ExtResource("4_oh65t")
 flat = true
 icon_alignment = 1
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+offset_left = 250.0
+offset_top = 44.0
+offset_right = 1050.0
+offset_bottom = 200.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("2_oaebk")
+theme_override_font_sizes/font_size = 120
+text = "Game Paused"
+horizontal_alignment = 1
+
 [node name="PauseMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_50epb")
 autoplay = true
 parameters/looping = true
 
 [connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/GameTipsButton" to="." method="_on_game_tips_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/ControlsButton" to="." method="_on_controls_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ReturnMainMenuButton" to="." method="_on_return_main_menu_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]

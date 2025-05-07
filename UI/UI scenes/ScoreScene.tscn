@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bn55ky07ui8bb"]
+[gd_scene load_steps=6 format=3 uid="uid://bn55ky07ui8bb"]
 
 [ext_resource type="Script" uid="uid://co00ee5866u51" path="res://UI/UI scripts/score_scene.gd" id="1_b0rgd"]
 [ext_resource type="Texture2D" uid="uid://mtpli3e0i76s" path="res://Assets/2D Space Parallax Backgrounds/layers/complete.png" id="1_v1t45"]
+[ext_resource type="FontFile" uid="uid://q6c0g5avw7b" path="res://Tektur_MainFont/Tektur-VariableFont_wdth,wght.ttf" id="3_epmth"]
 [ext_resource type="AudioStream" uid="uid://dccqp1ikbyj3i" path="res://Sounds/dead screen sound/DavidKBD - Eternity Pack - 01 - The desolation of a civilization - loop.ogg" id="3_kl3c6"]
+[ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="4_e107g"]
 
 [node name="ScoreScene" type="Control"]
 process_mode = 3
@@ -28,38 +30,49 @@ offset_left = 46.0
 offset_top = 11.0
 offset_right = 146.0
 offset_bottom = 34.0
+theme_override_fonts/font = ExtResource("3_epmth")
 text = "P1 Score: "
 
 [node name="Player2ScoreLabel" type="Label" parent="."]
 layout_mode = 2
 offset_left = 443.0
-offset_top = 11.0
+offset_top = 10.0
 offset_right = 543.0
-offset_bottom = 34.0
+offset_bottom = 33.0
+theme_override_fonts/font = ExtResource("3_epmth")
 text = "P2 Score: "
 
 [node name="BackButton" type="Button" parent="."]
 layout_mode = 2
-offset_left = 272.0
-offset_top = 324.0
-offset_right = 372.0
-offset_bottom = 355.0
+offset_left = 235.0
+offset_top = 304.0
+offset_right = 357.0
+offset_bottom = 350.0
 text = "Back
 "
+icon = ExtResource("4_e107g")
+flat = true
+icon_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 268.0
-offset_top = 1.0
-offset_right = 368.0
-offset_bottom = 96.0
+offset_left = 215.0
+offset_top = 3.0
+offset_right = 381.0
+offset_bottom = 98.0
 
-[node name="LeaderboardList" type="Label" parent="VBoxContainer"]
+[node name="LeaderboardTitle" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Leaderboard
+theme_override_fonts/font = ExtResource("3_epmth")
+text = "Leaderboard 2 player
 "
 
 [node name="ItemList" type="ItemList" parent="VBoxContainer"]
+layout_mode = 2
+auto_height = true
+
+[node name="ItemList2P" type="ItemList" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 auto_height = true
 

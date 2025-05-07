@@ -3,11 +3,10 @@ extends Control
 @onready var back_button = $VBoxContainer/BackButton
 
 func _ready():
-	await get_tree().process_frame
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	set_process_input(true)
 	back_button.grab_focus()
 
-	# Connect the pressed signal if it's not already
 	if not back_button.is_connected("pressed", Callable(self, "_on_back_button_pressed")):
 		back_button.connect("pressed", Callable(self, "_on_back_button_pressed"))
 
@@ -16,34 +15,19 @@ func _unhandled_input(event):
 		back_button.emit_signal("pressed")
 
 func _on_back_button_pressed() -> void:
-	if Global.previous_scene_path != "":
-		Global.resume_game()
+	if Global.previous_scene_path == "res://UI/UI scenes/PauseMenu2P.tscn":
+		# Leave return_to_pause_menu = true so Global.gd ignores toggle input once
+		var pause_menu_scene = load(Global.previous_scene_path)
+		if pause_menu_scene:
+			var pause_menu = pause_menu_scene.instantiate()
+			get_tree().get_root().add_child(pause_menu)
 
-		var scene_res = load(Global.previous_scene_path)
-		if scene_res:
-			var level_scene = scene_res.instantiate()
-
-			# Replace current scene with the level
-			var current = get_tree().current_scene
-			if current:
-				current.queue_free()
-
-			get_tree().get_root().add_child(level_scene)
-			get_tree().current_scene = level_scene
+			Global.pause_menu = pause_menu
+			get_tree().paused = true
 
 			await get_tree().process_frame
-			await get_tree().process_frame
-
-			# Manually instance the pause menu and add it
-			if Global.previous_scene_path == "res://UI/UI scenes/PauseMenu2P.tscn":
-				var pause_menu_res = load(Global.previous_scene_path)
-				if pause_menu_res:
-					var pause_menu = pause_menu_res.instantiate()
-					level_scene.add_child(pause_menu)
-					pause_menu.visible = true
+			queue_free()  # Clean up this Controls scene
 		else:
-			print("Failed to load scene:", Global.previous_scene_path)
-
-		Global.previous_scene_path = ""
+			print("Failed to load PauseMenu2P.tscn")
 	else:
-		print("No previous scene path set")
+		get_tree().change_scene_to_file("res://UI/UI scenes/mainMenu_2.tscn")
