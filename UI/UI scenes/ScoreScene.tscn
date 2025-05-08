@@ -30,7 +30,9 @@ offset_left = 46.0
 offset_top = 11.0
 offset_right = 146.0
 offset_bottom = 34.0
+scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("3_epmth")
+theme_override_font_sizes/font_size = 70
 text = "P1 Score: "
 
 [node name="Player2ScoreLabel" type="Label" parent="."]
@@ -39,8 +41,30 @@ offset_left = 443.0
 offset_top = 10.0
 offset_right = 543.0
 offset_bottom = 33.0
+scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("3_epmth")
+theme_override_font_sizes/font_size = 70
 text = "P2 Score: "
+
+[node name="P1KillsLabel" type="Label" parent="."]
+offset_left = 46.0
+offset_top = 72.0
+offset_right = 373.0
+offset_bottom = 163.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("3_epmth")
+theme_override_font_sizes/font_size = 70
+text = "P1 Kills: 0"
+
+[node name="P2KillsLabel" type="Label" parent="."]
+offset_left = 442.0
+offset_top = 72.0
+offset_right = 769.0
+offset_bottom = 163.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("3_epmth")
+theme_override_font_sizes/font_size = 70
+text = "P2 Kills: 0"
 
 [node name="BackButton" type="Button" parent="."]
 layout_mode = 2

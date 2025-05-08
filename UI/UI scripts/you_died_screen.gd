@@ -71,7 +71,8 @@ func move_focus_down():
 		neighbor.grab_focus()
 
 func _on_play_again_pressed() -> void:
-	print("Play Again pressed")
+	Global.p1_kills = 0
+	Global.p2_kills = 0
 	Global.reset_game_to_main_menu()
 
 func _on_see_your_score_pressed() -> void:

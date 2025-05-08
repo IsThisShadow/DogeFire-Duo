@@ -16,7 +16,8 @@ var transitioned := false
 var fade_timer := 0.0
 var music_fade_out_timer := 0.0
 var is_fading_out_music := false
-
+@onready var p1_kills_label = $HUD/Control/P1KillsHUDLabel
+@onready var p2_kills_label = $HUD/Control2/P2KillsHUDLabel
 # Enemy spawning setup
 @onready var screen_size = get_viewport_rect().size
 var enemy1_scene = preload("res://enemies/enemy scenes/Enemy_1.tscn")
@@ -102,13 +103,16 @@ func _process(delta):
 
 	# Scores & weapon display
 	$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
+	p1_kills_label.text = "P1 Kills: %d" % Global.p1_kills
 	$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
 	$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 	if is_two_player_mode:
 		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
 		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
-
+		p2_kills_label.text = "P2 Kills: %d" % Global.p2_kills
+		
+		
 func _setup_players():
 	if is_two_player_mode:
 		print(">> Enabling Player 2")

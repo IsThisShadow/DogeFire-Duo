@@ -87,4 +87,6 @@ func _on_see_score_button_pressed() -> void:
 
 
 func _on_play_again_button_pressed() -> void:
+	Global.p1_kills = 0
+	Global.p2_kills = 0
 	Global.reset_game_to_main_menu()

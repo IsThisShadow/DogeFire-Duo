@@ -13,6 +13,11 @@ var player2_score := 0
 @onready var leaderboard_list_2p = $VBoxContainer/ItemList2P
 @onready var back_button = $BackButton
 @onready var leaderboard_title = $VBoxContainer/LeaderboardTitle
+@onready var p1_kills_label = $P1KillsLabel
+@onready var p2_kills_label = $P2KillsLabel
+
+
+
 
 func _ready():
 	back_button.grab_focus()
@@ -22,9 +27,11 @@ func _ready():
 		back_button.connect("pressed", Callable(self, "_on_back_button_pressed"))
 
 	update_score_display()
+	update_kill_display()
 	leaderboard_title.text = "Leaderboard - 2 Player" if Global.is_two_player_mode else "Leaderboard - 1 Player"
 	save_new_score()
 	update_leaderboard_display()
+
 
 func update_score_display():
 	player1_label.text = "Player 1 Score: %d" % Global.player1_score
@@ -74,6 +81,17 @@ func update_leaderboard_display():
 		list_to_use.add_item("%d. %d pts" % [i + 1, leaderboard[i]])
 
 	list_to_use.show()
+
+
+func update_kill_display():
+	p1_kills_label.text = "P1 Kills: %d" % Global.p1_kills
+	if Global.is_two_player_mode:
+		p2_kills_label.text = "P2 Kills: %d" % Global.p2_kills
+		p2_kills_label.show()
+	else:
+		p2_kills_label.hide()
+
+
 
 func _on_back_button_pressed() -> void:
 	get_tree().paused = false  # Ensure input works
