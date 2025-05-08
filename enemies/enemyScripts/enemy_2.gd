@@ -30,8 +30,10 @@ func die(shooter_player := 1):
 
 	# Correctly give points
 	if shooter_player == 1:
+		Global.p1_kills += 1
 		Global.player1_score += 30
 	elif shooter_player == 2:
+		Global.p2_kills += 1
 		Global.player2_score += 30
 
 	await $AnimationPlayer_EN_2.animation_finished

@@ -18,16 +18,5 @@ func take_damage(amount: int, shooter_player := 1) -> void:
 		die(shooter_player)
 
 func die(shooter_player := 1) -> void:
-	if is_dead:
-		return
-
-	is_dead = true
-
-	if shooter_player == 1:
-		Global.p1_kills += 1
-	elif shooter_player == 2:
-		Global.p2_kills += 1
-		
-		
 	assert(false, "Child class must override die() method")
 	

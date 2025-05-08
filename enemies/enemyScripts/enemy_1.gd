@@ -36,7 +36,9 @@ func die(shooter_player := 1):
 	
 	if shooter_player == 1:
 		Global.player1_score += 15
+		Global.p1_kills += 1
 	elif shooter_player == 2:
+		Global.p2_kills += 1
 		Global.player2_score += 15
 
 
