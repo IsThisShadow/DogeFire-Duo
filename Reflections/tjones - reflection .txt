@@ -1,9 +1,0 @@
-For this project I was mainly tasked with making sure that the code worked and that the merges went smoothly.
-I also made the first prototype for the health system, including the flashing red indecating you've been hit and giving invecenablitly
-I also made the tip screen and the base for the other screens like the menu, controls, death, and win screen
-I ende up making the test player that would then be scrapped and used for the main player for the health and collions
-The main issue I ever had working on this project was at the start when we all finshed the basic requirments for each branch. 
-And needed to merge, it took mulitple different test branches to get them to merh properly without any issues. But after that
-I would say it was smooth sailing. I got to work with the basic node I'm used to which made proggrsion on my side fast
-The font was easy to change, and the modles where easy to work with.
-espcially with Dan carrying most of the code whenever he got him.
