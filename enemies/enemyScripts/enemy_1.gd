@@ -65,7 +65,7 @@ func spawn_damage_number(amount: int):
 	label.position = Vector2(0, -20)
 
 func apply_escape_penalty():
-	var penalty_amount = 20
+	var penalty_amount = 5
 
 	if Global.is_single_player:
 		Global.player1_score -= penalty_amount

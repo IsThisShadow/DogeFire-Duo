@@ -63,7 +63,7 @@ func spawn_damage_number(amount: int):
 
 
 func apply_escape_penalty():
-	var penalty_amount = 30  # or whatever penalty you want
+	var penalty_amount = 10  # or whatever penalty you want
 
 	if Global.is_single_player:
 		Global.player1_score -= penalty_amount

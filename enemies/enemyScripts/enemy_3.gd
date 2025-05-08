@@ -75,12 +75,12 @@ func spawn_damage_number(amount: int):
 
 func apply_penalty():
 	if Global.is_two_player_mode:
-		Global.player1_score = max(Global.player1_score - 15, 0)
-		Global.player2_score = max(Global.player2_score - 15, 0)
+		Global.player1_score = max(Global.player1_score - 5, 0)
+		Global.player2_score = max(Global.player2_score - 5, 0)
 	else:
-		Global.player1_score = max(Global.player1_score - 20, 0)
+		Global.player1_score = max(Global.player1_score - 5, 0)
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	Global.player1_score -= 10  # Subtract 50 points when escaping
+	Global.player1_score -= 5  # Subtract 50 points when escaping
 	queue_free()
