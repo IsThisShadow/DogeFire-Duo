@@ -48,8 +48,10 @@ func die(shooter_player := 1):
 
 	# Award points
 	if shooter_player == 1:
+		Global.p1_kills += 1
 		Global.player1_score += 25
 	elif shooter_player == 2:
+		Global.p2_kills += 1
 		Global.player2_score += 25
 
 	await $AnimationPlayer_EN_4.animation_finished

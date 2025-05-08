@@ -171,7 +171,7 @@ func select_weapon(id: int):
 	var weapon_scene = weapon_scenes.get(id)
 	if weapon_scene:
 		current_weapon = weapon_scene.instantiate()
-		current_weapon.player_id = 1  # <-- Player 1
+		current_weapon.initialize(1) 
 
 		if current_weapon.has_method("set_last_fire_time"):
 			current_weapon.set_last_fire_time(last_fire_time)

@@ -47,8 +47,10 @@ func die(shooter_player := 1):
 		$AnimationPlayer_EN_6.play("death_enemy_6")
 
 	if shooter_player == 1:
+		Global.p1_kills += 1
 		Global.player1_score += 20
 	elif shooter_player == 2:
+		Global.p2_kills += 1
 		Global.player2_score += 20
 
 	await $AnimationPlayer_EN_6.animation_finished
