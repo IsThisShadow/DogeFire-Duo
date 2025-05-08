@@ -80,7 +80,7 @@ func _process(delta):
 		var p1_health = p1.p1_health
 		var p1_max = p1.p1_maxHealth
 		$HUD/Control/P1HealthBar.value = p1_health
-		$HUD/Control/P1PercentLabel.text = str(int((p1_health)))
+		$HUD/Control/P1PercentLabel.text = str(int(max(p1_health, 0)))
 	else:
 		$HUD/Control/P1HealthBar.value = 0
 		$HUD/Control/P1PercentLabel.text = "0%"
@@ -96,7 +96,7 @@ func _process(delta):
 		var p2_health = p2.p2_health
 		var p2_max = p2.p2_maxHealth
 		$HUD/Control2/P2HealthBar.value = p2_health
-		$HUD/Control2/P2PercentLabel.text = str(int((p2_health)))
+		$HUD/Control2/P2PercentLabel.text = str(int(max(p2_health,0)))
 		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
 		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
 		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()

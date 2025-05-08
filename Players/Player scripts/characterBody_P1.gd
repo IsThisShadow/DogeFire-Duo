@@ -289,7 +289,9 @@ func update_heart_display():
 func take_damage(amount: int):
 	if not is_dead and not is_invincible:
 		p1_health -= amount
+		p1_health = max(p1_health, 0)  # Clamp health to not go below 0
 		Global.player1_health = p1_health
+
 		spawn_damage_number(amount)
 		flash_red()
 
@@ -306,6 +308,7 @@ func take_damage(amount: int):
 					Global.player1_health = p1_health
 			else:
 				die()
+
 
 func spawn_damage_number(amount: int):
 	var dmg_label = preload("res://Players/Player scenes/FloatingText.tscn").instantiate()

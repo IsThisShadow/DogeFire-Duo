@@ -103,7 +103,7 @@ func _update_player_hud():
 		var p1_health = p1.p1_health
 		var p1_max = p1.p1_maxHealth
 		$HUD/Control/P1HealthBar.value = p1_health
-		$HUD/Control/P1PercentLabel.text = str(int((p1_health)))
+		$HUD/Control/P1PercentLabel.text = str(int(max(p1_health, 0)))
 		$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
 		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
 		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
@@ -113,7 +113,7 @@ func _update_player_hud():
 	var p2 = get_node_or_null("CharacterBodyP2")
 	if is_two_player_mode and p2:
 		$HUD/Control2/P2HealthBar.value = p2.p2_health
-		$HUD/Control2/P2PercentLabel.text = str(int((p2.p2_health)))
+		$HUD/Control2/P2PercentLabel.text = str(int(max(p2.p2_health, 0)))
 		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
 		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
 		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()

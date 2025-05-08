@@ -251,9 +251,12 @@ func revive():
 func take_damage(amount: int):
 	if not is_dead and not is_invincible:
 		p2_health -= amount
+		p2_health = max(p2_health, 0)  # Clamp health to not go below 0
 		Global.player2_health = p2_health
+
 		spawn_damage_number(amount)
 		flash_red()
+
 
 func spawn_damage_number(amount: int):
 	var dmg_label = preload("res://Players/Player scenes/FloatingText.tscn").instantiate()
