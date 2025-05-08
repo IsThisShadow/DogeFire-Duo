@@ -81,8 +81,12 @@ func _on_see_score_button_pressed() -> void:
 	queue_free()
 
 func _on_play_again_button_pressed() -> void:
-	print("Play Again pressed")
-	reset_to_main_menu()
+	Global.reset_stats()
+	Global.pause_menu = null
+	get_tree().paused = false
+
+	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
+
 
 
 func reset_to_main_menu():
@@ -92,21 +96,18 @@ func reset_to_main_menu():
 
 	var root = get_tree().get_root()
 
-	# Remove all non-autoload nodes (protect Global)
+	# Remove ALL scenes, including the current one
 	for child in root.get_children():
-		if child.name != "Global":  # adjust this name to match your autoload
+		if child.name != "Global":  # Protect the autoload only
 			child.queue_free()
 
-	await get_tree().create_timer(0.1).timeout  # let all scenes clear
+	await get_tree().create_timer(0.1).timeout
 
-	# Load the main menu
-	var scene = load("res://UI/UI scenes/MainMenu.tscn") as PackedScene
-	if scene:
-		var instance = scene.instantiate()
-		root.add_child(instance)
-		get_tree().current_scene = instance
-
-		# Safety: reset Global fields if still valid
+	var packed = load("res://UI/UI scenes/MainMenu.tscn") as PackedScene
+	if packed:
+		var main_menu = packed.instantiate()
+		root.add_child(main_menu)
+		get_tree().current_scene = main_menu  # critical!
 		if is_instance_valid(Global):
 			Global.current_scene_name = "MainMenu"
 	else:

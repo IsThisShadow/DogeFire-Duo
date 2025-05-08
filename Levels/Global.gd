@@ -1,7 +1,9 @@
 extends Node
 
-var unlocked_weapons = [true, true, false, false, false] # weapons one and two unlocked by default.
+var unlocked_weapons = [true, true, false, false, false]
 var previous_scene_path: String = ""
+var next_scene_after_loading: String = ""
+
 # === Player 1 Stats ===
 var player1_health := 100
 var player1_max_health := 100
@@ -110,14 +112,8 @@ func check_for_game_over():
 
 func show_you_died_screen():
 	await get_tree().create_timer(0.5).timeout
-
-	var loading_screen = preload("res://UI/UI scenes/loading_screen.tscn").instantiate()
-	loading_screen.target_scene_path = "res://UI/UI scenes/YouDiedScreen.tscn"
-
-	get_tree().get_root().add_child(loading_screen)
-	get_tree().current_scene.queue_free()
-	get_tree().current_scene = loading_screen
-
+	Global.next_scene_after_loading = "res://UI/UI scenes/YouDiedScreen.tscn"
+	get_tree().change_scene_to_file("res://UI/UI scenes/loading_screen.tscn")
 
 var weapon_locked_label: Label = null
 

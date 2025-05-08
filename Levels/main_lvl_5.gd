@@ -157,14 +157,9 @@ func _set_collision_polygons_enabled(node: Node, enabled: bool):
 			_set_collision_polygons_enabled(child, enabled)
 
 func _show_win_screen():
-	await get_tree().create_timer(1.0).timeout
-
-	var loading_screen = preload("res://UI/UI scenes/loading_screen.tscn").instantiate()
-	loading_screen.target_scene_path = "res://UI/UI scenes/WinScreen.tscn"
-
-	get_tree().get_root().add_child(loading_screen)
-	get_tree().current_scene.queue_free()
-	get_tree().current_scene = loading_screen
+	await get_tree().create_timer(0.5).timeout
+	Global.next_scene_after_loading = "res://UI/UI scenes/WinScreen.tscn"
+	get_tree().change_scene_to_file("res://UI/UI scenes/loading_screen.tscn")
 
 
 # --- Enemy Spawning System ---

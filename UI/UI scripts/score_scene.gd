@@ -80,15 +80,29 @@ func _on_back_button_pressed() -> void:
 	get_tree().paused = false
 
 	if Global.previous_scene_path != "":
-		var previous = load(Global.previous_scene_path) as PackedScene
-		if previous:
-			get_tree().change_scene_to_packed(previous)
+		var packed = load(Global.previous_scene_path) as PackedScene
+		if packed:
+			get_tree().change_scene_to_packed(packed)  # ← makes the returning screen the real scene
 		else:
 			print("Could not load previous scene at: ", Global.previous_scene_path)
 	else:
 		print("No previous scene path set in Global.")
 
+
+	"""
+	get_tree().paused = false
+
+	if Global.previous_scene_path != "":
+		var packed = load(Global.previous_scene_path) as PackedScene
+		if packed:
+			get_tree().change_scene_to_packed(packed)
+		else:
+			print("Could not load previous scene")
+	else:
+		print("No previous scene path set.")
+
 	queue_free()
+	"""
 
 func _unhandled_input(event):
 	if event.is_action_pressed("p1_a") or event.is_action_pressed("p2_a"):
