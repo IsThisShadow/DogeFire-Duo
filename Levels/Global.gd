@@ -127,3 +127,20 @@ func show_locked_weapon_warning(weapon_id: int):
 
 		if is_instance_valid(weapon_locked_label):
 			weapon_locked_label.visible = false
+			
+func reset_game_to_main_menu():
+	get_tree().paused = false
+	Global.pause_menu = null
+	Global.reset_stats()
+
+	# Remove ALL scenes except Global
+	for node in get_tree().get_root().get_children():
+		if node.name != "Global":
+			node.queue_free()
+
+	await get_tree().create_timer(0.1).timeout
+
+	var menu = load("res://UI/UI scenes/MainMenu.tscn").instantiate()
+	get_tree().get_root().add_child(menu)
+	get_tree().current_scene = menu
+	Global.current_scene_name = "MainMenu"

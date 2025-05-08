@@ -15,7 +15,6 @@ var player2_score := 0
 @onready var leaderboard_title = $VBoxContainer/LeaderboardTitle
 
 func _ready():
-	get_tree().paused = true
 	back_button.grab_focus()
 	set_process_input(true)
 
