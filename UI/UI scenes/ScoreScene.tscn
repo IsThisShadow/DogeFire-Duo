@@ -47,20 +47,20 @@ theme_override_font_sizes/font_size = 70
 text = "P2 Score: "
 
 [node name="P1KillsLabel" type="Label" parent="."]
-offset_left = 46.0
-offset_top = 72.0
-offset_right = 373.0
-offset_bottom = 163.0
+offset_left = 47.0
+offset_top = 89.0
+offset_right = 374.0
+offset_bottom = 180.0
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("3_epmth")
 theme_override_font_sizes/font_size = 70
 text = "P1 Kills: 0"
 
 [node name="P2KillsLabel" type="Label" parent="."]
-offset_left = 442.0
-offset_top = 72.0
-offset_right = 769.0
-offset_bottom = 163.0
+offset_left = 441.0
+offset_top = 86.0
+offset_right = 768.0
+offset_bottom = 177.0
 scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("3_epmth")
 theme_override_font_sizes/font_size = 70

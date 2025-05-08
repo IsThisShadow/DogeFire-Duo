@@ -138,6 +138,7 @@ theme_override_font_sizes/font_size = 50
 text = "No Weapon Selected"
 
 [node name="P1KillsHUDLabel" type="Label" parent="HUD/Control"]
+layout_mode = 0
 offset_left = 12.0
 offset_top = 80.0
 offset_right = 251.0
@@ -216,6 +217,7 @@ theme_override_font_sizes/font_size = 50
 text = "No Weapon Selected"
 
 [node name="P2KillsHUDLabel" type="Label" parent="HUD/Control2"]
+layout_mode = 0
 offset_left = -61.0
 offset_top = 77.0
 offset_right = 193.0
