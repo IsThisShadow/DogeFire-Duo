@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://dvnf63v8b88o6" path="res://Sounds/mainmenu's sound/DavidKBD - Eternity Pack - 10 - Rotten Offal - loop.ogg" id="5_dda8w"]
 
 [node name="Control" type="Control"]
-process_mode = 3
+process_mode = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

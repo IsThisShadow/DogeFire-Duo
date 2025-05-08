@@ -77,16 +77,19 @@ func update_leaderboard_display():
 	list_to_use.show()
 
 func _on_back_button_pressed() -> void:
-	get_tree().paused = false
+	get_tree().paused = false  # Ensure input works
 
 	if Global.previous_scene_path != "":
 		var packed = load(Global.previous_scene_path) as PackedScene
 		if packed:
-			get_tree().change_scene_to_packed(packed)  # ← makes the returning screen the real scene
+			var win_screen = packed.instantiate()
+			get_tree().get_root().add_child(win_screen)
+			queue_free()  # Now remove the score screen
 		else:
-			print("Could not load previous scene at: ", Global.previous_scene_path)
+			push_error("Could not load previous scene at: %s" % Global.previous_scene_path)
 	else:
-		print("No previous scene path set in Global.")
+		push_error("No previous scene path set in Global.")
+
 
 
 	"""

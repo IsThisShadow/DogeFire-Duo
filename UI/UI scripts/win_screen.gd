@@ -73,17 +73,30 @@ func _on_quit_game_pressed():
 	get_tree().quit()
 
 func _on_see_score_button_pressed() -> void:
+	# UNPAUSE the tree so ScoreScene buttons will work
+	get_tree().paused = false
+
 	Global.previous_scene_path = "res://UI/UI scenes/WinScreen.tscn"
+
 	var score_scene = load("res://UI/UI scenes/ScoreScene.tscn").instantiate()
 	score_scene.player1_score = Global.player1_score
 	score_scene.player2_score = Global.player2_score
 	get_tree().get_root().add_child(score_scene)
-	queue_free()
+
+	queue_free() # remove win_screen
+
 
 func _on_play_again_button_pressed() -> void:
 	Global.reset_stats()
 	Global.pause_menu = null
 	get_tree().paused = false
+
+	# Remove all children except Global
+	for child in get_tree().get_root().get_children():
+		if child.name != "Global":
+			child.queue_free()
+
+	await get_tree().create_timer(0.1).timeout
 
 	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
 

@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="4_e107g"]
 
 [node name="ScoreScene" type="Control"]
-process_mode = 3
+process_mode = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
