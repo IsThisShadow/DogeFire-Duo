@@ -2,7 +2,7 @@ extends Node2D
 
 var bullet_scene = preload("res://Players/Player_Weapon_Scenes/HeavyBullet5.tscn")
 @onready var shoot_point = $ShootPoint
-@onready var player_id := 1
+var player_id := 1
 var can_shoot := true
 var cooldown := 2.5  # Long cooldown
 var last_fire_time := 0.0

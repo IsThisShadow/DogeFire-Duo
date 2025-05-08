@@ -3,7 +3,7 @@ extends Node2D
 var bullet_scene = preload("res://Players/Player_Weapon_Scenes/Bullet4.tscn")
 @onready var shoot_left = $ShootLeft
 @onready var shoot_right = $ShootRight
-@onready var player_id := 1
+var player_id := 1
 var can_shoot := true
 var cooldown := 0.2  # Adjust fire rate as needed
 var last_fire_time := 0.0

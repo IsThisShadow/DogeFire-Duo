@@ -137,6 +137,16 @@ theme_override_fonts/font = ExtResource("4_hiydk")
 theme_override_font_sizes/font_size = 50
 text = "No Weapon Selected"
 
+[node name="P1KillsHUDLabel" type="Label" parent="HUD/Control"]
+offset_left = 12.0
+offset_top = 80.0
+offset_right = 251.0
+offset_bottom = 149.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("4_hiydk")
+theme_override_font_sizes/font_size = 50
+text = "P1 Kills : 0"
+
 [node name="Control2" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 1
@@ -204,6 +214,16 @@ scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("4_hiydk")
 theme_override_font_sizes/font_size = 50
 text = "No Weapon Selected"
+
+[node name="P2KillsHUDLabel" type="Label" parent="HUD/Control2"]
+offset_left = -61.0
+offset_top = 77.0
+offset_right = 193.0
+offset_bottom = 210.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("4_hiydk")
+theme_override_font_sizes/font_size = 50
+text = "P2 Kills : 0"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource("4_11cb0")
