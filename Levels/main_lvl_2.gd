@@ -6,7 +6,8 @@ var current_level := 2
 var level_time := 0.0
 const TIME_LIMIT := 20.0
 var transitioned := false
-
+@onready var p1_kills_label = $HUD/Control/P1KillsHUDLabel
+@onready var p2_kills_label = $HUD/Control2/P2KillsHUDLabel
 # Music control
 @export var music_start_time := 42.0
 @export var music_stop_time := 140.0
@@ -80,13 +81,14 @@ func _process(delta):
 		var p1_health = p1.p1_health
 		var p1_max = p1.p1_maxHealth
 		$HUD/Control/P1HealthBar.value = p1_health
-		$HUD/Control/P1PercentLabel.text = str(int((p1_health)))
+		$HUD/Control/P1PercentLabel.text = str(int(max(p1_health, 0)))
 	else:
 		$HUD/Control/P1HealthBar.value = 0
 		$HUD/Control/P1PercentLabel.text = "0%"
 
 	# Update Player 1 Score
 	$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
+	p1_kills_label.text = "P1 Kills: %d" % Global.p1_kills
 	$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
 	$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 
@@ -96,8 +98,9 @@ func _process(delta):
 		var p2_health = p2.p2_health
 		var p2_max = p2.p2_maxHealth
 		$HUD/Control2/P2HealthBar.value = p2_health
-		$HUD/Control2/P2PercentLabel.text = str(int((p2_health)))
+		$HUD/Control2/P2PercentLabel.text = str(int(max(p2_health,0)))
 		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
+		p2_kills_label.text = "P2 Kills: %d" % Global.p2_kills
 		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
 		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 		$HUD/Control2.visible = true

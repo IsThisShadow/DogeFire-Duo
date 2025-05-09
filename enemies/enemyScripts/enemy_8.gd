@@ -41,14 +41,16 @@ func _update_tilt_toward_player(delta):
 		var target_angle = direction.angle() + PI  # Add 180 degrees in radians
 		rotation = lerp_angle(rotation, target_angle, tilt_speed * delta)
 
-
 func get_nearest_player():
 	var p1 = get_node_or_null("/root/MainLvl_5/CharacterBodyP1")
 	var p2 = get_node_or_null("/root/MainLvl_5/CharacterBodyP2")
+
 	var players = []
-	if p1:
+
+	if p1 and not p1.is_queued_for_deletion() and not p1.is_downed and not p1.is_dead:
 		players.append(p1)
-	if p2:
+
+	if Global.is_two_player_mode and p2 and not p2.is_queued_for_deletion() and not p2.is_downed and not p2.is_dead:
 		players.append(p2)
 
 	if players.is_empty():
@@ -65,6 +67,7 @@ func get_nearest_player():
 
 	return nearest
 
+
 func fire_laser_burst():
 	for i in range(3):
 		await get_tree().create_timer(0.1 * i).timeout
@@ -75,7 +78,6 @@ func fire_laser_burst():
 		bullet.rotation = rotation
 		bullet._damage = bullet_damage
 		get_tree().current_scene.add_child(bullet)
-
 
 func _on_BulletTimer_timeout():
 	if is_dead:

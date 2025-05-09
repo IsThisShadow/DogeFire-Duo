@@ -30,8 +30,10 @@ func die(shooter_player := 1):
 
 	# Correctly give points
 	if shooter_player == 1:
+		Global.p1_kills += 1
 		Global.player1_score += 30
 	elif shooter_player == 2:
+		Global.p2_kills += 1
 		Global.player2_score += 30
 
 	await $AnimationPlayer_EN_2.animation_finished
@@ -63,7 +65,7 @@ func spawn_damage_number(amount: int):
 
 
 func apply_escape_penalty():
-	var penalty_amount = 30  # or whatever penalty you want
+	var penalty_amount = 10  # or whatever penalty you want
 
 	if Global.is_single_player:
 		Global.player1_score -= penalty_amount

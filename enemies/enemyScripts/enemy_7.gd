@@ -40,18 +40,25 @@ func _physics_process(delta):
 func get_target_direction() -> Vector2:
 	var p1 = get_node_or_null("/root/MainLvl_4/CharacterBodyP1")
 	var p2 = get_node_or_null("/root/MainLvl_4/CharacterBodyP2")
-	var closest = null
 
-	if p1 and not p1.is_queued_for_deletion():
-		closest = p1
-	if p2 and not p2.is_queued_for_deletion():
-		if closest == null or position.distance_to(p2.position) < position.distance_to(closest.position):
-			closest = p2
+	var valid_targets := []
 
-	if closest:
-		return (closest.global_position - global_position).normalized()
-	else:
+	if p1 and not p1.is_queued_for_deletion() and not p1.is_downed and not p1.is_dead:
+		valid_targets.append(p1)
+
+	if Global.is_two_player_mode and p2 and not p2.is_queued_for_deletion() and not p2.is_downed and not p2.is_dead:
+		valid_targets.append(p2)
+
+	if valid_targets.is_empty():
 		return Vector2.LEFT
+
+	var closest = valid_targets[0]
+	for player in valid_targets:
+		if position.distance_to(player.position) < position.distance_to(closest.position):
+			closest = player
+
+	return (closest.global_position - global_position).normalized()
+
 
 func take_damage(amount: int, shooter_player := 1):
 	if is_dead or not can_take_damage:

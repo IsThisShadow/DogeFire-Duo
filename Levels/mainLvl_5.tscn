@@ -38,6 +38,25 @@ position = Vector2(142, 138)
 
 [node name="HUD" type="CanvasLayer" parent="." groups=["gameplay"]]
 
+[node name="Level Indicator" type="Label" parent="HUD"]
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -44.0
+offset_top = -31.0
+offset_right = 290.0
+offset_bottom = 106.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_jbsp5")
+theme_override_font_sizes/font_size = 75
+text = "Level 5"
+horizontal_alignment = 1
+
 [node name="WeaponLockedLabel" type="Label" parent="HUD"]
 offset_left = 191.0
 offset_top = 35.0
@@ -118,6 +137,17 @@ theme_override_fonts/font = ExtResource("6_jbsp5")
 theme_override_font_sizes/font_size = 50
 text = "No Weapon Selected"
 
+[node name="P1KillsHUDLabel" type="Label" parent="HUD/Control"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 80.0
+offset_right = 251.0
+offset_bottom = 149.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_jbsp5")
+theme_override_font_sizes/font_size = 50
+text = "P1 Kills : 0"
+
 [node name="Control2" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 1
@@ -185,6 +215,17 @@ scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("6_jbsp5")
 theme_override_font_sizes/font_size = 50
 text = "No Weapon Selected"
+
+[node name="P2KillsHUDLabel" type="Label" parent="HUD/Control2"]
+layout_mode = 0
+offset_left = -61.0
+offset_top = 77.0
+offset_right = 193.0
+offset_bottom = 210.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("6_jbsp5")
+theme_override_font_sizes/font_size = 50
+text = "P2 Kills : 0"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource("4_4rceu")

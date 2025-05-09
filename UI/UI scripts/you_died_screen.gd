@@ -7,14 +7,17 @@ var p1_down_ready := true
 var p2_up_ready := true
 var p2_down_ready := true
 
+@onready var play_again_button = $VBoxContainer/PlayAgain
+@onready var see_score_button = $VBoxContainer/SeeYourScore
+@onready var quit_button = $VBoxContainer/QuitGame
+
 func _ready():
-	get_tree().paused = true
+	#get_tree().paused = true
 	set_process(true)
 	set_process_unhandled_input(true)
 
-	await get_tree().process_frame  # Let any held input be released
-
-	$VBoxContainer/PlayAgain.grab_focus()
+	await get_tree().process_frame
+	play_again_button.grab_focus()
 
 func _process(delta):
 	joystick_timer -= delta
@@ -68,16 +71,12 @@ func move_focus_down():
 		neighbor.grab_focus()
 
 func _on_play_again_pressed() -> void:
-	print("Play Again pressed")
-	get_tree().paused = false
-	Global.reset_stats()
-	Global.pause_menu = null
-	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
-
-func go_to_main_menu():
-	get_tree().change_scene_to_file("res://UI/UI scenes/MainMenu.tscn")
+	Global.p1_kills = 0
+	Global.p2_kills = 0
+	Global.reset_game_to_main_menu()
 
 func _on_see_your_score_pressed() -> void:
+	get_tree().paused = false
 	Global.previous_scene_path = "res://UI/UI scenes/YouDiedScreen.tscn"
 
 	var packed_scene = load("res://UI/UI scenes/ScoreScene.tscn")
@@ -85,7 +84,6 @@ func _on_see_your_score_pressed() -> void:
 		var score_scene = packed_scene.instantiate()
 		score_scene.player1_score = Global.player1_score
 		score_scene.player2_score = Global.player2_score
-		score_scene.two_player_mode = Global.is_two_player_mode
 		get_tree().get_root().add_child(score_scene)
 		queue_free()
 

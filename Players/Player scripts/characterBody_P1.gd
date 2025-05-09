@@ -163,15 +163,21 @@ func select_weapon(id: int):
 
 	selected_weapon_id = id
 
-	if current_weapon:
+	var last_fire_time := 0.0
+	if current_weapon and current_weapon.has_method("get_last_fire_time"):
+		last_fire_time = current_weapon.get_last_fire_time()
 		current_weapon.queue_free()
 
 	var weapon_scene = weapon_scenes.get(id)
 	if weapon_scene:
 		current_weapon = weapon_scene.instantiate()
-		current_weapon.player_id = 1  # <-- Player 1
+		current_weapon.initialize(1) 
+
+		if current_weapon.has_method("set_last_fire_time"):
+			current_weapon.set_last_fire_time(last_fire_time)
+
 		weapon_container.add_child(current_weapon)
-		
+
 
 
 
@@ -289,7 +295,9 @@ func update_heart_display():
 func take_damage(amount: int):
 	if not is_dead and not is_invincible:
 		p1_health -= amount
+		p1_health = max(p1_health, 0)  # Clamp health to not go below 0
 		Global.player1_health = p1_health
+
 		spawn_damage_number(amount)
 		flash_red()
 
@@ -306,6 +314,7 @@ func take_damage(amount: int):
 					Global.player1_health = p1_health
 			else:
 				die()
+
 
 func spawn_damage_number(amount: int):
 	var dmg_label = preload("res://Players/Player scenes/FloatingText.tscn").instantiate()

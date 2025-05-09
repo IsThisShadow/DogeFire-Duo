@@ -1,5 +1,6 @@
 extends Control
 
+
 const SAVE_PATH_1P := "user://leaderboard_1p.json"
 const SAVE_PATH_2P := "user://leaderboard_2p.json"
 
@@ -12,10 +13,13 @@ var player2_score := 0
 @onready var leaderboard_list_2p = $VBoxContainer/ItemList2P
 @onready var back_button = $BackButton
 @onready var leaderboard_title = $VBoxContainer/LeaderboardTitle
+@onready var p1_kills_label = $P1KillsLabel
+@onready var p2_kills_label = $P2KillsLabel
+
+
+
 
 func _ready():
-	get_tree().paused = true
-
 	back_button.grab_focus()
 	set_process_input(true)
 
@@ -23,9 +27,11 @@ func _ready():
 		back_button.connect("pressed", Callable(self, "_on_back_button_pressed"))
 
 	update_score_display()
+	update_kill_display()
 	leaderboard_title.text = "Leaderboard - 2 Player" if Global.is_two_player_mode else "Leaderboard - 1 Player"
 	save_new_score()
 	update_leaderboard_display()
+
 
 func update_score_display():
 	player1_label.text = "Player 1 Score: %d" % Global.player1_score
@@ -76,19 +82,47 @@ func update_leaderboard_display():
 
 	list_to_use.show()
 
+
+func update_kill_display():
+	p1_kills_label.text = "P1 Kills: %d" % Global.p1_kills
+	if Global.is_two_player_mode:
+		p2_kills_label.text = "P2 Kills: %d" % Global.p2_kills
+		p2_kills_label.show()
+	else:
+		p2_kills_label.hide()
+
+
+
 func _on_back_button_pressed() -> void:
+	get_tree().paused = false  # Ensure input works
+
+	if Global.previous_scene_path != "":
+		var packed = load(Global.previous_scene_path) as PackedScene
+		if packed:
+			var win_screen = packed.instantiate()
+			get_tree().get_root().add_child(win_screen)
+			queue_free()  # Now remove the score screen
+		else:
+			push_error("Could not load previous scene at: %s" % Global.previous_scene_path)
+	else:
+		push_error("No previous scene path set in Global.")
+
+
+
+	"""
 	get_tree().paused = false
 
 	if Global.previous_scene_path != "":
-		var previous = load(Global.previous_scene_path)
-		if previous:
-			var scene = previous.instantiate()
-			get_tree().get_root().add_child(scene)
-			queue_free()
+		var packed = load(Global.previous_scene_path) as PackedScene
+		if packed:
+			get_tree().change_scene_to_packed(packed)
 		else:
-			print("Could not load previous scene at: ", Global.previous_scene_path)
+			print("Could not load previous scene")
 	else:
-		print("No previous scene path set in Global.")
+		print("No previous scene path set.")
+
+	queue_free()
+	"""
 
 func _unhandled_input(event):
 	if event.is_action_pressed("p1_a") or event.is_action_pressed("p2_a"):

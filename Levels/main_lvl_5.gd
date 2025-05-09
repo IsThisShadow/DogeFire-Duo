@@ -4,9 +4,10 @@ var is_two_player_mode := false
 var current_level := 5
 
 var level_time := 0.0
-const TIME_LIMIT := 100.0
+const TIME_LIMIT := 40.0
 var transitioned := false
-
+@onready var p1_kills_label = $HUD/Control/P1KillsHUDLabel
+@onready var p2_kills_label = $HUD/Control2/P2KillsHUDLabel
 # Music control
 @export var music_start_time := 17.0
 @export var music_stop_time := 220.0
@@ -103,8 +104,9 @@ func _update_player_hud():
 		var p1_health = p1.p1_health
 		var p1_max = p1.p1_maxHealth
 		$HUD/Control/P1HealthBar.value = p1_health
-		$HUD/Control/P1PercentLabel.text = str(int((p1_health)))
+		$HUD/Control/P1PercentLabel.text = str(int(max(p1_health, 0)))
 		$HUD/Control/P1ScoreLabel.text = "Score: " + str(Global.player1_score)
+		p1_kills_label.text = "P1 Kills: %d" % Global.p1_kills
 		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
 		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 	else:
@@ -113,8 +115,9 @@ func _update_player_hud():
 	var p2 = get_node_or_null("CharacterBodyP2")
 	if is_two_player_mode and p2:
 		$HUD/Control2/P2HealthBar.value = p2.p2_health
-		$HUD/Control2/P2PercentLabel.text = str(int((p2.p2_health)))
+		$HUD/Control2/P2PercentLabel.text = str(int(max(p2.p2_health, 0)))
 		$HUD/Control2/P2ScoreLabel.text = "Score: " + str(Global.player2_score)
+		p2_kills_label.text = "P2 Kills: %d" % Global.p2_kills
 		$HUD/Control/WeaponLabel_P1.text = "Weapon: " + $CharacterBodyP1.get_weapon_name()
 		$HUD/Control2/WeaponLabel_P2.text = "weapon: " + $CharacterBodyP2.get_weapon_name()
 		$HUD/Control2.visible = true
@@ -157,11 +160,10 @@ func _set_collision_polygons_enabled(node: Node, enabled: bool):
 			_set_collision_polygons_enabled(child, enabled)
 
 func _show_win_screen():
-	await get_tree().create_timer(1.0).timeout
-	var win_scene = preload("res://UI/UI scenes/WinScreen.tscn").instantiate()
-	get_tree().get_root().add_child(win_scene)
-	get_tree().current_scene.queue_free()
-	get_tree().current_scene = win_scene
+	await get_tree().create_timer(0.5).timeout
+	Global.next_scene_after_loading = "res://UI/UI scenes/WinScreen.tscn"
+	get_tree().change_scene_to_file("res://UI/UI scenes/loading_screen.tscn")
+
 
 # --- Enemy Spawning System ---
 

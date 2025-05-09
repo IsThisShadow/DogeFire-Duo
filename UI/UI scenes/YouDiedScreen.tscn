@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://dccqp1ikbyj3i" path="res://Sounds/dead screen sound/DavidKBD - Eternity Pack - 01 - The desolation of a civilization - loop.ogg" id="4_332eg"]
 
 [node name="YouDiedScreen" type="Control"]
-process_mode = 3
+process_mode = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

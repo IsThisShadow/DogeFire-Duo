@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dj774rrivuyv0"
+path="res://.godot/imported/loading - loop.ogg-ead23f7cc80ff91d93069a75bed78155.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/loading screen sound/loading - loop.ogg"
+dest_files=["res://.godot/imported/loading - loop.ogg-ead23f7cc80ff91d93069a75bed78155.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

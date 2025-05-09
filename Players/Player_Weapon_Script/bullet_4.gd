@@ -10,6 +10,12 @@ func _on_body_entered(body):
 	if body.is_in_group("enemies"):
 		if body.has_method("take_damage"):
 			body.take_damage(damage, shooter_player)
+			
+		if body.has_method("is_dead") and body.is_dead():
+			if shooter_player == 1:
+				Global.p1_kills += 1
+			elif shooter_player == 2:
+				Global.p2_kills += 1
 		queue_free()
 
 

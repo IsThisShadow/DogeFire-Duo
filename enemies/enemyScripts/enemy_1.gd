@@ -36,7 +36,9 @@ func die(shooter_player := 1):
 	
 	if shooter_player == 1:
 		Global.player1_score += 15
+		Global.p1_kills += 1
 	elif shooter_player == 2:
+		Global.p2_kills += 1
 		Global.player2_score += 15
 
 
@@ -65,10 +67,11 @@ func spawn_damage_number(amount: int):
 	label.position = Vector2(0, -20)
 
 func apply_escape_penalty():
-	var penalty_amount = 20
+	var penalty_amount = 5
 
 	if Global.is_single_player:
 		Global.player1_score -= penalty_amount
 	else:
 		Global.player1_score -= penalty_amount
 		Global.player2_score -= penalty_amount
+		

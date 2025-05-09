@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b5orve30ljwgi" path="res://Assets/1. Free Hologram Interface Wenrexa/Button 1/Button Normal.png" id="4_e107g"]
 
 [node name="ScoreScene" type="Control"]
-process_mode = 3
+process_mode = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,7 +30,9 @@ offset_left = 46.0
 offset_top = 11.0
 offset_right = 146.0
 offset_bottom = 34.0
+scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("3_epmth")
+theme_override_font_sizes/font_size = 70
 text = "P1 Score: "
 
 [node name="Player2ScoreLabel" type="Label" parent="."]
@@ -39,8 +41,30 @@ offset_left = 443.0
 offset_top = 10.0
 offset_right = 543.0
 offset_bottom = 33.0
+scale = Vector2(0.2, 0.2)
 theme_override_fonts/font = ExtResource("3_epmth")
+theme_override_font_sizes/font_size = 70
 text = "P2 Score: "
+
+[node name="P1KillsLabel" type="Label" parent="."]
+offset_left = 47.0
+offset_top = 89.0
+offset_right = 374.0
+offset_bottom = 180.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("3_epmth")
+theme_override_font_sizes/font_size = 70
+text = "P1 Kills: 0"
+
+[node name="P2KillsLabel" type="Label" parent="."]
+offset_left = 441.0
+offset_top = 86.0
+offset_right = 768.0
+offset_bottom = 177.0
+scale = Vector2(0.2, 0.2)
+theme_override_fonts/font = ExtResource("3_epmth")
+theme_override_font_sizes/font_size = 70
+text = "P2 Kills: 0"
 
 [node name="BackButton" type="Button" parent="."]
 layout_mode = 2

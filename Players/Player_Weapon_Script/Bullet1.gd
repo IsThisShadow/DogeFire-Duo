@@ -5,6 +5,7 @@ var direction: Vector2 = Vector2(1, 0)
 const SPEED := 400  # Adjust per weapon style
 
 func _physics_process(delta):
+	print("Bullet fired by player", shooter_player)
 	global_position += direction.normalized() * SPEED * delta
 
 func _on_body_entered(body):

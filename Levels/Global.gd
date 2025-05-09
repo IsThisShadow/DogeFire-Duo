@@ -1,7 +1,9 @@
 extends Node
 
-var unlocked_weapons = [true, true, false, false, false] # weapons one and two unlocked by default.
+var unlocked_weapons = [true, true, false, false, false]
 var previous_scene_path: String = ""
+var next_scene_after_loading: String = ""
+
 # === Player 1 Stats ===
 var player1_health := 100
 var player1_max_health := 100
@@ -10,7 +12,7 @@ var player1_max_revives := 3
 var player1_permadead = false
 var player1_hearts := 3
 var player1_score := 0
-
+var p1_kills = 0
 # === Player 2 Stats ===
 var player2_health := 100
 var player2_max_health := 100
@@ -18,7 +20,7 @@ var player2_revives := 0
 var player2_max_revives := 3
 var player2_permadead = false
 var player2_score := 0
-
+var p2_kills = 0
 # === Pause & Scene Info ===
 var is_two_player_mode := false
 var current_scene_name := ""
@@ -110,15 +112,8 @@ func check_for_game_over():
 
 func show_you_died_screen():
 	await get_tree().create_timer(0.5).timeout
-	var scene = load("res://UI/UI scenes/YouDiedScreen.tscn")
-	if scene:
-		var screen = scene.instantiate()
-		screen.set_process_input(true)
-		screen.set_process_unhandled_input(true)
-		get_tree().get_root().add_child(screen)
-		hide_gameplay()
-	else:
-		print("YouDiedScreen scene not found!")
+	Global.next_scene_after_loading = "res://UI/UI scenes/YouDiedScreen.tscn"
+	get_tree().change_scene_to_file("res://UI/UI scenes/loading_screen.tscn")
 
 var weapon_locked_label: Label = null
 
@@ -132,3 +127,20 @@ func show_locked_weapon_warning(weapon_id: int):
 
 		if is_instance_valid(weapon_locked_label):
 			weapon_locked_label.visible = false
+			
+func reset_game_to_main_menu():
+	get_tree().paused = false
+	Global.pause_menu = null
+	Global.reset_stats()
+
+	# Remove ALL scenes except Global
+	for node in get_tree().get_root().get_children():
+		if node.name != "Global":
+			node.queue_free()
+
+	await get_tree().create_timer(0.1).timeout
+
+	var menu = load("res://UI/UI scenes/MainMenu.tscn").instantiate()
+	get_tree().get_root().add_child(menu)
+	get_tree().current_scene = menu
+	Global.current_scene_name = "MainMenu"
