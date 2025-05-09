@@ -150,7 +150,7 @@ also helped debug the game.
 
 
 Google Drive Link for External Files:
-(*no folder yet*)
+https://drive.google.com/drive/folders/1XeTxwIEFBsOy-NXvRFtsELSReDlGMIcv?usp=drive_link
 All external PSDs, sprite files, and audio resources are available in the Google Drive folder above
 Note: Reflections were submitted late in the sprint cycle, leading to a 6/10 score for that section according to the rubric.
- but  each contributor's work and reflect their challenges, lessons learned, and accomplishments.
+ but each person work and reflect their challenges, lessons learned, and accomplishments.
