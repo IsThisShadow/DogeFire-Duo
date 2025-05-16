@@ -4,7 +4,7 @@ var is_two_player_mode := false
 var current_level := 5
 
 var level_time := 0.0
-const TIME_LIMIT := 40.0
+const TIME_LIMIT := 100.0
 var transitioned := false
 @onready var p1_kills_label = $HUD/Control/P1KillsHUDLabel
 @onready var p2_kills_label = $HUD/Control2/P2KillsHUDLabel
